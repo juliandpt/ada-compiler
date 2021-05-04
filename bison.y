@@ -40,7 +40,7 @@ void yyerror(const char* s);
 // TOKENS GENERALES
 %token PLUS MINUS MULTIPLY DIVIDE // operadores
 %token LEFT RIGHT OPEN CLOSE // parentesis/llaves
-%token WHILE BOOL FOR CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR VAR_NAME LOOP_ END IF THEN CHAR AND OR ELSE ELSIF // palabras reservadas
+%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR VAR_NAME LOOP_ END IF THEN CHAR AND OR ELSE ELSIF // palabras reservadas
 %token LESS MORE EQUAL GREATER_THAN LESSER_THAN NOT_EQUAL COMPARE  // operadores logicos
 %token COMMENT COLON SEMICOLON QUOTE //simbolos reservados
 %token NEWLINE QUIT //cosas de flex
@@ -57,7 +57,7 @@ void yyerror(const char* s);
 // Booleanos
 %type<sval> BOOLEAN_OP
 %type<sval> BOOLEAN_OPERATORS
-// %type<sval> BOOLEAN_MIX
+%type<sval> BOOLEAN_MIX
 %type<sval> BOOLEAN_VAR
 %type<sval> BEGIN
 
@@ -81,28 +81,14 @@ line:
 
 
 STMT: 
-	IF_COND {  printf("Linea %d ",line_num); printf($1);if(!$1.a){ ;} else {printf("No hay argumento");}}
-	| WLOOP { printf("Linea %d ",line_num); printf($1);if(!$1.a){ ;} else {printf("No hay argumento");}}
-	| DECL { printf("Linea %d ",line_num); printf($1); if(!$1.a){ ;} else {printf("No hay argumento");}}
-	| COM  { printf("Linea %d ",line_num); printf($1);}
+	IF_COND {printf("%s", $1.a);}
+	| OPERATION {printf("%s", $1.a);}
+	| BOOLEAN_OP {printf("%s", $1.a);}
+	| WLOOP {printf("%s", $1.a);}
+	| COM  {printf("%s", $1.a);}
 	// | error {yyerror; printf("Linea %d ",line_num); printf("Error en esta linea\n");}
-	| BEGIN  { printf("Linea %d ",line_num); printf("%s",$1);}
+	| BEGIN  {printf("%s", $1.a);}
 ;
-
-// Declaracion y asignacion de variables
-DECL: VAR_NAME COLON INTEGERDEC SEMICOLON { $$ = "Declaracion de integer\n";}
-	| VAR_NAME COLON STRINGDEC SEMICOLON { $$ = "Declaracion de string\n";}
-	| VAR_NAME COLON FLOATDEC SEMICOLON { $$ = "Declaracion de float\n";}
-	| VAR_NAME COLON CHARDEC SEMICOLON { $$ = "Declaracion de char\n";}
-	| VAR_NAME COLON BOOL SEMICOLON {$$="Declaracion de boolean\n";}
-	| VAR_NAME COLON INTEGERDEC COLON EQUAL OPERATION SEMICOLON { $$ = "Asignacion y declaracion de integer\n";}
-	| VAR_NAME COLON EQUAL OPERATION SEMICOLON { $$ = "Asignacion de int/float\n";}
-	| VAR_NAME COLON STRINGDEC COLON EQUAL STR SEMICOLON { $$ = "Asignacion y declaracion de string\n";}
-	| VAR_NAME COLON EQUAL STR SEMICOLON { $$ = "Asignacion de string\n";}
-	| VAR_NAME COLON FLOATDEC COLON EQUAL OPERATION SEMICOLON { $$ = "Asignacion y declaracion de float\n";}
-	| VAR_NAME COLON CHARDEC COLON EQUAL CHAR SEMICOLON { $$ = "Asignacion y declaracion de char\n";}
-	| VAR_NAME COLON EQUAL CHAR SEMICOLON { $$ = "Asignacion de char\n";}
-	| VAR_NAME COLON EQUAL BOOLEAN_VAR SEMICOLON {$$="Asignacion de boolean\n";}
 	
 
 ;
@@ -175,9 +161,9 @@ BEGIN:
 
 %%
 
-int main(int argc, char *argv[]) {
-  if (argc == 1) {
-    yyparse();
-  }
-}
+// int main(int argc, char *argv[]) {
+//   if (argc == 1) {
+//     yyparse();
+//   }
+// }
 
