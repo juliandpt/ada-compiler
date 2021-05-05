@@ -154,17 +154,17 @@ union YYSTYPE
 	char* sval;
 
 	// struct attributes{
-    // int i;
-    // float f;
-    // int i2;
-    // float f2;
-    // char* s;
-    // char *temp1;
-    // char *temp2;
-    // char *temp3;
-    // char* type;
-    // struct ast *a;
-    // struct asign *as;
+  //   int i;
+  //   float f;
+  //   int i2;
+  //   float f2;
+  //   char* s;
+  //   char *temp1;
+  //   char *temp2;
+  //   char *temp3;
+  //   char* type;
+  //   struct ast *a;
+  //   struct asign *as;
 	// } st;
 
 #line 171 "y.tab.h"

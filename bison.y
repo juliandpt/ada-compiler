@@ -23,22 +23,21 @@ void yyerror (char const *s) {
 	char* sval;
 
 	// struct attributes{
-    // int i;
-    // float f;
-    // int i2;
-    // float f2;
-    // char* s;
-    // char *temp1;
-    // char *temp2;
-    // char *temp3;
-    // char* type;
-    // struct ast *a;
-    // struct asign *as;
+  //   int i;
+  //   float f;
+  //   int i2;
+  //   float f2;
+  //   char* s;
+  //   char *temp1;
+  //   char *temp2;
+  //   char *temp3;
+  //   char* type;
+  //   struct ast *a;
+  //   struct asign *as;
 	// } st;
 }
 // TIPOS
-%token<ival> INT
-%token<fval> FLOAT
+%token INT FLOAT
 // TOKENS GENERALES
 %token PLUS MINUS MULTIPLY DIVIDE // operadores
 %token LEFT RIGHT OPEN CLOSE // parentesis/llaves
@@ -52,10 +51,12 @@ void yyerror (char const *s) {
 %left PLUS MINUS
 %left MULTIPLY DIVIDE
 
-%type<sval> OPERATION
+%type<fval> OPERATION
 %type<sval> DECL
 %type<sval> THEN
 %type<sval> ELSE
+%type<ival> INT
+%type<fval> FLOAT
 //%type<sval> ASIG
 
 // Booleanos
@@ -86,7 +87,7 @@ line:
 
 STMT: 
 	IF_COND NEWLINE {printf("%s", $1);}
-	| OPERATION NEWLINE {printf("%s", $1);}
+	| OPERATION NEWLINE {printf("%.2f", $1);}
 	| BOOLEAN_OP NEWLINE {printf("%s", $1);}
 	| BOOLEAN_MIX NEWLINE {printf("%s", $1);}
 	| WLOOP NEWLINE {printf("%s", $1);}
@@ -99,10 +100,10 @@ STMT:
 OPERATION: INT {$$ = $1;}
 	| FLOAT {$$ = $1;}
 	| OPERATION PLUS OPERATION { $$ = $1 + $3;} // suma
-	| OPERATION MINUS OPERATION { $$ = "Operacion aritmetica\n";} // resta
-	| OPERATION MULTIPLY OPERATION { $$ = "Operacion aritmetica\n";} // multiplicacion
-	| OPERATION DIVIDE OPERATION { $$ = "Operacion aritmetica\n";} // division
-	| LEFT OPERATION RIGHT { $$ = "Operacion aritmetica\n";} // operacion entre parentesis
+	| OPERATION MINUS OPERATION { $$ = $1 - $3;} // resta
+	| OPERATION MULTIPLY OPERATION { $$ = $1 * $3;} // multiplicacion
+	| OPERATION DIVIDE OPERATION { $$ = $1 / $3;} // division
+	| LEFT OPERATION RIGHT { $$ = $2; } // operacion entre parentesis
 
 ;
 
@@ -129,10 +130,7 @@ BOOLEAN_MIX:
 */
 // Operaciones booleanas
 BOOLEAN_OP:
-	INT BOOLEAN_OPERATORS INT {$$= $1;}
-	| STR BOOLEAN_OPERATORS STR {$$="Operacion booleana string - string\n";}
-	| FLOAT BOOLEAN_OPERATORS FLOAT {$$="Operacion booleana float - float\n";}
-
+	OPERATION BOOLEAN_OPERATORS OPERATION {$$= "Operacion booleana int - int\n";}
 ;
 
 COM:

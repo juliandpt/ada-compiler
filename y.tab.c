@@ -238,17 +238,17 @@ union YYSTYPE
 	char* sval;
 
 	// struct attributes{
-    // int i;
-    // float f;
-    // int i2;
-    // float f2;
-    // char* s;
-    // char *temp1;
-    // char *temp2;
-    // char *temp3;
-    // char* type;
-    // struct ast *a;
-    // struct asign *as;
+  //   int i;
+  //   float f;
+  //   int i2;
+  //   float f2;
+  //   char* s;
+  //   char *temp1;
+  //   char *temp2;
+  //   char *temp3;
+  //   char* type;
+  //   struct ast *a;
+  //   struct asign *as;
 	// } st;
 
 #line 255 "y.tab.c"
@@ -631,10 +631,10 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    78,    78,    79,    83,    88,    89,    90,    91,    92,
-      93,    99,   100,   101,   102,   103,   104,   105,   111,   112,
-     113,   114,   115,   116,   132,   133,   134,   139,   143,   148,
-     149
+       0,    79,    79,    80,    84,    89,    90,    91,    92,    93,
+      94,   100,   101,   102,   103,   104,   105,   106,   112,   113,
+     114,   115,   116,   117,   133,   134,   135,   140,   144,   149,
+     150
 };
 #endif
 
@@ -1466,157 +1466,157 @@ yyreduce:
   switch (yyn)
     {
   case 5:
-#line 88 "bison.y"
+#line 89 "bison.y"
                         {printf("%s", (yyvsp[-1].sval));}
 #line 1472 "y.tab.c"
     break;
 
   case 6:
-#line 89 "bison.y"
-                            {printf("%s", (yyvsp[-1].sval));}
+#line 90 "bison.y"
+                            {printf("%.2f", (yyvsp[-1].fval));}
 #line 1478 "y.tab.c"
     break;
 
   case 7:
-#line 90 "bison.y"
+#line 91 "bison.y"
                              {printf("%s", (yyvsp[-1].sval));}
 #line 1484 "y.tab.c"
     break;
 
   case 8:
-#line 91 "bison.y"
+#line 92 "bison.y"
                               {printf("%s", (yyvsp[-1].sval));}
 #line 1490 "y.tab.c"
     break;
 
   case 9:
-#line 92 "bison.y"
+#line 93 "bison.y"
                         {printf("%s", (yyvsp[-1].sval));}
 #line 1496 "y.tab.c"
     break;
 
   case 10:
-#line 93 "bison.y"
+#line 94 "bison.y"
                       {printf("%s", (yyvsp[-1].sval));}
 #line 1502 "y.tab.c"
     break;
 
   case 11:
-#line 99 "bison.y"
-               {(yyval.sval) = (yyvsp[0].ival);}
+#line 100 "bison.y"
+               {(yyval.fval) = (yyvsp[0].ival);}
 #line 1508 "y.tab.c"
     break;
 
   case 12:
-#line 100 "bison.y"
-                {(yyval.sval) = (yyvsp[0].fval);}
+#line 101 "bison.y"
+                {(yyval.fval) = (yyvsp[0].fval);}
 #line 1514 "y.tab.c"
     break;
 
   case 13:
-#line 101 "bison.y"
-                                   { (yyval.sval) = (yyvsp[-2].sval) + (yyvsp[0].sval);}
+#line 102 "bison.y"
+                                   { (yyval.fval) = (yyvsp[-2].fval) + (yyvsp[0].fval);}
 #line 1520 "y.tab.c"
     break;
 
   case 14:
-#line 102 "bison.y"
-                                    { (yyval.sval) = "Operacion aritmetica\n";}
+#line 103 "bison.y"
+                                    { (yyval.fval) = (yyvsp[-2].fval) - (yyvsp[0].fval);}
 #line 1526 "y.tab.c"
     break;
 
   case 15:
-#line 103 "bison.y"
-                                       { (yyval.sval) = "Operacion aritmetica\n";}
+#line 104 "bison.y"
+                                       { (yyval.fval) = (yyvsp[-2].fval) * (yyvsp[0].fval);}
 #line 1532 "y.tab.c"
     break;
 
   case 16:
-#line 104 "bison.y"
-                                     { (yyval.sval) = "Operacion aritmetica\n";}
+#line 105 "bison.y"
+                                     { (yyval.fval) = (yyvsp[-2].fval) / (yyvsp[0].fval);}
 #line 1538 "y.tab.c"
     break;
 
   case 17:
-#line 105 "bison.y"
-                               { (yyval.sval) = "Operacion aritmetica\n";}
+#line 106 "bison.y"
+                               { (yyval.fval) = (yyvsp[-1].fval); }
 #line 1544 "y.tab.c"
     break;
 
   case 18:
-#line 111 "bison.y"
+#line 112 "bison.y"
                 {(yyval.sval) = "==\n";}
 #line 1550 "y.tab.c"
     break;
 
   case 19:
-#line 112 "bison.y"
+#line 113 "bison.y"
                {(yyval.sval)=">\n";}
 #line 1556 "y.tab.c"
     break;
 
   case 20:
-#line 113 "bison.y"
+#line 114 "bison.y"
                {(yyval.sval)== "<\n";}
 #line 1562 "y.tab.c"
     break;
 
   case 21:
-#line 114 "bison.y"
+#line 115 "bison.y"
                        {(yyval.sval)=">=\n";}
 #line 1568 "y.tab.c"
     break;
 
   case 22:
-#line 115 "bison.y"
+#line 116 "bison.y"
                       {(yyval.sval)="<=\n";}
 #line 1574 "y.tab.c"
     break;
 
   case 23:
-#line 116 "bison.y"
+#line 117 "bison.y"
                     {(yyval.sval)="!=\n";}
 #line 1580 "y.tab.c"
     break;
 
   case 24:
-#line 132 "bison.y"
-                                  {(yyval.sval)= (yyvsp[-2].ival);}
+#line 133 "bison.y"
+                                  {(yyval.sval)= "Operacion booleana int - int\n";}
 #line 1586 "y.tab.c"
     break;
 
   case 25:
-#line 133 "bison.y"
+#line 134 "bison.y"
                                     {(yyval.sval)="Operacion booleana string - string\n";}
 #line 1592 "y.tab.c"
     break;
 
   case 26:
-#line 134 "bison.y"
+#line 135 "bison.y"
                                         {(yyval.sval)="Operacion booleana float - float\n";}
 #line 1598 "y.tab.c"
     break;
 
   case 27:
-#line 139 "bison.y"
+#line 140 "bison.y"
                 {(yyval.sval) = "Comentario\n";}
 #line 1604 "y.tab.c"
     break;
 
   case 28:
-#line 143 "bison.y"
+#line 144 "bison.y"
                                                   {(yyval.sval) = "Sentencia IF\n";}
 #line 1610 "y.tab.c"
     break;
 
   case 29:
-#line 148 "bison.y"
+#line 149 "bison.y"
                                {(yyval.sval) = "Bucle while\n";}
 #line 1616 "y.tab.c"
     break;
 
   case 30:
-#line 149 "bison.y"
+#line 150 "bison.y"
                               {(yyval.sval)="Fin de bucle\n";}
 #line 1622 "y.tab.c"
     break;
@@ -1854,7 +1854,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 157 "bison.y"
+#line 158 "bison.y"
 
 
 int main(int argc,char *argv[]) {
