@@ -11,8 +11,10 @@ extern FILE *yyout;
 // Variables globales
 int line_num = 1;
 
+void yyerror (char const *s) {
+   fprintf (stderr, "%s\n", s);
+ }
 
-void yyerror(const char* s);
 %}
 
 %union { 	
@@ -20,19 +22,19 @@ void yyerror(const char* s);
 	float fval;
 	char* sval;
 
-	struct attributes{
-    int i;
-    float f;
-    int i2;
-    float f2;
-    char* s;
-    char *temp1;
-    char *temp2;
-    char *temp3;
-    char* type;
-    struct ast *a;
-    struct asign *as;
-	} st;
+	// struct attributes{
+    // int i;
+    // float f;
+    // int i2;
+    // float f2;
+    // char* s;
+    // char *temp1;
+    // char *temp2;
+    // char *temp3;
+    // char* type;
+    // struct ast *a;
+    // struct asign *as;
+	// } st;
 }
 // TIPOS
 %token<ival> INT
@@ -40,7 +42,7 @@ void yyerror(const char* s);
 // TOKENS GENERALES
 %token PLUS MINUS MULTIPLY DIVIDE // operadores
 %token LEFT RIGHT OPEN CLOSE // parentesis/llaves
-%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR VAR_NAME LOOP_ END IF THEN CHAR AND OR ELSE ELSIF // palabras reservadas
+%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR VAR_NAME LOOP_ END IF THEN CHAR AND OR ELSE ELSIF BOOLEAN_MIX // palabras reservadas
 %token LESS MORE EQUAL GREATER_THAN LESSER_THAN NOT_EQUAL COMPARE  // operadores logicos
 %token COMMENT COLON SEMICOLON QUOTE //simbolos reservados
 %token NEWLINE QUIT //cosas de flex
@@ -52,6 +54,8 @@ void yyerror(const char* s);
 
 %type<sval> OPERATION
 %type<sval> DECL
+%type<sval> THEN
+%type<sval> ELSE
 //%type<sval> ASIG
 
 // Booleanos
@@ -62,10 +66,10 @@ void yyerror(const char* s);
 %type<sval> BEGIN
 
 // statements
-%type<st> STMT
-%type<st> IF_COND
-%type<st> WLOOP
-%type<st> COM
+%type<sval> STMT
+%type<sval> IF_COND
+%type<sval> WLOOP
+%type<sval> COM
 
 %start calculation
 
@@ -81,21 +85,20 @@ line:
 
 
 STMT: 
-	IF_COND {printf("%s", $1.a);}
-	| OPERATION {printf("%s", $1.a);}
-	| BOOLEAN_OP {printf("%s", $1.a);}
-	| WLOOP {printf("%s", $1.a);}
-	| COM  {printf("%s", $1.a);}
-	// | error {yyerror; printf("Linea %d ",line_num); printf("Error en esta linea\n");}
-	| BEGIN  {printf("%s", $1.a);}
+	IF_COND NEWLINE {printf("%s", $1);}
+	| OPERATION NEWLINE {printf("%s", $1);}
+	| BOOLEAN_OP NEWLINE {printf("%s", $1);}
+	| BOOLEAN_MIX NEWLINE {printf("%s", $1);}
+	| WLOOP NEWLINE {printf("%s", $1);}
+	| COM NEWLINE {printf("%s", $1);}
 ;
 	
 
 ;
 // Operaciones aritmeticas
-OPERATION: INT {$$ = "INTEGER";}
-	| FLOAT {$$ = "FLOAT";}
-	| OPERATION PLUS OPERATION { $$ = "Operacion aritmetica\n";} // suma
+OPERATION: INT {$$ = $1;}
+	| FLOAT {$$ = $1;}
+	| OPERATION PLUS OPERATION { $$ = $1 + $3;} // suma
 	| OPERATION MINUS OPERATION { $$ = "Operacion aritmetica\n";} // resta
 	| OPERATION MULTIPLY OPERATION { $$ = "Operacion aritmetica\n";} // multiplicacion
 	| OPERATION DIVIDE OPERATION { $$ = "Operacion aritmetica\n";} // division
@@ -126,32 +129,24 @@ BOOLEAN_MIX:
 */
 // Operaciones booleanas
 BOOLEAN_OP:
-	VAR_NAME BOOLEAN_OPERATORS VAR_NAME {$$="Operacion booleana variables\n";}
-	| VAR_NAME BOOLEAN_OPERATORS INT {$$="Operacion booleana variable - numero\n";}
-	| VAR_NAME BOOLEAN_OPERATORS STR {$$="Operacion booleana variable - string\n";}
-	| VAR_NAME BOOLEAN_OPERATORS FLOAT {$$="Operacion booleana variable - float\n";}
-	| INT BOOLEAN_OPERATORS INT {$$="Operacion booleana numero - numero\n";}
+	INT BOOLEAN_OPERATORS INT {$$= $1;}
 	| STR BOOLEAN_OPERATORS STR {$$="Operacion booleana string - string\n";}
 	| FLOAT BOOLEAN_OPERATORS FLOAT {$$="Operacion booleana float - float\n";}
-	| VAR_NAME COMPARE BOOLEAN_VAR {$$="Variable igual a True/False\n";}
+
 ;
 
 COM:
-	COMMENT {$$.s = "Comentario\n";}
+	COMMENT {$$ = "Comentario\n";}
 ;
 
 IF_COND: 
-	
-	IF BOOLEAN_OP THEN {$$.s = "Sentencia IF\n";}
+	IF "(" BOOLEAN_OP ")" THEN STMT ELSE STMT {$$ = "Sentencia IF\n";}
 
-	| END IF SEMICOLON {$$.s = "End IF\n";}
-	| ELSE {$$.s = "Else\n";}
-	| ELSIF BOOLEAN_OP THEN {$$.s = "Elsif\n";}
 ;
 
 WLOOP:
-	WHILE BOOLEAN_OP LOOP_ {$$.s = "Bucle while\n";}
-	| END LOOP_ SEMICOLON {$$.s="Fin de bucle\n";}
+	WHILE BOOLEAN_OP LOOP_ {$$ = "Bucle while\n";}
+	| END LOOP_ SEMICOLON {$$="Fin de bucle\n";}
 ;
 
 BEGIN:
@@ -161,9 +156,7 @@ BEGIN:
 
 %%
 
-// int main(int argc, char *argv[]) {
-//   if (argc == 1) {
-//     yyparse();
-//   }
-// }
+int main(int argc,char *argv[]) {
+ yyparse();
+}
 
