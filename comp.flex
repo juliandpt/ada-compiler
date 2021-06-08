@@ -36,7 +36,7 @@ then (then|THEN)
 {character} {return CHARDEC;}
 {stringd} {return STRINGDEC;}
 {fnum}	{yylval.fval = atof(yytext); return FLOAT;}
-{inum}	{yylval.ival = atoi(yytext); return INT;}
+{inum}	{yylval.eval = atoi(yytext); return INT;}
 {string}  {return STR;}
 "\n"    {return NEWLINE;}
 ":"		{return COLON;}

@@ -896,7 +896,7 @@ YY_RULE_SETUP
 case 14:
 YY_RULE_SETUP
 #line 39 "comp.flex"
-{yylval.ival = atoi(yytext); return INT;}
+{yylval.eval = atoi(yytext); return INT;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
