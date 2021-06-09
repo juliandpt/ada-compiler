@@ -14,6 +14,8 @@ void yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
  }
 
+char* ast_text = "ast.txt";
+
 /* nodes in the abstract syntax tree */
 struct ast {
 	char*  nodetype;
@@ -63,6 +65,9 @@ struct ast nodos[52];
 
 struct symb tabla[52];
 
+// aux
+void write_file(char *filename, char *content);
+
 // tabla simbolos
 void inicializarTablaSimbolos(struct symb *tabla, int inicio, int fin);
 
@@ -78,8 +83,7 @@ struct ast *createBOOL(char* nodetype, struct ast *l, struct ast *r);
 struct ast *createFlow(struct ast *cond);
 
 void eval(struct ast a, int* size);
-
-
+void printAST(struct ast nodos[], int i, int encontrado, int salida);
 %}
 %locations
 
@@ -167,10 +171,10 @@ STMT:
 	
 OPERATION: 
 	INT	{$$.i = $1.i; $$.a = createNum($1.i);}
-	|	OPERATION PLUS OPERATION	{$$.i = $1.i + $3.i; $$.a = newast($2,$1.a,$3.a);}
-	| OPERATION MINUS OPERATION	{$$.i = $1.i - $3.i; $$.a = newast($2,$1.a,$3.a);}
-	| OPERATION MULTIPLY OPERATION	{$$.i = $1.i * $3.i; $$.a = newast($2,$1.a,$3.a);}
-	| OPERATION DIVIDE OPERATION	{$$.i = $1.i / $3.i; $$.a = newast($2,$1.a,$3.a);}
+	|	OPERATION PLUS OPERATION	{$$.i = $1.i + $3.i; $$.a = newast("+",$1.a,$3.a);}
+	| OPERATION MINUS OPERATION	{$$.i = $1.i - $3.i; $$.a = newast("-",$1.a,$3.a);}
+	| OPERATION MULTIPLY OPERATION	{$$.i = $1.i * $3.i; $$.a = newast("*",$1.a,$3.a);}
+	| OPERATION DIVIDE OPERATION	{$$.i = $1.i / $3.i; $$.a = newast("/",$1.a,$3.a);}
 	| LEFT OPERATION RIGHT 	{$$.i = $2.i;}
 ;
 
@@ -236,7 +240,6 @@ VAR_NAME:
 //FUNCIONES DE AST
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r) {
 	struct ast *a = malloc(sizeof(struct ast));
-	printf("%s", nodetype);
 
 	if(!a) {
 		yyerror("out of space");
@@ -316,15 +319,15 @@ struct ast *createFlow(struct ast *cond){
 void eval(struct ast a, int* size){
 	int i = 0;
 	int encontrado = 0;
-	// while (i < *size && encontrado == 0){
-	// 	if((strcmp(nodos[i].nodetype, "._empty") == 0) && (strcmp(a.nodetype, "String") != 0) && (strcmp(a.nodetype, "Constante") != 0) ){
-	// 		nodos[i] = a;
-	// 		numnodo = numnodo +1;
-	// 		encontrado = 1;
-	// 	}else{
-	// 		i++;
-	// 	}
-	// }
+	while (i < *size && encontrado == 0){
+		if((strcmp(nodos[i].nodetype, "._empty") == 0) && (strcmp(a.nodetype, "String") != 0) && (strcmp(a.nodetype, "Constante") != 0) ){
+			nodos[i] = a;
+			numnodo = numnodo +1;
+			encontrado = 1;
+		}else{
+			i++;
+		}
+	}
 }
 
 void inicializarTablaSimbolos(struct symb *tabla, int inicio, int fin) {
@@ -339,9 +342,104 @@ void inicializarArrayNodos(struct ast *nodos, int inicio, int fin) {
     }
 }
 
+void printAST(struct ast nodos[], int i, int encontrado, int salida){
+	struct ast temp[52];
+	inicializarArrayNodos(temp,0,52);
+
+	while(encontrado == 0 && salida == 0){
+		if(strcmp(nodos[i].nodetype, "._empty") == 0){
+			encontrado = 1;
+			salida=1;
+		}else{
+			if(strcmp(nodos[i].nodetype, "IF") == 0){
+				write_file(ast_text, "\n");
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].l;
+				printAST(temp,0,0,0);
+
+			}else if(strcmp(nodos[i].nodetype, "WHILE") == 0){
+					write_file(ast_text, "\n");
+					write_file(ast_text, nodos[i].nodetype);
+					write_file(ast_text, "\n");
+					temp[0] = *nodos[i].l;
+					printAST(temp,0,0,0);
+
+			}else if((strcmp(nodos[i].nodetype, ">") == 0) || (strcmp(nodos[i].nodetype, "<") == 0) || (strcmp(nodos[i].nodetype, ">=") == 0) ||
+						 (strcmp(nodos[i].nodetype, "<=") == 0) ||  (strcmp(nodos[i].nodetype, "!=") == 0) || (strcmp(nodos[i].nodetype, "==") == 0)){
+
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].l; 
+				printAST(temp,0,0,0);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].r; 
+				printAST(temp,0,0,0);
+				write_file(ast_text, "\n");
+				salida = 1;
+				
+
+			}else if(strcmp(nodos[i].nodetype, "=") == 0){
+				write_file(ast_text, "\n");
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				if((strcmp(nodos[i].l->nodetype, "+") == 0)||(strcmp(nodos[i].l->nodetype, "-") == 0)||(strcmp(nodos[i].l->nodetype, "/") == 0)||
+				(strcmp(nodos[i].l->nodetype, "*") == 0)){
+
+					temp[0] = *nodos[i].l;
+					printAST(temp,0,0,0);
+
+
+				}else{
+					temp[0] = *nodos[i].l; 
+					printAST(temp,0,0,0);
+
+				}
+
+
+			}else if((strcmp(nodos[i].nodetype, "+") == 0)||(strcmp(nodos[i].nodetype, "-") == 0)||(strcmp(nodos[i].nodetype, "/") == 0)||
+				(strcmp(nodos[i].nodetype, "*") == 0)){
+
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].l;
+				printAST(temp,0,0,0);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].r;
+				printAST(temp,0,0,0);
+				write_file(ast_text, "\n");
+
+			}else if(strcmp(nodos[i].nodetype, "String") == 0){
+
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				salida = 1;
+
+			}else if(strcmp(nodos[i].nodetype, "Constante") == 0){
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				salida = 1;
+				encontrado = 1;
+			}			
+
+		}
+		i++;
+	}
+}
+
+void write_file(char *filename, char *content) {
+    FILE *file;
+    file = fopen(filename, "a");
+    fprintf(file, "%s", content);
+    fclose(file);
+}
+
 int main(int argc,char *argv[]) {
 	inicializarTablaSimbolos(tabla, 0, size);
 	inicializarArrayNodos(nodos, 0, size);
+	yyin = fopen(argv[1], "rt");
+	yyout = fopen(argv[2], "wt" );
  	yyparse();
+	printAST(nodos,0,0,0);
 }
 

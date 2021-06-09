@@ -83,6 +83,8 @@ void yyerror (char const *s) {
    fprintf (stderr, "%s\n", s);
  }
 
+char* ast_text = "ast.txt";
+
 /* nodes in the abstract syntax tree */
 struct ast {
 	char*  nodetype;
@@ -132,6 +134,9 @@ struct ast nodos[52];
 
 struct symb tabla[52];
 
+// aux
+void write_file(char *filename, char *content);
+
 // tabla simbolos
 void inicializarTablaSimbolos(struct symb *tabla, int inicio, int fin);
 
@@ -147,10 +152,9 @@ struct ast *createBOOL(char* nodetype, struct ast *l, struct ast *r);
 struct ast *createFlow(struct ast *cond);
 
 void eval(struct ast a, int* size);
+void printAST(struct ast nodos[], int i, int encontrado, int salida);
 
-
-
-#line 154 "y.tab.c"
+#line 158 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -296,7 +300,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 86 "bison.y"
+#line 90 "bison.y"
 
 	int eval;
 	float fval;
@@ -316,7 +320,7 @@ union YYSTYPE
 		struct ast *a;
 	}st;
 
-#line 320 "y.tab.c"
+#line 324 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -713,9 +717,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   150,   150,   151,   155,   160,   161,   162,   163,   164,
-     165,   169,   170,   171,   172,   173,   174,   188,   189,   190,
-     191,   192,   193,   209,   213,   217,   222,   223
+       0,   154,   154,   155,   159,   164,   165,   166,   167,   168,
+     169,   173,   174,   175,   176,   177,   178,   192,   193,   194,
+     195,   196,   197,   213,   217,   221,   226,   227
 };
 #endif
 
@@ -1639,145 +1643,145 @@ yyreduce:
   switch (yyn)
     {
   case 5:
-#line 160 "bison.y"
+#line 164 "bison.y"
                         {printf("%s", (yyvsp[-1].sval));}
-#line 1645 "y.tab.c"
+#line 1649 "y.tab.c"
     break;
 
   case 6:
-#line 161 "bison.y"
+#line 165 "bison.y"
                             {printf("%d\t%d\n", (yyvsp[-1].st).i, yylineno-1);if(!(yyvsp[-1].st).a){ ;} else {eval(*(yyvsp[-1].st).a, &size);} }
-#line 1651 "y.tab.c"
+#line 1655 "y.tab.c"
     break;
 
   case 7:
-#line 162 "bison.y"
+#line 166 "bison.y"
                              {printf("%s", (yyvsp[-1].sval));}
-#line 1657 "y.tab.c"
+#line 1661 "y.tab.c"
     break;
 
   case 8:
-#line 163 "bison.y"
+#line 167 "bison.y"
                               {printf("%s", (yyvsp[-1].sval));}
-#line 1663 "y.tab.c"
+#line 1667 "y.tab.c"
     break;
 
   case 9:
-#line 164 "bison.y"
+#line 168 "bison.y"
                         {printf("%s", (yyvsp[-1].sval));}
-#line 1669 "y.tab.c"
+#line 1673 "y.tab.c"
     break;
 
   case 10:
-#line 165 "bison.y"
+#line 169 "bison.y"
                       {printf("%s", (yyvsp[-1].sval));}
-#line 1675 "y.tab.c"
+#line 1679 "y.tab.c"
     break;
 
   case 11:
-#line 169 "bison.y"
+#line 173 "bison.y"
                 {(yyval.st).i = (yyvsp[0].st).i; (yyval.st).a = createNum((yyvsp[0].st).i);}
-#line 1681 "y.tab.c"
+#line 1685 "y.tab.c"
     break;
 
   case 12:
-#line 170 "bison.y"
-                                                {(yyval.st).i = (yyvsp[-2].st).i + (yyvsp[0].st).i; (yyval.st).a = newast((yyvsp[-1].sval),(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 1687 "y.tab.c"
+#line 174 "bison.y"
+                                                {(yyval.st).i = (yyvsp[-2].st).i + (yyvsp[0].st).i; (yyval.st).a = newast("+",(yyvsp[-2].st).a,(yyvsp[0].st).a);}
+#line 1691 "y.tab.c"
     break;
 
   case 13:
-#line 171 "bison.y"
-                                        {(yyval.st).i = (yyvsp[-2].st).i - (yyvsp[0].st).i; (yyval.st).a = newast((yyvsp[-1].sval),(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 1693 "y.tab.c"
+#line 175 "bison.y"
+                                        {(yyval.st).i = (yyvsp[-2].st).i - (yyvsp[0].st).i; (yyval.st).a = newast("-",(yyvsp[-2].st).a,(yyvsp[0].st).a);}
+#line 1697 "y.tab.c"
     break;
 
   case 14:
-#line 172 "bison.y"
-                                        {(yyval.st).i = (yyvsp[-2].st).i * (yyvsp[0].st).i; (yyval.st).a = newast((yyvsp[-1].sval),(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 1699 "y.tab.c"
+#line 176 "bison.y"
+                                        {(yyval.st).i = (yyvsp[-2].st).i * (yyvsp[0].st).i; (yyval.st).a = newast("*",(yyvsp[-2].st).a,(yyvsp[0].st).a);}
+#line 1703 "y.tab.c"
     break;
 
   case 15:
-#line 173 "bison.y"
-                                        {(yyval.st).i = (yyvsp[-2].st).i / (yyvsp[0].st).i; (yyval.st).a = newast((yyvsp[-1].sval),(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 1705 "y.tab.c"
+#line 177 "bison.y"
+                                        {(yyval.st).i = (yyvsp[-2].st).i / (yyvsp[0].st).i; (yyval.st).a = newast("/",(yyvsp[-2].st).a,(yyvsp[0].st).a);}
+#line 1709 "y.tab.c"
     break;
 
   case 16:
-#line 174 "bison.y"
+#line 178 "bison.y"
                                 {(yyval.st).i = (yyvsp[-1].st).i;}
-#line 1711 "y.tab.c"
+#line 1715 "y.tab.c"
     break;
 
   case 17:
-#line 188 "bison.y"
+#line 192 "bison.y"
                 {(yyval.sval) = "==\n";}
-#line 1717 "y.tab.c"
+#line 1721 "y.tab.c"
     break;
 
   case 18:
-#line 189 "bison.y"
+#line 193 "bison.y"
                {(yyval.sval)=">\n";}
-#line 1723 "y.tab.c"
+#line 1727 "y.tab.c"
     break;
 
   case 19:
-#line 190 "bison.y"
+#line 194 "bison.y"
                {(yyval.sval)== "<\n";}
-#line 1729 "y.tab.c"
+#line 1733 "y.tab.c"
     break;
 
   case 20:
-#line 191 "bison.y"
+#line 195 "bison.y"
                        {(yyval.sval)=">=\n";}
-#line 1735 "y.tab.c"
+#line 1739 "y.tab.c"
     break;
 
   case 21:
-#line 192 "bison.y"
+#line 196 "bison.y"
                       {(yyval.sval)="<=\n";}
-#line 1741 "y.tab.c"
+#line 1745 "y.tab.c"
     break;
 
   case 22:
-#line 193 "bison.y"
+#line 197 "bison.y"
                     {(yyval.sval)="!=\n";}
-#line 1747 "y.tab.c"
+#line 1751 "y.tab.c"
     break;
 
   case 23:
-#line 209 "bison.y"
+#line 213 "bison.y"
                                               {(yyval.sval)= "Operacion booleana int - int\n";}
-#line 1753 "y.tab.c"
+#line 1757 "y.tab.c"
     break;
 
   case 24:
-#line 213 "bison.y"
+#line 217 "bison.y"
                 {(yyval.sval) = "Comentario\n";}
-#line 1759 "y.tab.c"
+#line 1763 "y.tab.c"
     break;
 
   case 25:
-#line 217 "bison.y"
+#line 221 "bison.y"
                                                   {(yyval.sval) = "Sentencia IF\n";}
-#line 1765 "y.tab.c"
+#line 1769 "y.tab.c"
     break;
 
   case 26:
-#line 222 "bison.y"
+#line 226 "bison.y"
                                {(yyval.sval) = "Bucle while\n";}
-#line 1771 "y.tab.c"
+#line 1775 "y.tab.c"
     break;
 
   case 27:
-#line 223 "bison.y"
+#line 227 "bison.y"
                               {(yyval.sval)="Fin de bucle\n";}
-#line 1777 "y.tab.c"
+#line 1781 "y.tab.c"
     break;
 
 
-#line 1781 "y.tab.c"
+#line 1785 "y.tab.c"
 
       default: break;
     }
@@ -2015,12 +2019,11 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 235 "bison.y"
+#line 239 "bison.y"
 
 //FUNCIONES DE AST
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r) {
 	struct ast *a = malloc(sizeof(struct ast));
-	printf("%s", nodetype);
 
 	if(!a) {
 		yyerror("out of space");
@@ -2100,15 +2103,15 @@ struct ast *createFlow(struct ast *cond){
 void eval(struct ast a, int* size){
 	int i = 0;
 	int encontrado = 0;
-	// while (i < *size && encontrado == 0){
-	// 	if((strcmp(nodos[i].nodetype, "._empty") == 0) && (strcmp(a.nodetype, "String") != 0) && (strcmp(a.nodetype, "Constante") != 0) ){
-	// 		nodos[i] = a;
-	// 		numnodo = numnodo +1;
-	// 		encontrado = 1;
-	// 	}else{
-	// 		i++;
-	// 	}
-	// }
+	while (i < *size && encontrado == 0){
+		if((strcmp(nodos[i].nodetype, "._empty") == 0) && (strcmp(a.nodetype, "String") != 0) && (strcmp(a.nodetype, "Constante") != 0) ){
+			nodos[i] = a;
+			numnodo = numnodo +1;
+			encontrado = 1;
+		}else{
+			i++;
+		}
+	}
 }
 
 void inicializarTablaSimbolos(struct symb *tabla, int inicio, int fin) {
@@ -2123,9 +2126,104 @@ void inicializarArrayNodos(struct ast *nodos, int inicio, int fin) {
     }
 }
 
+void printAST(struct ast nodos[], int i, int encontrado, int salida){
+	struct ast temp[52];
+	inicializarArrayNodos(temp,0,52);
+
+	while(encontrado == 0 && salida == 0){
+		if(strcmp(nodos[i].nodetype, "._empty") == 0){
+			encontrado = 1;
+			salida=1;
+		}else{
+			if(strcmp(nodos[i].nodetype, "IF") == 0){
+				write_file(ast_text, "\n");
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].l;
+				printAST(temp,0,0,0);
+
+			}else if(strcmp(nodos[i].nodetype, "WHILE") == 0){
+					write_file(ast_text, "\n");
+					write_file(ast_text, nodos[i].nodetype);
+					write_file(ast_text, "\n");
+					temp[0] = *nodos[i].l;
+					printAST(temp,0,0,0);
+
+			}else if((strcmp(nodos[i].nodetype, ">") == 0) || (strcmp(nodos[i].nodetype, "<") == 0) || (strcmp(nodos[i].nodetype, ">=") == 0) ||
+						 (strcmp(nodos[i].nodetype, "<=") == 0) ||  (strcmp(nodos[i].nodetype, "!=") == 0) || (strcmp(nodos[i].nodetype, "==") == 0)){
+
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].l; 
+				printAST(temp,0,0,0);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].r; 
+				printAST(temp,0,0,0);
+				write_file(ast_text, "\n");
+				salida = 1;
+				
+
+			}else if(strcmp(nodos[i].nodetype, "=") == 0){
+				write_file(ast_text, "\n");
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				if((strcmp(nodos[i].l->nodetype, "+") == 0)||(strcmp(nodos[i].l->nodetype, "-") == 0)||(strcmp(nodos[i].l->nodetype, "/") == 0)||
+				(strcmp(nodos[i].l->nodetype, "*") == 0)){
+
+					temp[0] = *nodos[i].l;
+					printAST(temp,0,0,0);
+
+
+				}else{
+					temp[0] = *nodos[i].l; 
+					printAST(temp,0,0,0);
+
+				}
+
+
+			}else if((strcmp(nodos[i].nodetype, "+") == 0)||(strcmp(nodos[i].nodetype, "-") == 0)||(strcmp(nodos[i].nodetype, "/") == 0)||
+				(strcmp(nodos[i].nodetype, "*") == 0)){
+
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].l;
+				printAST(temp,0,0,0);
+				write_file(ast_text, "\n");
+				temp[0] = *nodos[i].r;
+				printAST(temp,0,0,0);
+				write_file(ast_text, "\n");
+
+			}else if(strcmp(nodos[i].nodetype, "String") == 0){
+
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				salida = 1;
+
+			}else if(strcmp(nodos[i].nodetype, "Constante") == 0){
+				write_file(ast_text, nodos[i].nodetype);
+				write_file(ast_text, "\n");
+				salida = 1;
+				encontrado = 1;
+			}			
+
+		}
+		i++;
+	}
+}
+
+void write_file(char *filename, char *content) {
+    FILE *file;
+    file = fopen(filename, "a");
+    fprintf(file, "%s", content);
+    fclose(file);
+}
+
 int main(int argc,char *argv[]) {
 	inicializarTablaSimbolos(tabla, 0, size);
 	inicializarArrayNodos(nodos, 0, size);
+	yyin = fopen(argv[1], "rt");
+	yyout = fopen(argv[2], "wt" );
  	yyparse();
+	printAST(nodos,0,0,0);
 }
 
