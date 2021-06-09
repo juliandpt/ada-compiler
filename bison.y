@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 extern int yylex();
 extern int yyparse();
@@ -34,6 +35,21 @@ struct boo {
 	struct ast *l;
 	struct ast *r;
 };
+
+struct flow {
+	char* nodetype; /* type I or W */
+	struct ast *cond; /* condition */
+};
+
+//Declaraciones de la tabla de simbolos
+
+struct symb{    
+	char* vname;    
+	int vvali;   
+	float vvalf;
+	char* vvals;
+	char* type; 
+};
 //Variables globales
 int line_num = 1;
 
@@ -45,7 +61,13 @@ int numnodo = 0;
 
 struct ast nodos[52];
 
-//struct symb tabla[52];
+struct symb tabla[52];
+
+// tabla simbolos
+void inicializarTablaSimbolos(struct symb *tabla, int inicio, int fin);
+
+// nodos
+void inicializarArrayNodos(struct ast *nodos, int inicio, int fin);
 
 // funciones ast
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r);
@@ -53,6 +75,7 @@ struct ast *createNum(double d);
 struct ast *createSTR(char* s);
 struct ast *createBOOLVAR(char* s);
 struct ast *createBOOL(char* nodetype, struct ast *l, struct ast *r);
+struct ast *createFlow(struct ast *cond);
 
 void eval(struct ast a, int* size);
 
@@ -82,9 +105,9 @@ void eval(struct ast a, int* size);
 // TIPOS
 %token INT FLOAT
 // TOKENS GENERALES
-%token PLUS MINUS MULTIPLY DIVIDE // operadores
+%token<sval> PLUS MINUS MULTIPLY DIVIDE // operadores
 %token LEFT RIGHT OPEN CLOSE // parentesis/llaves
-%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR VAR_NAME LOOP_ END IF THEN CHAR AND OR ELSE ELSIF BOOLEAN_MIX // palabras reservadas
+%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR LOOP_ END IF THEN CHAR AND OR ELSE ELSIF BOOLEAN_MIX // palabras reservadas
 %token LESS MORE EQUAL GREATER_THAN LESSER_THAN NOT_EQUAL COMPARE  // operadores logicos
 %token COMMENT COLON SEMICOLON QUOTE //simbolos reservados
 %token NEWLINE QUIT //cosas de flex
@@ -100,9 +123,9 @@ void eval(struct ast a, int* size);
 %type<sval> DECL
 %type<sval> THEN
 %type<sval> ELSE
-%type<eval> INT
+%type<st> INT
 %type<fval> FLOAT
-%type<sval> PLUS MINUS MULTIPLY DIVIDE
+%token<sval> VAR
 //%type<sval> ASIG
 
 // Booleanos
@@ -118,6 +141,7 @@ void eval(struct ast a, int* size);
 %type<sval> IF_COND
 %type<sval> WLOOP
 %type<sval> COM
+%type<st> VAR_NAME
 
 %start calculation
 
@@ -134,7 +158,7 @@ line:
 
 STMT: 
 	IF_COND NEWLINE {printf("%s", $1);}
-	| OPERATION NEWLINE {printf("%d\t%d\n", $1.i, yylineno-1); }
+	| OPERATION NEWLINE {printf("%d\t%d\n", $1.i, yylineno-1);if(!$1.a){ ;} else {eval(*$1.a, &size);} }
 	| BOOLEAN_OP NEWLINE {printf("%s", $1);}
 	| BOOLEAN_MIX NEWLINE {printf("%s", $1);}
 	| WLOOP NEWLINE {printf("%s", $1);}
@@ -142,7 +166,7 @@ STMT:
 ;
 	
 OPERATION: 
-	INT	{$$.i = $1; $$.a = createNum($1);}
+	INT	{$$.i = $1.i; $$.a = createNum($1.i);}
 	|	OPERATION PLUS OPERATION	{$$.i = $1.i + $3.i; $$.a = newast($2,$1.a,$3.a);}
 	| OPERATION MINUS OPERATION	{$$.i = $1.i - $3.i; $$.a = newast($2,$1.a,$3.a);}
 	| OPERATION MULTIPLY OPERATION	{$$.i = $1.i * $3.i; $$.a = newast($2,$1.a,$3.a);}
@@ -204,10 +228,15 @@ BEGIN:
 	| END SEMICOLON {$$ = "End begin\n";}
 ;
 
+VAR_NAME:
+	VAR {$$.s = $1; $$.a = createSTR($1);}
+;
+
 %%
 //FUNCIONES DE AST
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r) {
 	struct ast *a = malloc(sizeof(struct ast));
+	printf("%s", nodetype);
 
 	if(!a) {
 		yyerror("out of space");
@@ -269,22 +298,50 @@ struct ast *createBOOLVAR(char* s)
  	return (struct ast *)a;
 }
 
+struct ast *createFlow(struct ast *cond){
+
+	struct flow *a = malloc(sizeof(struct flow));
+
+	if(!a) {
+		yyerror("out of space");
+		exit(0);
+	}
+
+	a->nodetype = "IF";
+	a->cond = cond;
+
+	return (struct ast *)a;
+}
+
 void eval(struct ast a, int* size){
-	
 	int i = 0;
 	int encontrado = 0;
-	while (i < *size && encontrado == 0){
-		if((strcmp(nodos[i].nodetype, "._empty") == 0) && (strcmp(a.nodetype, "String") != 0) && (strcmp(a.nodetype, "Constante") != 0) ){
-			nodos[i] = a;
-			numnodo = numnodo +1;
-			encontrado = 1;
-		}else{
-			i++;
-		}
-	}
+	// while (i < *size && encontrado == 0){
+	// 	if((strcmp(nodos[i].nodetype, "._empty") == 0) && (strcmp(a.nodetype, "String") != 0) && (strcmp(a.nodetype, "Constante") != 0) ){
+	// 		nodos[i] = a;
+	// 		numnodo = numnodo +1;
+	// 		encontrado = 1;
+	// 	}else{
+	// 		i++;
+	// 	}
+	// }
+}
+
+void inicializarTablaSimbolos(struct symb *tabla, int inicio, int fin) {
+    for (int i = inicio; i < fin; i++) {
+        tabla[i].vname = "._empty";
+    }
+}
+
+void inicializarArrayNodos(struct ast *nodos, int inicio, int fin) {
+    for (int i = inicio; i < fin; i++) {
+        nodos[i].nodetype = "._empty";
+    }
 }
 
 int main(int argc,char *argv[]) {
- yyparse();
+	inicializarTablaSimbolos(tabla, 0, size);
+	inicializarArrayNodos(nodos, 0, size);
+ 	yyparse();
 }
 

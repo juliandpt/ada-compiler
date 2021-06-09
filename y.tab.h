@@ -68,32 +68,32 @@ extern int yydebug;
     STRINGDEC = 274,
     BEG = 275,
     STR = 276,
-    VAR_NAME = 277,
-    LOOP_ = 278,
-    END = 279,
-    IF = 280,
-    THEN = 281,
-    CHAR = 282,
-    AND = 283,
-    OR = 284,
-    ELSE = 285,
-    ELSIF = 286,
-    BOOLEAN_MIX = 287,
-    LESS = 288,
-    MORE = 289,
-    EQUAL = 290,
-    GREATER_THAN = 291,
-    LESSER_THAN = 292,
-    NOT_EQUAL = 293,
-    COMPARE = 294,
-    COMMENT = 295,
-    COLON = 296,
-    SEMICOLON = 297,
-    QUOTE = 298,
-    NEWLINE = 299,
-    QUIT = 300,
-    TRUE = 301,
-    FALSE = 302
+    LOOP_ = 277,
+    END = 278,
+    IF = 279,
+    THEN = 280,
+    CHAR = 281,
+    AND = 282,
+    OR = 283,
+    ELSE = 284,
+    ELSIF = 285,
+    BOOLEAN_MIX = 286,
+    LESS = 287,
+    MORE = 288,
+    EQUAL = 289,
+    GREATER_THAN = 290,
+    LESSER_THAN = 291,
+    NOT_EQUAL = 292,
+    COMPARE = 293,
+    COMMENT = 294,
+    COLON = 295,
+    SEMICOLON = 296,
+    QUOTE = 297,
+    NEWLINE = 298,
+    QUIT = 299,
+    TRUE = 300,
+    FALSE = 301,
+    VAR = 302
   };
 #endif
 /* Tokens.  */
@@ -116,38 +116,38 @@ extern int yydebug;
 #define STRINGDEC 274
 #define BEG 275
 #define STR 276
-#define VAR_NAME 277
-#define LOOP_ 278
-#define END 279
-#define IF 280
-#define THEN 281
-#define CHAR 282
-#define AND 283
-#define OR 284
-#define ELSE 285
-#define ELSIF 286
-#define BOOLEAN_MIX 287
-#define LESS 288
-#define MORE 289
-#define EQUAL 290
-#define GREATER_THAN 291
-#define LESSER_THAN 292
-#define NOT_EQUAL 293
-#define COMPARE 294
-#define COMMENT 295
-#define COLON 296
-#define SEMICOLON 297
-#define QUOTE 298
-#define NEWLINE 299
-#define QUIT 300
-#define TRUE 301
-#define FALSE 302
+#define LOOP_ 277
+#define END 278
+#define IF 279
+#define THEN 280
+#define CHAR 281
+#define AND 282
+#define OR 283
+#define ELSE 284
+#define ELSIF 285
+#define BOOLEAN_MIX 286
+#define LESS 287
+#define MORE 288
+#define EQUAL 289
+#define GREATER_THAN 290
+#define LESSER_THAN 291
+#define NOT_EQUAL 292
+#define COMPARE 293
+#define COMMENT 294
+#define COLON 295
+#define SEMICOLON 296
+#define QUOTE 297
+#define NEWLINE 298
+#define QUIT 299
+#define TRUE 300
+#define FALSE 301
+#define VAR 302
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 63 "bison.y"
+#line 86 "bison.y"
 
 	int eval;
 	float fval;

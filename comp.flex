@@ -8,6 +8,7 @@ int nc, np, nl;
 
 string (\".+\")
 char (\'.{1}\')
+variable_name ([a-zA-Z])+([a-zA-Z]|[0-9]|[_])*
 fnum ([0-9])+[\,|\.]([0-9])+
 inum ([0-9])+
 bool (bool|boolean)
@@ -20,14 +21,14 @@ false (false|FALSE)
 true (true|TRUE)
 and (and|AND)
 or (or|OR)
-if(if|IF)
+if (if|IF)
 then (then|THEN)
 %%
 {true}  {return TRUE;} //funciona por algun motivo, hay que poner esto arriba del todo
 {then}  {return THEN;}
 {if}  	{return IF;}
 {false} {return FALSE;}
-{char}  {return CHAR;}
+{char}  {yylval.sval = strdup(yytext);return CHAR;}
 {bool}  {return BOOL;}
 {and} 	{return AND;}
 {or} 	{return OR;}
@@ -37,7 +38,8 @@ then (then|THEN)
 {stringd} {return STRINGDEC;}
 {fnum}	{yylval.fval = atof(yytext); return FLOAT;}
 {inum}	{yylval.eval = atoi(yytext); return INT;}
-{string}  {return STR;}
+{string}  {yylval.sval = strdup(yytext);return STR;}
+{variable_name}  {yylval.sval = strdup(yytext);return VAR;}
 "\n"    {return NEWLINE;}
 ":"		{return COLON;}
 ";"		{return SEMICOLON;}
