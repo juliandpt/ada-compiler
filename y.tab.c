@@ -1650,7 +1650,7 @@ yyreduce:
 
   case 6:
 #line 165 "bison.y"
-                            {printf("%d\t%d\n", (yyvsp[-1].st).i, yylineno-1);if(!(yyvsp[-1].st).a){ ;} else {eval(*(yyvsp[-1].st).a, &size);} }
+                            {printf("%d\t%d\n", (yyvsp[-1].st).i, yylineno-1);if(!(yyvsp[-1].st).a){ ;} else {eval(*(yyvsp[-1].st).a, &size);} ;}
 #line 1655 "y.tab.c"
     break;
 
@@ -1710,7 +1710,7 @@ yyreduce:
 
   case 16:
 #line 178 "bison.y"
-                                {(yyval.st).i = (yyvsp[-1].st).i;}
+                               {(yyval.st).i = (yyvsp[-1].st).i;}
 #line 1715 "y.tab.c"
     break;
 
@@ -2023,6 +2023,7 @@ yyreturn:
 
 //FUNCIONES DE AST
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r) {
+	printf("%s\n", "newast");
 	struct ast *a = malloc(sizeof(struct ast));
 
 	if(!a) {

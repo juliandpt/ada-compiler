@@ -162,7 +162,7 @@ line:
 
 STMT: 
 	IF_COND NEWLINE {printf("%s", $1);}
-	| OPERATION NEWLINE {printf("%d\t%d\n", $1.i, yylineno-1);if(!$1.a){ ;} else {eval(*$1.a, &size);} }
+	| OPERATION NEWLINE {printf("%d\t%d\n", $1.i, yylineno-1);if(!$1.a){ ;} else {eval(*$1.a, &size);} ;}
 	| BOOLEAN_OP NEWLINE {printf("%s", $1);}
 	| BOOLEAN_MIX NEWLINE {printf("%s", $1);}
 	| WLOOP NEWLINE {printf("%s", $1);}
@@ -175,7 +175,7 @@ OPERATION:
 	| OPERATION MINUS OPERATION	{$$.i = $1.i - $3.i; $$.a = newast("-",$1.a,$3.a);}
 	| OPERATION MULTIPLY OPERATION	{$$.i = $1.i * $3.i; $$.a = newast("*",$1.a,$3.a);}
 	| OPERATION DIVIDE OPERATION	{$$.i = $1.i / $3.i; $$.a = newast("/",$1.a,$3.a);}
-	| LEFT OPERATION RIGHT 	{$$.i = $2.i;}
+	| LEFT OPERATION RIGHT {$$.i = $2.i;}
 ;
 
 OPERATION2: 
@@ -239,6 +239,7 @@ VAR_NAME:
 %%
 //FUNCIONES DE AST
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r) {
+	printf("%s\n", "newast");
 	struct ast *a = malloc(sizeof(struct ast));
 
 	if(!a) {
