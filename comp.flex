@@ -9,6 +9,9 @@ int nc, np, nl;
 string (\".+\")
 char (\'.{1}\')
 variable_name ([a-zA-Z])+([a-zA-Z]|[0-9]|[_])*
+proc (procedure|PROCEDURE)
+is (is|IS)
+end (end|END)
 fnum ([0-9])+[\,|\.]([0-9])+
 inum ([0-9])+
 bool (bool|boolean)
@@ -40,6 +43,9 @@ then (then|THEN)
 {inum}	{yylval.eval = atoi(yytext); return INT;}
 {string}  {yylval.sval = strdup(yytext);return STR;}
 {variable_name}  {yylval.sval = strdup(yytext);return VAR;}
+{proc} {return PROCEDURE;}
+{is} {return IS;}
+{end} {return END;}
 "\n"    {return NEWLINE;}
 ":"		{return COLON;}
 ";"		{return SEMICOLON;}
