@@ -179,7 +179,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 102 "bison.y"
+#line 111 "bison.y"
 
 	int eval;
 	float fval;
@@ -197,9 +197,11 @@ union YYSTYPE
 		char *temp3;
 		char* type;
 		struct ast *a;
+		char* error;
+		int boo;
 	}st;
 
-#line 203 "y.tab.h"
+#line 205 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
