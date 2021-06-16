@@ -111,7 +111,7 @@ void printAST(struct ast nodos[], int i, int encontrado, int salida);
 // TOKENS GENERALES
 %token<sval> PLUS MINUS MULTIPLY DIVIDE // operadores
 %token LEFT RIGHT OPEN CLOSE // parentesis/llaves
-%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR LOOP_ END IF THEN CHAR AND OR ELSE ELSIF BOOLEAN_MIX IS // palabras reservadas
+%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR LOOP_ END IF THEN CHAR AND OR ELSE ELSIF BOOLEAN_MIX PROCEDURE IS// palabras reservadas
 %token LESS MORE EQUAL GREATER_THAN LESSER_THAN NOT_EQUAL COMPARE  // operadores logicos
 %token COMMENT COLON SEMICOLON QUOTE //simbolos reservados
 %token NEWLINE QUIT //cosas de flex
@@ -135,6 +135,7 @@ void printAST(struct ast nodos[], int i, int encontrado, int salida);
 
 // Booleanos
 %type<sval> BOOLEAN_OP
+%type<sval> PROC
 %type<sval> BOOLEAN_OPERATORS
 %type<sval> BOOLEAN_MIX
 %type<st> BOOLEAN_VAR
