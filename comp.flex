@@ -6,52 +6,65 @@ int nc, np, nl;
 %option noyywrap 
 %option yylineno
 
-string (\".+\")
-char (\'.{1}\')
-variable_name ([a-zA-Z])+([a-zA-Z]|[0-9]|[_])*
-procedure (procedure|PROCEDURE)
-is (is|IS)
-end (end|END)
-fnum ([0-9])+[\,|\.]([0-9])+
-inum ([0-9])+
 bool (bool|boolean)
-end (end|END)
-int (integer)
-stringd (String)
-character (character)
-float (float)
-while (while|WHILE)
 false (false|FALSE)
 true (true|TRUE)
+
+variable_name ([a-zA-Z|0-9|_|])+
+string (\".+\")
+fnum ([0-9])+[\,|\.]([0-9])+
+inum ([0-9])+
+procedure (procedure|procedure)
+range (range|RANGE)
+while (while|WHILE)
+for (for|FOR)
+case (case|CASE)
+when (when|WHEN)
+is (is|IS)
+others (others|OTHERS)
+end (end|END)
+loop (loop|LOOP)
+of (of|OF)
+type (type|TYPE)
+
 and (and|AND)
 or (or|OR)
+
 if (if|IF)
-is (is|IS)
+else (else|ELSE)
+elseif (elseif|ELSEIF)
 then (then|THEN)
+
 %%
+
 [ \t]	;
+"\n"		{}
 {true}  {return TRUE;} //funciona por algun motivo, hay que poner esto arriba del todo
-"procedure" {return PROCEDURE;}
-"is" {return IS;}
+{procedure} {return PROCEDURE;}
+{is} {return IS;}
+{end} {return END;}
+{range} {return RANGE;}
+{case}  {return CASE;}
+{when}  {return WHEN;}
 {then}  {return THEN;}
 {if}  	{return IF;}
 {false} {return FALSE;}
-{char}  {yylval.sval = strdup(yytext);return CHAR;}
 {bool}  {return BOOL;}
+"Boolean" {return DECLBOOLEAN;}
 {and} 	{return AND;}
 {or} 	{return OR;}
-{int} 	{return INTEGERDEC;}
-{end} {return END;}
-{float} {return FLOATDEC;}
-{character} {return CHARDEC;}
-{stringd} {return STRINGDEC;}
+"Integer" {return DECLINTEGER;}
+"Float" {return DECLFLOAT;}
 {fnum}	{yylval.fval = atof(yytext); return FLOAT;}
 {inum}	{yylval.eval = atoi(yytext); return INT;}
 {string}  {yylval.sval = strdup(yytext);return STR;}
+"String" {return DECLSTRING;}
+"array" {return DECLARRAY;}
+{while} {return WHILE;}
+{for}   {return FOR;}
+{others}  {return OTHERS;}
+{type} {return TYPE;}
 {variable_name}  {yylval.sval = strdup(yytext);return VAR;}
-{is} {return IS;}
-{end} {return END;}
-"\n"    {return NEWLINE;}
 ":"		{return COLON;}
 ";"		{return SEMICOLON;}
 "{"		{return OPEN;}
@@ -65,10 +78,12 @@ then (then|THEN)
 "<"		{return LESS;}
 ">"		{return MORE;}
 "="		{return EQUAL;}
-"--"	{return COMMENT;}
+"--".*	{return COMMENT;}
 ">="    {return GREATER_THAN;}
 "<="    {return LESSER_THAN;}
 "!="    {return NOT_EQUAL;}
 "=="    {return COMPARE;}
-
+"=>"    {return ARROW;}
+".."    {return DOTDOT;}
+","     {return COMMA;}
 %%
