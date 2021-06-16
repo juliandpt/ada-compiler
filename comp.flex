@@ -9,9 +9,11 @@ int nc, np, nl;
 string (\".+\")
 char (\'.{1}\')
 variable_name ([a-zA-Z])+([a-zA-Z]|[0-9]|[_])*
+procedure (procedure|PROCEDURE)
 fnum ([0-9])+[\,|\.]([0-9])+
 inum ([0-9])+
 bool (bool|boolean)
+end (end|END)
 int (integer)
 stringd (String)
 character (character)
@@ -22,9 +24,13 @@ true (true|TRUE)
 and (and|AND)
 or (or|OR)
 if (if|IF)
+is (is|IS)
 then (then|THEN)
 %%
+[ \t]	;
 {true}  {return TRUE;} //funciona por algun motivo, hay que poner esto arriba del todo
+"procedure" {return PROCEDURE;}
+"is" {return IS;}
 {then}  {return THEN;}
 {if}  	{return IF;}
 {false} {return FALSE;}
@@ -33,6 +39,7 @@ then (then|THEN)
 {and} 	{return AND;}
 {or} 	{return OR;}
 {int} 	{return INTEGERDEC;}
+{end} {return END;}
 {float} {return FLOATDEC;}
 {character} {return CHARDEC;}
 {stringd} {return STRINGDEC;}

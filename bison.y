@@ -111,11 +111,12 @@ void printAST(struct ast nodos[], int i, int encontrado, int salida);
 // TOKENS GENERALES
 %token<sval> PLUS MINUS MULTIPLY DIVIDE // operadores
 %token LEFT RIGHT OPEN CLOSE // parentesis/llaves
-%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR LOOP_ END IF THEN CHAR AND OR ELSE ELSIF BOOLEAN_MIX // palabras reservadas
+%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR LOOP_ END IF THEN CHAR AND OR ELSE ELSIF BOOLEAN_MIX IS // palabras reservadas
 %token LESS MORE EQUAL GREATER_THAN LESSER_THAN NOT_EQUAL COMPARE  // operadores logicos
 %token COMMENT COLON SEMICOLON QUOTE //simbolos reservados
 %token NEWLINE QUIT //cosas de flex
 %token TRUE FALSE // operadores booleanos
+%token PROCEDURE
 
 // PRIORIDADES
 %left PLUS MINUS
@@ -141,27 +142,26 @@ void printAST(struct ast nodos[], int i, int encontrado, int salida);
 %type<sval> TRUE FALSE
 
 // statements
-%type<sval> STMT
 %type<sval> IF_COND
 %type<sval> WLOOP
 %type<sval> COM
 %type<st> VAR_NAME
 
-%start calculation
+%type<sval> PROCLINE
+%type<sval> CONTENT
+
+%start PROCLINE
 
 %%
 
-calculation:
-	| calculation line
+PROCLINE:
+		PROCEDURE VAR_NAME IS ADDCONTENT END VAR_NAME SEMICOLON {printf("%s", "procline");}
 ;
 
-line:
-      STMT
-;
+ADDCONTENT:	ADDCONTENT CONTENT | ;
 
-
-STMT: 
-	IF_COND NEWLINE {printf("%s", $1);}
+CONTENT: 
+	// IF_COND NEWLINE {printf("%s", $1);}
 	| OPERATION NEWLINE {printf("%d\t%d\n", $1.i, yylineno-1);if(!$1.a){ ;} else {eval(*$1.a, &size);} ;}
 	| BOOLEAN_OP NEWLINE {printf("%s", $1);}
 	| BOOLEAN_MIX NEWLINE {printf("%s", $1);}
@@ -217,10 +217,10 @@ COM:
 	COMMENT {$$ = "Comentario\n";}
 ;
 
-IF_COND: 
-	IF "(" BOOLEAN_OP ")" THEN STMT ELSE STMT {$$ = "Sentencia IF\n";}
+// IF_COND: 
+// 	IF "(" BOOLEAN_OP ")" THEN STMT ELSE STMT {$$ = "Sentencia IF\n";}
 
-;
+// ;
 
 WLOOP:
 	WHILE BOOLEAN_OP LOOP_ {$$ = "Bucle while\n";}

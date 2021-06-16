@@ -78,22 +78,24 @@ extern int yydebug;
     ELSE = 284,
     ELSIF = 285,
     BOOLEAN_MIX = 286,
-    LESS = 287,
-    MORE = 288,
-    EQUAL = 289,
-    GREATER_THAN = 290,
-    LESSER_THAN = 291,
-    NOT_EQUAL = 292,
-    COMPARE = 293,
-    COMMENT = 294,
-    COLON = 295,
-    SEMICOLON = 296,
-    QUOTE = 297,
-    NEWLINE = 298,
-    QUIT = 299,
-    TRUE = 300,
-    FALSE = 301,
-    VAR = 302
+    IS = 287,
+    LESS = 288,
+    MORE = 289,
+    EQUAL = 290,
+    GREATER_THAN = 291,
+    LESSER_THAN = 292,
+    NOT_EQUAL = 293,
+    COMPARE = 294,
+    COMMENT = 295,
+    COLON = 296,
+    SEMICOLON = 297,
+    QUOTE = 298,
+    NEWLINE = 299,
+    QUIT = 300,
+    TRUE = 301,
+    FALSE = 302,
+    PROCEDURE = 303,
+    VAR = 304
   };
 #endif
 /* Tokens.  */
@@ -126,22 +128,24 @@ extern int yydebug;
 #define ELSE 284
 #define ELSIF 285
 #define BOOLEAN_MIX 286
-#define LESS 287
-#define MORE 288
-#define EQUAL 289
-#define GREATER_THAN 290
-#define LESSER_THAN 291
-#define NOT_EQUAL 292
-#define COMPARE 293
-#define COMMENT 294
-#define COLON 295
-#define SEMICOLON 296
-#define QUOTE 297
-#define NEWLINE 298
-#define QUIT 299
-#define TRUE 300
-#define FALSE 301
-#define VAR 302
+#define IS 287
+#define LESS 288
+#define MORE 289
+#define EQUAL 290
+#define GREATER_THAN 291
+#define LESSER_THAN 292
+#define NOT_EQUAL 293
+#define COMPARE 294
+#define COMMENT 295
+#define COLON 296
+#define SEMICOLON 297
+#define QUOTE 298
+#define NEWLINE 299
+#define QUIT 300
+#define TRUE 301
+#define FALSE 302
+#define PROCEDURE 303
+#define VAR 304
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -167,7 +171,7 @@ union YYSTYPE
 		struct ast *a;
 	}st;
 
-#line 171 "y.tab.h"
+#line 175 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
