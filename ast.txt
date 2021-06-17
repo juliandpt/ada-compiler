@@ -6,11 +6,11 @@ String
 String
 
 =
+<
 Constante
+
+Constante
+
 
 =
->
 String
-
-Constante
-
