@@ -711,16 +711,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   394
+#define YYLAST   299
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  64
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  17
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  92
+#define YYNRULES  80
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  217
+#define YYNSTATES  187
 
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   318
@@ -773,16 +773,15 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   188,   188,   197,   197,   199,   200,   203,   210,   221,
-     232,   243,   249,   255,   264,   275,   286,   297,   301,   306,
-     314,   329,   334,   342,   347,   352,   371,   374,   375,   376,
-     377,   378,   379,   380,   381,   382,   383,   384,   385,   386,
-     387,   389,   390,   391,   399,   400,   401,   402,   403,   404,
-     408,   409,   410,   411,   415,   416,   417,   418,   419,   420,
-     424,   425,   426,   427,   428,   429,   434,   435,   436,   437,
-     438,   439,   443,   444,   455,   456,   457,   458,   459,   475,
-     491,   507,   523,   545,   549,   553,   554,   555,   556,   561,
-     562,   571,   575
+       0,   189,   189,   198,   198,   200,   201,   204,   211,   222,
+     233,   244,   250,   256,   265,   276,   290,   306,   311,   316,
+     324,   339,   344,   352,   357,   362,   381,   384,   386,   388,
+     390,   391,   392,   393,   394,   395,   396,   397,   399,   400,
+     401,   409,   410,   411,   412,   413,   414,   418,   419,   420,
+     421,   425,   426,   430,   435,   452,   469,   486,   503,   526,
+     527,   528,   529,   530,   531,   535,   536,   547,   551,   567,
+     615,   637,   641,   645,   646,   647,   648,   653,   654,   663,
+     667
 };
 #endif
 
@@ -801,7 +800,7 @@ static const char *const yytname[] =
   "TYPE", "RANGE", "DOTDOT", "OF", "COMMA", "WHEN", "FOR", "OTHERS",
   "ARROW", "VAR", "DECLINTEGER", "DECLFLOAT", "DECLBOOLEAN", "DECLARRAY",
   "DECLSTRING", "$accept", "PROCLINE", "ADDCONTENT", "AUXINT", "DECL",
-  "CONTENT", "OPERATOR", "OPERATION", "OPERATION2", "BOOLEAN_OPERATORS",
+  "CONTENT", "OPERATOR", "OPERAND", "OPERATION", "BOOLEAN_OPERATORS",
   "BOOLEAN_VAR", "BOOLEAN_OP", "COM", "IF_COND", "WLOOP", "VAR_NAME",
   "STRING", YY_NULLPTR
 };
@@ -822,7 +821,7 @@ static const yytype_int16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF (-94)
+#define YYPACT_NINF (-50)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -836,28 +835,25 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -20,   -44,    41,   -94,     3,   -94,   -94,   198,   -94,   -94,
-      17,    17,    83,    17,   -94,    17,   -94,   -94,   -44,   -94,
-     -94,   300,   307,   -94,   -94,   -94,   -94,   322,   286,   293,
-      53,   342,    54,    39,    48,    59,    90,    92,    88,    34,
-      34,    34,    34,   -94,   -94,   -94,   -94,   -94,   -94,    19,
-      99,    99,    99,    99,    19,   312,    19,   -94,   -94,   -94,
-     -94,   -94,   -94,   -94,   -94,   -94,   -15,    34,    -3,    -3,
-     -94,   -94,    97,    44,   360,   -94,    99,    26,    26,   -94,
-     -94,    44,   360,   -94,    -2,    23,    36,    67,    71,    80,
-      44,   360,   -94,   127,   124,   378,   384,    17,    17,   -94,
-     -94,   -94,    89,   225,    91,   103,   160,   104,   113,   -94,
-     114,   -94,   115,   -94,   121,   -94,   122,   109,   158,   -44,
-     -44,    34,    34,    34,    34,   -94,   -44,    99,    99,    99,
-      99,   -94,   -44,   -94,   -94,   -94,   -94,   -94,   -94,   -94,
-      19,    27,   -94,    29,    35,    17,   -18,   153,   167,   120,
-     130,   131,   137,   139,   171,   183,   141,   143,   149,   150,
-     229,   235,   243,   247,   161,   315,   162,   163,   205,   166,
-     207,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   -94,   -94,
-     -94,   -94,   -44,   -94,    29,   -94,   -44,   -94,    35,   -94,
-     -94,   -94,   -94,   164,   -94,   203,   172,   268,   176,   177,
-     274,   180,   221,   215,   186,   -94,   -94,   -94,   -94,   -94,
-     -94,   -94,   201,   -44,   -94,   202,   -94
+     -27,   -46,    21,   -50,    -4,   -50,   -50,   163,   -50,   -50,
+      16,    16,     2,    16,   -50,    16,   -50,   -50,   -46,   -50,
+     -50,   -50,   233,   -50,   -50,   -50,   -50,   240,   212,    47,
+     249,    39,    20,    22,    26,    46,    48,    42,    32,    32,
+      32,    32,   -50,   -50,   -50,   -50,   -50,   -50,    19,   195,
+      19,   -50,   -50,   -50,   -50,   -50,   -50,   -50,   -50,   -16,
+      32,    31,    31,   -50,   -50,   291,   -50,     6,     1,     8,
+      13,    25,    30,   291,   -50,    73,    69,   285,    16,    16,
+     -50,   -50,   -50,   190,    36,    37,   125,    44,    52,   -50,
+      54,   -50,    55,   -50,    56,   -50,    61,    53,   104,   -46,
+     -46,    32,    32,    32,    32,   -50,   -46,   -50,   -50,   -50,
+     -50,   -50,   -50,   -50,    19,     0,   -50,    19,    19,    16,
+     -13,    99,   108,    64,    77,    78,    84,    95,    92,    93,
+      94,   100,   118,   134,   173,   183,   101,   226,   102,   105,
+     109,   106,   144,   -50,   -50,   -50,   -50,   -50,   -50,   -50,
+     -50,   -50,   -46,   -50,    19,   -50,   -46,   -50,    19,   -50,
+     -50,   -50,   -50,   103,   -50,   142,   111,   194,   115,   126,
+     200,   127,   168,   164,   121,   -50,   -50,   -50,   -50,   -50,
+     -50,   -50,   132,   -46,   -50,   141,   -50
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -865,42 +861,39 @@ static const yytype_int16 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,    91,     0,     1,     4,     0,    54,    60,
-       0,     0,     0,     0,    86,     0,    46,    84,     0,    49,
-       3,     0,     0,    45,    48,    44,    47,     0,     0,     0,
+       0,     0,     0,    79,     0,     1,     4,     0,    51,    52,
+       0,     0,     0,     0,    74,     0,    43,    72,     0,    46,
+       3,    53,     0,    42,    45,    41,    44,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    68,    67,    69,    70,    71,    66,     0,
-       0,     0,     0,     0,     0,     0,     0,    59,    65,    83,
-      89,    90,    88,     2,    85,    87,     0,     0,    55,    56,
-      57,    58,     0,    74,    75,    79,     0,    61,    62,    63,
-      64,    76,    77,    81,     0,     0,     0,     0,     0,     0,
-      78,    80,    82,     0,     0,     0,     0,    54,    60,    92,
-      72,    73,     0,     0,     0,     0,     0,     0,     0,    12,
+       0,     0,    61,    60,    62,    63,    64,    59,     0,     0,
+       0,    58,    71,    77,    78,    76,     2,    73,    75,     0,
+       0,    54,    55,    56,    57,    67,    69,     0,     0,     0,
+       0,     0,     0,    68,    70,     0,     0,     0,    51,    52,
+      80,    65,    66,     0,     0,     0,     0,     0,     0,    12,
        0,    18,     0,    21,     0,    24,     0,     0,     0,     0,
-       0,    50,    51,    52,    53,    31,     0,    50,    51,    52,
-      53,    32,     0,    39,    38,    50,    51,    52,    53,    25,
-       0,     0,    40,     0,     0,     0,     0,     0,     0,     0,
+       0,    47,    48,    49,    50,    29,     0,    36,    35,    47,
+      48,    49,    50,    25,     0,     0,    37,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    36,    37,    29,    30,    27,    28,    26,    34,    35,
-      33,    11,     0,     7,     0,    17,     0,    13,     0,    20,
-      19,    22,    23,     6,    41,     0,     0,     0,     0,     0,
+       0,     0,     0,    33,    34,    28,    27,    26,    31,    32,
+      30,    11,     0,     7,     0,    17,     0,    13,     0,    20,
+      19,    22,    23,     6,    38,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,    10,     9,     8,    16,    15,
-      14,     5,     0,     0,    43,     0,    42
+      14,     5,     0,     0,    40,     0,    39
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -94,   -94,   -94,   -94,   -94,   -94,   -93,    32,     8,   -13,
-     -94,    14,   -94,   -94,   -94,    -1,   100
+     -50,   -50,   -50,   -50,   -50,   -50,   -49,   -50,    -8,   -21,
+     -50,     3,   -50,   -50,   -50,    -1,    65
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int16 yydefgoto[] =
 {
-      -1,     2,     7,   203,    19,    20,   126,    21,    22,    56,
-     104,    23,    24,    25,    26,    31,   107
+      -1,     2,     7,   173,    19,    20,   106,    21,    22,    50,
+      84,    23,    24,    25,    26,    30,    87
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -908,90 +901,70 @@ static const yytype_int16 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       4,    97,    98,    99,    41,    42,    27,    10,    49,    54,
-     132,    35,     1,   140,     3,    49,    54,    38,    29,    99,
-       8,     9,     8,     9,    30,    32,    10,    36,    72,    37,
-     157,   158,     8,    52,    53,    93,     6,     8,    67,     9,
-       3,     5,    28,    67,    76,   100,   101,    94,    75,    39,
-      40,    41,    42,    83,    89,    92,     3,    74,    77,    78,
-      79,    80,    82,    59,    91,   108,   109,   182,   184,   186,
-     188,    68,    69,    70,    71,     3,    60,     3,   110,   111,
-      96,    73,    61,   106,    96,     3,    81,     3,    90,    49,
-      54,    62,   103,     3,   121,   122,   123,   124,   105,    95,
-       8,     9,    63,     9,    95,    33,    72,    34,    76,   112,
-     113,   119,   120,   114,   115,    64,   102,    65,   150,   151,
-     141,    66,   116,    43,    44,   152,    45,    46,    47,    48,
-     117,   153,   125,   118,   133,    77,    78,    79,    80,   156,
-     159,     3,   161,   163,   165,   166,   134,   142,   155,   143,
-     144,   145,   162,    68,    69,    70,    71,   146,   147,   164,
-     148,   149,   168,     8,     9,   135,   136,   137,   138,    10,
-     169,   170,   154,   171,   172,   160,    39,    40,    41,    42,
-     173,   196,   174,   198,   177,   199,   178,   201,    50,    51,
-      52,    53,   179,   180,    43,    44,   200,    45,    46,    47,
-      48,     8,     9,   139,   189,   191,   192,    10,   193,   194,
-     195,    11,   215,   204,   175,   205,   197,   202,     3,   207,
-     208,    12,    13,   210,   211,   212,   176,    14,    15,    16,
-     127,   128,   129,   130,   121,   122,   123,   124,   213,    17,
-     135,   136,   137,   138,   214,   216,   167,    18,   127,   128,
-     129,   130,   135,   136,   137,   138,     3,     0,     0,    43,
-      44,     0,    45,    46,    47,    48,     0,     0,   131,     0,
-       0,     0,   181,    39,    40,    41,    42,     0,   183,    50,
-      51,    52,    53,     0,     0,     0,   185,     0,     0,     0,
-     187,    39,    40,    41,    42,     0,    57,     0,    50,    51,
-      52,    53,     0,    58,     0,    39,    40,    41,    42,     0,
-       0,   206,    50,    51,    52,    53,     0,   209,     0,     0,
-      43,    44,     0,    45,    46,    47,    48,    43,    44,     0,
-      45,    46,    47,    48,    43,    44,     0,    45,    46,    47,
-      48,    43,    44,     0,    45,    46,    47,    48,    84,    43,
-      44,     0,    45,    46,    47,    48,    43,    44,   190,    45,
-      46,    47,    48,     0,    55,    50,    51,    52,    53,     0,
-       3,    85,    86,    87,     0,    88,    43,    44,     0,    45,
-      46,    47,    48,    39,    40,    41,    42,     0,    57,    50,
-      51,    52,    53,     0,    58
+       4,    48,    28,   129,   130,     1,    27,    48,    80,    78,
+      79,    34,     3,    29,    31,    10,    35,    37,    36,     8,
+       9,     5,     8,     9,    32,    10,    33,    80,    60,     6,
+      61,    62,    63,    64,    75,     8,     9,   114,    40,    41,
+      65,    60,    73,    88,    89,     3,    76,    66,    72,    74,
+      90,    91,    77,    81,    82,    92,    93,    52,     3,    83,
+       3,    53,    48,    54,     3,    55,    86,    94,    95,    56,
+      85,    57,    96,    58,     3,    59,    97,     3,    98,   107,
+     108,    99,   100,   152,   154,   156,   158,   116,   117,   115,
+     118,   119,   120,    61,    62,    63,    64,   121,   124,   125,
+      38,    39,    40,    41,   122,   126,   127,   123,   140,   132,
+     134,   141,   163,   128,   131,   142,   133,   135,   137,   138,
+     143,   144,   136,   101,   102,   103,   104,   145,     8,     9,
+     109,   110,   111,   112,    10,   147,   148,   149,   146,   109,
+     110,   111,   112,   150,   159,   161,   167,   165,   162,   164,
+     170,   166,   174,   168,   175,   169,   172,   171,   177,    42,
+      43,   151,    44,    45,    46,    47,     8,     9,   113,   178,
+     180,   181,    10,   183,   182,   184,    11,   153,   101,   102,
+     103,   104,   185,     3,   186,   139,    12,    13,   109,   110,
+     111,   112,    14,    15,    16,   101,   102,   103,   104,    38,
+      39,    40,    41,     0,    17,    38,    39,    40,    41,     0,
+       0,     0,    18,     0,     0,     0,   155,    38,    39,    40,
+      41,     3,    51,     0,    42,    43,   157,    44,    45,    46,
+      47,    67,     0,   105,     0,     0,     0,   176,    38,    39,
+      40,    41,     0,   179,     0,     0,    42,    43,     0,    44,
+      45,    46,    47,     3,    68,    69,    70,     0,    71,     0,
+      42,    43,     0,    44,    45,    46,    47,    42,    43,   160,
+      44,    45,    46,    47,    42,    43,     0,    44,    45,    46,
+      47,     0,    49,    42,    43,     0,    44,    45,    46,    47,
+      38,    39,    40,    41,     0,    51,    38,    39,    40,    41
 };
 
 static const yytype_int16 yycheck[] =
 {
-       1,     3,     4,    21,     7,     8,     7,     9,    21,    22,
-     103,    12,    32,   106,    58,    28,    29,    18,    10,    21,
-       3,     4,     3,     4,    10,    11,     9,    13,     9,    15,
-       3,     4,     3,     7,     8,    50,    33,     3,     9,     4,
-      58,     0,    10,     9,     9,    47,    48,    62,    49,     5,
-       6,     7,     8,    54,    55,    56,    58,    49,    50,    51,
-      52,    53,    54,    10,    56,    42,    43,   160,   161,   162,
-     163,    39,    40,    41,    42,    58,    22,    58,    42,    43,
-      72,    49,    43,    84,    76,    58,    54,    58,    56,   102,
-     103,    43,    84,    58,     5,     6,     7,     8,    84,    67,
-       3,     4,    43,     4,    72,    22,     9,    24,     9,    42,
-      43,    97,    98,    42,    43,    25,    84,    25,   119,   120,
-     106,    33,    42,    34,    35,   126,    37,    38,    39,    40,
-       3,   132,    43,     9,    43,   127,   128,   129,   130,   140,
-     141,    58,   143,   144,   145,   146,    43,    43,   140,    36,
-      36,    36,   144,   121,   122,   123,   124,    36,    36,   145,
-      51,     3,     9,     3,     4,     5,     6,     7,     8,     9,
-       3,    51,   140,    43,    43,   143,     5,     6,     7,     8,
-      43,   182,    43,   184,    43,   186,    43,   188,     5,     6,
-       7,     8,    43,    43,    34,    35,   188,    37,    38,    39,
-      40,     3,     4,    43,    43,    43,    43,     9,     3,    43,
-       3,    13,   213,    10,    43,    43,   184,    53,    58,    43,
-      43,    23,    24,    43,     3,    10,    43,    29,    30,    31,
-       5,     6,     7,     8,     5,     6,     7,     8,    52,    41,
-       5,     6,     7,     8,    43,    43,   146,    49,     5,     6,
-       7,     8,     5,     6,     7,     8,    58,    -1,    -1,    34,
-      35,    -1,    37,    38,    39,    40,    -1,    -1,    43,    -1,
-      -1,    -1,    43,     5,     6,     7,     8,    -1,    43,     5,
-       6,     7,     8,    -1,    -1,    -1,    43,    -1,    -1,    -1,
-      43,     5,     6,     7,     8,    -1,    10,    -1,     5,     6,
-       7,     8,    -1,    10,    -1,     5,     6,     7,     8,    -1,
-      -1,    43,     5,     6,     7,     8,    -1,    43,    -1,    -1,
-      34,    35,    -1,    37,    38,    39,    40,    34,    35,    -1,
+       1,    22,    10,     3,     4,    32,     7,    28,    21,     3,
+       4,    12,    58,    10,    11,     9,    13,    18,    15,     3,
+       4,     0,     3,     4,    22,     9,    24,    21,     9,    33,
+      38,    39,    40,    41,    50,     3,     4,    86,     7,     8,
+      48,     9,    50,    42,    43,    58,    62,    48,    49,    50,
+      42,    43,    60,    47,    48,    42,    43,    10,    58,    67,
+      58,    22,    83,    43,    58,    43,    67,    42,    43,    43,
+      67,    25,    42,    25,    58,    33,     3,    58,     9,    43,
+      43,    78,    79,   132,   133,   134,   135,    43,    36,    86,
+      36,    36,    36,   101,   102,   103,   104,    36,    99,   100,
+       5,     6,     7,     8,    51,   106,   114,     3,     9,   117,
+     118,     3,     3,   114,   115,    51,   117,   118,   119,   120,
+      43,    43,   119,     5,     6,     7,     8,    43,     3,     4,
+       5,     6,     7,     8,     9,    43,    43,    43,    43,     5,
+       6,     7,     8,    43,    43,    43,   154,     3,    43,    43,
+     158,   152,    10,   154,    43,   156,    53,   158,    43,    34,
+      35,    43,    37,    38,    39,    40,     3,     4,    43,    43,
+      43,     3,     9,    52,    10,    43,    13,    43,     5,     6,
+       7,     8,   183,    58,    43,   120,    23,    24,     5,     6,
+       7,     8,    29,    30,    31,     5,     6,     7,     8,     5,
+       6,     7,     8,    -1,    41,     5,     6,     7,     8,    -1,
+      -1,    -1,    49,    -1,    -1,    -1,    43,     5,     6,     7,
+       8,    58,    10,    -1,    34,    35,    43,    37,    38,    39,
+      40,    36,    -1,    43,    -1,    -1,    -1,    43,     5,     6,
+       7,     8,    -1,    43,    -1,    -1,    34,    35,    -1,    37,
+      38,    39,    40,    58,    59,    60,    61,    -1,    63,    -1,
+      34,    35,    -1,    37,    38,    39,    40,    34,    35,    43,
       37,    38,    39,    40,    34,    35,    -1,    37,    38,    39,
-      40,    34,    35,    -1,    37,    38,    39,    40,    36,    34,
-      35,    -1,    37,    38,    39,    40,    34,    35,    43,    37,
-      38,    39,    40,    -1,    42,     5,     6,     7,     8,    -1,
-      58,    59,    60,    61,    -1,    63,    34,    35,    -1,    37,
-      38,    39,    40,     5,     6,     7,     8,    -1,    10,     5,
-       6,     7,     8,    -1,    10
+      40,    -1,    42,    34,    35,    -1,    37,    38,    39,    40,
+       5,     6,     7,     8,    -1,    10,     5,     6,     7,     8
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -1000,24 +973,21 @@ static const yytype_int8 yystos[] =
 {
        0,    32,    65,    58,    79,     0,    33,    66,     3,     4,
        9,    13,    23,    24,    29,    30,    31,    41,    49,    68,
-      69,    71,    72,    75,    76,    77,    78,    79,    71,    72,
-      75,    79,    75,    22,    24,    79,    75,    75,    79,     5,
-       6,     7,     8,    34,    35,    37,    38,    39,    40,    73,
-       5,     6,     7,     8,    73,    42,    73,    10,    10,    10,
-      22,    43,    43,    43,    25,    25,    33,     9,    71,    71,
-      71,    71,     9,    71,    72,    79,     9,    72,    72,    72,
-      72,    71,    72,    79,    36,    59,    60,    61,    63,    79,
-      71,    72,    79,    50,    62,    71,    72,     3,     4,    21,
-      47,    48,    71,    72,    74,    75,    79,    80,    42,    43,
+      69,    71,    72,    75,    76,    77,    78,    79,    72,    75,
+      79,    75,    22,    24,    79,    75,    75,    79,     5,     6,
+       7,     8,    34,    35,    37,    38,    39,    40,    73,    42,
+      73,    10,    10,    22,    43,    43,    43,    25,    25,    33,
+       9,    72,    72,    72,    72,    72,    79,    36,    59,    60,
+      61,    63,    79,    72,    79,    50,    62,    72,     3,     4,
+      21,    47,    48,    72,    74,    75,    79,    80,    42,    43,
       42,    43,    42,    43,    42,    43,    42,     3,     9,    75,
-      75,     5,     6,     7,     8,    43,    70,     5,     6,     7,
-       8,    43,    70,    43,    43,     5,     6,     7,     8,    43,
-      70,    75,    43,    36,    36,    36,    36,    36,    51,     3,
-      79,    79,    79,    79,    71,    72,    79,     3,     4,    79,
-      71,    79,    72,    79,    75,    79,    79,    80,     9,     3,
-      51,    43,    43,    43,    43,    43,    43,    43,    43,    43,
+      75,     5,     6,     7,     8,    43,    70,    43,    43,     5,
+       6,     7,     8,    43,    70,    75,    43,    36,    36,    36,
+      36,    36,    51,     3,    79,    79,    79,    72,    79,     3,
+       4,    79,    72,    79,    72,    79,    75,    79,    79,    80,
+       9,     3,    51,    43,    43,    43,    43,    43,    43,    43,
       43,    43,    70,    43,    70,    43,    70,    43,    70,    43,
-      43,    43,    43,     3,    43,     3,    79,    71,    79,    79,
+      43,    43,    43,     3,    43,     3,    79,    72,    79,    79,
       72,    79,    53,    67,    10,    43,    43,    43,    43,    43,
       43,     3,    10,    52,    43,    79,    43
 };
@@ -1029,12 +999,11 @@ static const yytype_int8 yyr1[] =
       68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
       68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
       68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
-      68,    68,    68,    68,    69,    69,    69,    69,    69,    69,
-      70,    70,    70,    70,    71,    71,    71,    71,    71,    71,
-      72,    72,    72,    72,    72,    72,    73,    73,    73,    73,
-      73,    73,    74,    74,    75,    75,    75,    75,    75,    75,
-      75,    75,    75,    75,    76,    77,    77,    77,    77,    78,
-      78,    79,    80
+      68,    69,    69,    69,    69,    69,    69,    70,    70,    70,
+      70,    71,    71,    72,    72,    72,    72,    72,    72,    73,
+      73,    73,    73,    73,    73,    74,    74,    75,    75,    75,
+      75,    75,    76,    77,    77,    77,    77,    78,    78,    79,
+      80
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1042,14 +1011,13 @@ static const yytype_int8 yyr2[] =
 {
        0,     2,     7,     2,     0,     2,     0,     7,     9,     9,
        9,     7,     4,     7,     9,     9,     9,     7,     4,     7,
-       7,     4,     7,     7,     4,     5,     7,     7,     7,     7,
-       7,     5,     5,     7,     7,     7,     7,     7,     5,     5,
-       5,     8,    12,    10,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     3,     3,     3,     3,     3,
-       1,     3,     3,     3,     3,     3,     1,     1,     1,     1,
-       1,     1,     1,     1,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     1,     3,     1,     3,     3,     3,
-       3,     1,     1
+       7,     4,     7,     7,     4,     5,     7,     7,     7,     5,
+       7,     7,     7,     7,     7,     5,     5,     5,     8,    12,
+      10,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     3,     3,     3,     3,     3,     1,
+       1,     1,     1,     1,     1,     1,     1,     3,     3,     3,
+       3,     3,     1,     3,     1,     3,     3,     3,     3,     1,
+       1
 };
 
 
@@ -1840,7 +1808,7 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 188 "bison.y"
+#line 189 "bison.y"
                                                                         {
 			if(strcmp((yyvsp[-5].st).s, (yyvsp[-1].st).s) == 0){
 				printf("procedure comienza y termina con el mismo nombre\n");
@@ -1848,34 +1816,34 @@ yyreduce:
 				printf("procedure NO comienza y termina con el mismo nombre\n");
 			}
 		}
-#line 1852 "y.tab.c"
+#line 1820 "y.tab.c"
     break;
 
   case 5:
-#line 199 "bison.y"
+#line 200 "bison.y"
                   {}
-#line 1858 "y.tab.c"
+#line 1826 "y.tab.c"
     break;
 
   case 6:
-#line 200 "bison.y"
+#line 201 "bison.y"
           {}
-#line 1864 "y.tab.c"
+#line 1832 "y.tab.c"
     break;
 
   case 7:
-#line 204 "bison.y"
+#line 205 "bison.y"
         {(yyval.st).s = "Declaracion de variable Integer igual a variable"; 
 	if(searchVar(tabla, size, (yyvsp[-6].st).s) && checkVarAndType(tabla, size, (yyvsp[-1].st).s,"integer")) {
 			insertElement(tabla, &size, retrieveIntFromTable(tabla, size, (yyvsp[-1].st).s), "", 0.0, (yyvsp[-6].st).s, false, &elementosOcupados, "integer", true );
 			(yyval.st).a = assignAST((yyvsp[-1].st).a);
 		} else {yyerror("Variable declared or wrong type");}
 	}
-#line 1875 "y.tab.c"
+#line 1843 "y.tab.c"
     break;
 
   case 8:
-#line 210 "bison.y"
+#line 211 "bison.y"
                                                                                       {
 			(yyval.st).s = "Declaracion de variable Integer igual a variable integer + variable integer"; 
 			if(searchVar(tabla, size, (yyvsp[-8].st).s) && checkVarAndType(tabla, size, (yyvsp[-3].st).s, "integer") && checkVarAndType(tabla, size, (yyvsp[-1].st).s, "integer")) {
@@ -1887,11 +1855,11 @@ yyreduce:
 				(yyval.st).a = assignAST(newast((yyvsp[-2].st).operador, (yyvsp[-3].st).a, (yyvsp[-1].st).a));
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 1891 "y.tab.c"
+#line 1859 "y.tab.c"
     break;
 
   case 9:
-#line 221 "bison.y"
+#line 222 "bison.y"
                                                                                        {
 			(yyval.st).s = "Declaracion de variable Integer igual a variable integer + operacion"; 
 			if(searchVar(tabla, size, (yyvsp[-8].st).s) && checkVarAndType(tabla, size, (yyvsp[-3].st).s, "integer")) {
@@ -1903,11 +1871,11 @@ yyreduce:
 				(yyval.st).a = assignAST(newast((yyvsp[-2].st).operador, (yyvsp[-3].st).a, (yyvsp[-1].st).a));
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 1907 "y.tab.c"
+#line 1875 "y.tab.c"
     break;
 
   case 10:
-#line 232 "bison.y"
+#line 233 "bison.y"
                                                                                        {
 			(yyval.st).s = "Declaracion de variable Integer igual a operacion + variable integer"; 
 			if(searchVar(tabla, size, (yyvsp[-8].st).s) && checkVarAndType(tabla, size, (yyvsp[-3].st).s, "integer")) {
@@ -1919,31 +1887,31 @@ yyreduce:
 				(yyval.st).a = assignAST(newast((yyvsp[-2].st).operador, (yyvsp[-3].st).a, (yyvsp[-1].st).a));
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 1923 "y.tab.c"
+#line 1891 "y.tab.c"
     break;
 
   case 11:
-#line 243 "bison.y"
+#line 244 "bison.y"
                                                                      {
 			(yyval.st).s = "Declaracion de variable Integer igual a operacion aritmetica"; 
 			if (searchVar(tabla, size, (yyvsp[-6].st).s)) {
 				(yyval.st).error = "empty";insertElement(tabla, &size, (yyvsp[-1].st).i, "", 0.0, (yyvsp[-6].st).s, false, &elementosOcupados, "integer", true );(yyval.st).a = assignAST((yyvsp[-1].st).a);} else {(yyval.st).error = "Variable declared or wrong type";}
 	 	}
-#line 1933 "y.tab.c"
+#line 1901 "y.tab.c"
     break;
 
   case 12:
-#line 249 "bison.y"
+#line 250 "bison.y"
                                                {
 		(yyval.st).s = "Declaracion de variable Integer vacia";
 		if (searchVar(tabla, size, (yyvsp[-3].st).s)) {
 				(yyval.st).error = "empty";insertElement(tabla, &size, 0, "", 0.0, (yyvsp[-3].st).s, false, &elementosOcupados, "integer", false );} else {(yyval.st).error = "Variable declared";}
 	}
-#line 1943 "y.tab.c"
+#line 1911 "y.tab.c"
     break;
 
   case 13:
-#line 255 "bison.y"
+#line 256 "bison.y"
                                                                   {
 			{(yyval.st).s = "Declaracion de variable Float igual a variable float"; 
 				if(searchVar(tabla, size, (yyvsp[-6].st).s) && checkVarAndType(tabla, size, (yyvsp[-1].st).s,"float")) {
@@ -1953,11 +1921,11 @@ yyreduce:
 				} else {(yyval.st).error = "Variable declared or wrong type";}
 			}
 		}
-#line 1957 "y.tab.c"
+#line 1925 "y.tab.c"
     break;
 
   case 14:
-#line 264 "bison.y"
+#line 265 "bison.y"
                                                                                     {
 			(yyval.st).s = "Declaracion de variable float igual a variable float + variable float"; 
 			if(searchVar(tabla, size, (yyvsp[-8].st).s) && checkVarAndType(tabla, size, (yyvsp[-3].st).s, "float") && checkVarAndType(tabla, size, (yyvsp[-1].st).s, "float")) {
@@ -1969,61 +1937,70 @@ yyreduce:
 				(yyval.st).a = assignAST(newast((yyvsp[-2].st).operador, (yyvsp[-3].st).a, (yyvsp[-1].st).a));
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 1973 "y.tab.c"
+#line 1941 "y.tab.c"
     break;
 
   case 15:
-#line 275 "bison.y"
-                                                                                      {
+#line 276 "bison.y"
+                                                                                     {
 			(yyval.st).s = "Declaracion de variable float igual a variable float + operacion"; 
-			if(searchVar(tabla, size, (yyvsp[-8].st).s) && checkVarAndType(tabla, size, (yyvsp[-3].st).s, "float")) {
+			if(searchVar(tabla, size, (yyvsp[-8].st).s) && (checkVarAndType(tabla, size, (yyvsp[-3].st).s, "float") || checkVarAndType(tabla, size, (yyvsp[-3].st).s, "integer"))) {
 				(yyval.st).error = "empty";
-				if(strcmp((yyvsp[-2].st).operador, "+") == 0) { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s) + (yyvsp[-1].st).f, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
-				if(strcmp((yyvsp[-2].st).operador, "-") == 0) { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s) - (yyvsp[-1].st).f, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
-				if(strcmp((yyvsp[-2].st).operador, "*") == 0) { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s) * (yyvsp[-1].st).f, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
-				if(strcmp((yyvsp[-2].st).operador, "/") == 0) { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s) / (yyvsp[-1].st).f, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
+				int isFloat = strcmp((yyvsp[-1].st).type, "float");
+				float leftValue = strcmp(getVarType(tabla, size, (yyvsp[-3].st).s), "float") == 0 ? retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s) : (float)retrieveIntFromTable(tabla, size, (yyvsp[-3].st).s);
+				float rightValue = isFloat == 0 ? (yyvsp[-1].st).f : (float)(yyvsp[-1].st).i;
+				if(strcmp((yyvsp[-2].st).operador, "+") == 0) { insertElement(tabla, &size, 0, "", leftValue + rightValue, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
+				if(strcmp((yyvsp[-2].st).operador, "-") == 0) { insertElement(tabla, &size, 0, "", leftValue - rightValue, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
+				if(strcmp((yyvsp[-2].st).operador, "*") == 0) { insertElement(tabla, &size, 0, "", leftValue * rightValue, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
+				if(strcmp((yyvsp[-2].st).operador, "/") == 0) { insertElement(tabla, &size, 0, "", leftValue / rightValue, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
 				(yyval.st).a = assignAST(newast((yyvsp[-2].st).operador, (yyvsp[-3].st).a, (yyvsp[-1].st).a));
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 1989 "y.tab.c"
+#line 1960 "y.tab.c"
     break;
 
   case 16:
-#line 286 "bison.y"
-                                                                                      {
+#line 290 "bison.y"
+                                                                                     {
 			(yyval.st).s = "Declaracion de variable float igual a operacion + variable float"; 
-			if(searchVar(tabla, size, (yyvsp[-8].st).s) && checkVarAndType(tabla, size, (yyvsp[-3].st).s, "float")) {
+			if(searchVar(tabla, size, (yyvsp[-8].st).s) && (checkVarAndType(tabla, size, (yyvsp[-1].st).s, "float") || checkVarAndType(tabla, size, (yyvsp[-1].st).s, "integer"))) {
 				(yyval.st).error = "empty";
-				if(strcmp((yyvsp[-2].st).operador, "+") == 0) { insertElement(tabla, &size, 0, "", (yyvsp[-1].st).f + retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s), (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
-				if(strcmp((yyvsp[-2].st).operador, "-") == 0) { insertElement(tabla, &size, 0, "", (yyvsp[-1].st).f - retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s), (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
-				if(strcmp((yyvsp[-2].st).operador, "*") == 0) { insertElement(tabla, &size, 0, "", (yyvsp[-1].st).f * retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s), (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
-				if(strcmp((yyvsp[-2].st).operador, "/") == 0) { insertElement(tabla, &size, 0, "", (yyvsp[-1].st).f / retrieveFloatFromTable(tabla, size, (yyvsp[-3].st).s), (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
+				int isFloat = strcmp((yyvsp[-3].st).type, "float");
+				float leftValue = isFloat == 0 ? (yyvsp[-3].st).f : (float)(yyvsp[-3].st).i;
+				float rightValue = strcmp(getVarType(tabla, size, (yyvsp[-1].st).s), "float") == 0 ? retrieveFloatFromTable(tabla, size, (yyvsp[-1].st).s) : (float)retrieveIntFromTable(tabla, size, (yyvsp[-1].st).s);
+				printf("left value: %f\n", leftValue);
+				printf("right value: %f\n", rightValue);
+				if(strcmp((yyvsp[-2].st).operador, "+") == 0) { insertElement(tabla, &size, 0, "", leftValue + rightValue, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
+				if(strcmp((yyvsp[-2].st).operador, "-") == 0) { insertElement(tabla, &size, 0, "", leftValue - rightValue, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
+				if(strcmp((yyvsp[-2].st).operador, "*") == 0) { insertElement(tabla, &size, 0, "", leftValue * rightValue, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
+				if(strcmp((yyvsp[-2].st).operador, "/") == 0) { insertElement(tabla, &size, 0, "", leftValue / rightValue, (yyvsp[-8].st).s, false, &elementosOcupados, "float", true ); }
 				(yyval.st).a = assignAST(newast((yyvsp[-2].st).operador, (yyvsp[-3].st).a, (yyvsp[-1].st).a));
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 2005 "y.tab.c"
+#line 1981 "y.tab.c"
     break;
 
   case 17:
-#line 298 "bison.y"
+#line 307 "bison.y"
         {(yyval.st).s = "Declaracion de variable Float igual a operacion aritmetica";
 	if(searchVar(tabla, size, (yyvsp[-6].st).s)) {
-				(yyval.st).error = "empty"; insertElement(tabla, &size, 0, "", (yyvsp[-1].st).f, (yyvsp[-6].st).s, false, &elementosOcupados, "float", true );(yyval.st).a = assignAST((yyvsp[-1].st).a);} else {(yyval.st).error = "Variable declared or wrong type";}}
-#line 2013 "y.tab.c"
+				int isFloat = strcmp((yyvsp[-1].st).type, "float");
+				(yyval.st).error = "empty"; insertElement(tabla, &size, 0, "", isFloat == 0 ? (yyvsp[-1].st).f : (float)(yyvsp[-1].st).i, (yyvsp[-6].st).s, false, &elementosOcupados, "float", true );(yyval.st).a = assignAST((yyvsp[-1].st).a);} else {(yyval.st).error = "Variable declared or wrong type";}}
+#line 1990 "y.tab.c"
     break;
 
   case 18:
-#line 301 "bison.y"
+#line 311 "bison.y"
                                              {
 		(yyval.st).s = "Declaracion de variable float vacia";
 		if (searchVar(tabla, size, (yyvsp[-3].st).s)) {
 				(yyval.st).error = "empty";insertElement(tabla, &size, 0, "", 0.0, (yyvsp[-3].st).s, false, &elementosOcupados, "float", false );} else {(yyval.st).error = "Variable declared";}
 	}
-#line 2023 "y.tab.c"
+#line 2000 "y.tab.c"
     break;
 
   case 19:
-#line 306 "bison.y"
+#line 316 "bison.y"
                                                                     {
 			if(searchVar(tabla, size, (yyvsp[-6].st).s) && checkVarAndType(tabla, size, (yyvsp[-1].st).s, "boolean")) {
 				(yyval.st).error = "empty";
@@ -2032,11 +2009,11 @@ yyreduce:
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 			(yyval.st).s = "Declaracion de variable Boolean a operacion booleana";
 		}
-#line 2036 "y.tab.c"
+#line 2013 "y.tab.c"
     break;
 
   case 20:
-#line 314 "bison.y"
+#line 324 "bison.y"
                                                                       {
 			if(strcmp((yyvsp[-1].st).error,"empty") == 0 ){
 				printf("no errors bool decl with bool op");
@@ -2052,21 +2029,21 @@ yyreduce:
 			
 			(yyval.st).s = "Declaracion de variable Boolean a operacion booleana";
 		}
-#line 2056 "y.tab.c"
+#line 2033 "y.tab.c"
     break;
 
   case 21:
-#line 329 "bison.y"
+#line 339 "bison.y"
                                                {
 			(yyval.st).s = "Declaracion de variable Boolean vacia";
 			if (searchVar(tabla, size, (yyvsp[-3].st).s)) {
 			(yyval.st).error = "empty";insertElement(tabla, &size, 0, "", 0.0, (yyvsp[-3].st).s, false, &elementosOcupados, "boolean", false );} else {(yyval.st).error = "Variable declared";}
 		}
-#line 2066 "y.tab.c"
+#line 2043 "y.tab.c"
     break;
 
   case 22:
-#line 334 "bison.y"
+#line 344 "bison.y"
                                                                    {
 			(yyval.st).s = "Declaracion de variable String igual a variable String"; 
 			if(searchVar(tabla, size, (yyvsp[-6].st).s) && checkVarAndType(tabla, size, (yyvsp[-1].st).s,"string")) {
@@ -2075,31 +2052,31 @@ yyreduce:
 				(yyval.st).a = assignAST((yyvsp[-1].st).a);
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 2079 "y.tab.c"
+#line 2056 "y.tab.c"
     break;
 
   case 23:
-#line 342 "bison.y"
+#line 352 "bison.y"
                                                                  {
 			(yyval.st).s = "Declaracion con string";
 			if(searchVar(tabla, size, (yyvsp[-6].st).s)) {
 				(yyval.st).error = "empty"; insertElement(tabla, &size, 0, (yyvsp[-1].st).s, 0.0, (yyvsp[-6].st).s, false, &elementosOcupados, "string", true );(yyval.st).a = assignAST((yyvsp[-1].st).a);} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 2089 "y.tab.c"
+#line 2066 "y.tab.c"
     break;
 
   case 24:
-#line 347 "bison.y"
+#line 357 "bison.y"
                                               {
 			(yyval.st).s = "Declaracion de variable String vacia";
 			if (searchVar(tabla, size, (yyvsp[-3].st).s)) {
 			(yyval.st).error = "empty";insertElement(tabla, &size, 0, "", 0.0, (yyvsp[-3].st).s, false, &elementosOcupados, "string", false );} else {(yyval.st).error = "Variable declared";}
 		}
-#line 2099 "y.tab.c"
+#line 2076 "y.tab.c"
     break;
 
   case 25:
-#line 352 "bison.y"
+#line 362 "bison.y"
                                                   {
 			(yyval.st).s = "Asignacion de variable a otra variable";
 			if(searchVar(tabla, size, (yyvsp[-4].st).s)) { (yyval.st).error = "Assigning to an undeclared variable"; }
@@ -2119,325 +2096,333 @@ yyreduce:
 				}
 			}
 		}
-#line 2123 "y.tab.c"
+#line 2100 "y.tab.c"
     break;
 
   case 26:
-#line 371 "bison.y"
+#line 381 "bison.y"
                                                                     {
-		
+
 		}
-#line 2131 "y.tab.c"
+#line 2108 "y.tab.c"
     break;
 
   case 27:
-#line 374 "bison.y"
+#line 384 "bison.y"
                                                                      {(yyval.st).s = "Variable igual a Variable operacion con operacion aritmetica";}
-#line 2137 "y.tab.c"
+#line 2114 "y.tab.c"
     break;
 
   case 28:
-#line 375 "bison.y"
-                                                                      {}
-#line 2143 "y.tab.c"
+#line 386 "bison.y"
+                                                                     {}
+#line 2120 "y.tab.c"
     break;
 
   case 29:
-#line 376 "bison.y"
-                                                                     {}
-#line 2149 "y.tab.c"
+#line 388 "bison.y"
+                                                   {}
+#line 2126 "y.tab.c"
     break;
 
   case 30:
-#line 377 "bison.y"
+#line 390 "bison.y"
                                                                       {}
-#line 2155 "y.tab.c"
+#line 2132 "y.tab.c"
     break;
 
   case 31:
-#line 378 "bison.y"
-                                                   {}
-#line 2161 "y.tab.c"
+#line 391 "bison.y"
+                                                                 {}
+#line 2138 "y.tab.c"
     break;
 
   case 32:
-#line 379 "bison.y"
-                                                    {}
-#line 2167 "y.tab.c"
+#line 392 "bison.y"
+                                                                   {}
+#line 2144 "y.tab.c"
     break;
 
   case 33:
-#line 380 "bison.y"
-                                                                      {}
-#line 2173 "y.tab.c"
+#line 393 "bison.y"
+                                                                 {}
+#line 2150 "y.tab.c"
     break;
 
   case 34:
-#line 381 "bison.y"
-                                                                 {}
-#line 2179 "y.tab.c"
+#line 394 "bison.y"
+                                                                   {}
+#line 2156 "y.tab.c"
     break;
 
   case 35:
-#line 382 "bison.y"
-                                                                   {}
-#line 2185 "y.tab.c"
+#line 395 "bison.y"
+                                                    {}
+#line 2162 "y.tab.c"
     break;
 
   case 36:
-#line 383 "bison.y"
-                                                                 {}
-#line 2191 "y.tab.c"
+#line 396 "bison.y"
+                                                     {}
+#line 2168 "y.tab.c"
     break;
 
   case 37:
-#line 384 "bison.y"
-                                                                   {}
-#line 2197 "y.tab.c"
+#line 397 "bison.y"
+                                                {}
+#line 2174 "y.tab.c"
     break;
 
   case 38:
-#line 385 "bison.y"
-                                                    {}
-#line 2203 "y.tab.c"
+#line 399 "bison.y"
+                                                          {}
+#line 2180 "y.tab.c"
     break;
 
   case 39:
-#line 386 "bison.y"
-                                                     {}
-#line 2209 "y.tab.c"
+#line 400 "bison.y"
+                                                                                     {}
+#line 2186 "y.tab.c"
     break;
 
   case 40:
-#line 387 "bison.y"
-                                                {}
-#line 2215 "y.tab.c"
+#line 401 "bison.y"
+                                                                              {}
+#line 2192 "y.tab.c"
     break;
 
   case 41:
-#line 389 "bison.y"
-                                                          {}
-#line 2221 "y.tab.c"
+#line 409 "bison.y"
+                 {printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].st).s, yylineno); if(!(yyvsp[0].st).a){ ;} else {eval(*(yyvsp[0].st).a, &size);};}
+#line 2198 "y.tab.c"
     break;
 
   case 42:
-#line 390 "bison.y"
-                                                                                     {}
-#line 2227 "y.tab.c"
+#line 410 "bison.y"
+                      {printf("%s", "$1.s");}
+#line 2204 "y.tab.c"
     break;
 
   case 43:
-#line 391 "bison.y"
-                                                                              {}
-#line 2233 "y.tab.c"
+#line 411 "bison.y"
+                       {printf("%s", (yyvsp[0].st).s);}
+#line 2210 "y.tab.c"
     break;
 
   case 44:
-#line 399 "bison.y"
-                 {printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].st).s, yylineno); if(!(yyvsp[0].st).a){ ;} else {eval(*(yyvsp[0].st).a, &size);};}
-#line 2239 "y.tab.c"
+#line 412 "bison.y"
+                 {printf("%s", (yyvsp[0].sval));}
+#line 2216 "y.tab.c"
     break;
 
   case 45:
-#line 400 "bison.y"
-                      {printf("%s", "$1.s");}
-#line 2245 "y.tab.c"
+#line 413 "bison.y"
+               {printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].sval), yylineno); }
+#line 2222 "y.tab.c"
     break;
 
   case 46:
-#line 401 "bison.y"
-                       {printf("%s", (yyvsp[0].st).s);}
-#line 2251 "y.tab.c"
+#line 414 "bison.y"
+               {if(strcmp((yyvsp[0].st).error, "empty") == 0){printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].st).s, yylineno); if(!(yyvsp[0].st).a){ ;} else {eval(*(yyvsp[0].st).a, &size);};} else {yyerror((yyvsp[0].st).error);}}
+#line 2228 "y.tab.c"
     break;
 
   case 47:
-#line 402 "bison.y"
-                 {printf("%s", (yyvsp[0].sval));}
-#line 2257 "y.tab.c"
+#line 418 "bison.y"
+             {(yyval.st).operador = "+";}
+#line 2234 "y.tab.c"
     break;
 
   case 48:
-#line 403 "bison.y"
-               {printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].sval), yylineno); }
-#line 2263 "y.tab.c"
+#line 419 "bison.y"
+                {(yyval.st).operador = "-";}
+#line 2240 "y.tab.c"
     break;
 
   case 49:
-#line 404 "bison.y"
-               {if(strcmp((yyvsp[0].st).error, "empty") == 0){printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].st).s, yylineno); if(!(yyvsp[0].st).a){ ;} else {eval(*(yyvsp[0].st).a, &size);};} else {yyerror((yyvsp[0].st).error);}}
-#line 2269 "y.tab.c"
+#line 420 "bison.y"
+                   {(yyval.st).operador = "*";}
+#line 2246 "y.tab.c"
     break;
 
   case 50:
-#line 408 "bison.y"
-             {(yyval.st).operador = "+";}
-#line 2275 "y.tab.c"
+#line 421 "bison.y"
+                 {(yyval.st).operador = "/";}
+#line 2252 "y.tab.c"
     break;
 
   case 51:
-#line 409 "bison.y"
-                {(yyval.st).operador = "-";}
-#line 2281 "y.tab.c"
+#line 425 "bison.y"
+            {(yyval.st).i = (yyvsp[0].eval); (yyval.st).type = "integer"; (yyval.st).error="empty"; (yyval.st).a = createNum((yyvsp[0].eval));}
+#line 2258 "y.tab.c"
     break;
 
   case 52:
-#line 410 "bison.y"
-                   {(yyval.st).operador = "*";}
-#line 2287 "y.tab.c"
+#line 426 "bison.y"
+                      {(yyval.st).f = (yyvsp[0].fval); (yyval.st).type = "float"; (yyval.st).error="empty"; (yyval.st).a = createNum((yyvsp[0].fval));}
+#line 2264 "y.tab.c"
     break;
 
   case 53:
-#line 411 "bison.y"
-                 {(yyval.st).operador = "/";}
-#line 2293 "y.tab.c"
+#line 430 "bison.y"
+                {
+		(yyval.st).type = (yyvsp[0].st).type;
+		(yyval.st).a = (yyvsp[0].st).a;
+		if (strcmp("integer", (yyvsp[0].st).type) == 0) {(yyval.st).i = (yyvsp[0].st).i;} else {(yyval.st).f = (yyvsp[0].st).f;}
+	}
+#line 2274 "y.tab.c"
     break;
 
   case 54:
-#line 415 "bison.y"
-                {(yyval.st).i = (yyvsp[0].st).i; (yyval.st).a = createNum((yyvsp[0].st).i);}
-#line 2299 "y.tab.c"
+#line 435 "bison.y"
+                                        {
+			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
+				printf("float operation\n\n");
+				(yyval.st).f = (yyvsp[-2].st).f + (yyvsp[0].st).f;
+				(yyval.st).type = "float";
+			} else if (strcmp((yyvsp[0].st).type, "float") == 0) {
+				(yyval.st).f = (float)(yyvsp[-2].st).i + (yyvsp[0].st).f;
+				(yyval.st).type = "float";
+			} else if (strcmp((yyvsp[-2].st).type, "float") == 0) {
+				(yyval.st).f = (yyvsp[-2].st).f + (float)(yyvsp[0].st).i;
+				(yyval.st).type = "float";
+			} else {
+				(yyval.st).i = (yyvsp[-2].st).i + (yyvsp[0].st).i;
+				(yyval.st).type = "integer";
+			}
+			(yyval.st).a = newast("+",(yyvsp[-2].st).a,(yyvsp[0].st).a);
+		}
+#line 2296 "y.tab.c"
     break;
 
   case 55:
-#line 416 "bison.y"
-                                        {(yyval.st).i = (yyvsp[-2].st).i + (yyvsp[0].st).i; (yyval.st).a = newast("+",(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 2305 "y.tab.c"
+#line 452 "bison.y"
+                                        {
+			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
+				printf("float operation\n\n");
+				(yyval.st).f = (yyvsp[-2].st).f - (yyvsp[0].st).f;
+				(yyval.st).type = "float";
+			} else if (strcmp((yyvsp[0].st).type, "float") == 0) {
+				(yyval.st).f = (float)(yyvsp[-2].st).i - (yyvsp[0].st).f;
+				(yyval.st).type = "float";
+			} else if (strcmp((yyvsp[-2].st).type, "float") == 0) {
+				(yyval.st).f = (yyvsp[-2].st).f - (float)(yyvsp[0].st).i;
+				(yyval.st).type = "float";
+			} else {
+				(yyval.st).i = (yyvsp[-2].st).i - (yyvsp[0].st).i;
+				(yyval.st).type = "integer";
+			}
+			(yyval.st).a = newast("-",(yyvsp[-2].st).a,(yyvsp[0].st).a);
+		}
+#line 2318 "y.tab.c"
     break;
 
   case 56:
-#line 417 "bison.y"
-                                        {(yyval.st).i = (yyvsp[-2].st).i - (yyvsp[0].st).i; (yyval.st).a = newast("-",(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 2311 "y.tab.c"
+#line 469 "bison.y"
+                                        {
+			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
+				printf("float operation\n\n");
+				(yyval.st).f = (yyvsp[-2].st).f * (yyvsp[0].st).f;
+				(yyval.st).type = "float";
+			} else if (strcmp((yyvsp[0].st).type, "float") == 0) {
+				(yyval.st).f = (float)(yyvsp[-2].st).i * (yyvsp[0].st).f;
+				(yyval.st).type = "float";
+			} else if (strcmp((yyvsp[-2].st).type, "float") == 0) {
+				(yyval.st).f = (yyvsp[-2].st).f * (float)(yyvsp[0].st).i;
+				(yyval.st).type = "float";
+			} else {
+				(yyval.st).i = (yyvsp[-2].st).i * (yyvsp[0].st).i;
+				(yyval.st).type = "integer";
+			}
+			(yyval.st).a = newast("*",(yyvsp[-2].st).a,(yyvsp[0].st).a);
+		}
+#line 2340 "y.tab.c"
     break;
 
   case 57:
-#line 418 "bison.y"
-                                        {(yyval.st).i = (yyvsp[-2].st).i * (yyvsp[0].st).i; (yyval.st).a = newast("*",(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 2317 "y.tab.c"
+#line 486 "bison.y"
+                                        {
+			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
+				printf("float operation\n\n");
+				(yyval.st).f = (yyvsp[-2].st).f / (yyvsp[0].st).f;
+				(yyval.st).type = "float";
+			} else if (strcmp((yyvsp[0].st).type, "float") == 0) {
+				(yyval.st).f = (float)(yyvsp[-2].st).i / (yyvsp[0].st).f;
+				(yyval.st).type = "float";
+			} else if (strcmp((yyvsp[-2].st).type, "float") == 0) {
+				(yyval.st).f = (yyvsp[-2].st).f / (float)(yyvsp[0].st).i;
+				(yyval.st).type = "float";
+			} else {
+				(yyval.st).i = (yyvsp[-2].st).i / (yyvsp[0].st).i;
+				(yyval.st).type = "integer";
+			}
+			(yyval.st).a = newast("/",(yyvsp[-2].st).a,(yyvsp[0].st).a);
+		}
+#line 2362 "y.tab.c"
     break;
 
   case 58:
-#line 419 "bison.y"
-                                        {(yyval.st).i = (yyvsp[-2].st).i / (yyvsp[0].st).i; (yyval.st).a = newast("/",(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 2323 "y.tab.c"
+#line 503 "bison.y"
+                               {if(strcmp((yyvsp[-1].st).type, "float") == 0) {(yyval.st).f = (yyvsp[-1].st).f;} else {(yyval.st).i = (yyvsp[-1].st).i;}}
+#line 2368 "y.tab.c"
     break;
 
   case 59:
-#line 420 "bison.y"
-                               {(yyval.st).i = (yyvsp[-1].st).i;}
-#line 2329 "y.tab.c"
+#line 526 "bison.y"
+                {(yyval.st).s = "IGUAL";(yyval.st).operador = "==";}
+#line 2374 "y.tab.c"
     break;
 
   case 60:
-#line 424 "bison.y"
-              {(yyval.st).f = (yyvsp[0].fval); (yyval.st).a = createNum((yyvsp[0].fval));}
-#line 2335 "y.tab.c"
+#line 527 "bison.y"
+               {(yyval.st).s = "MAYOR";(yyval.st).operador = ">";}
+#line 2380 "y.tab.c"
     break;
 
   case 61:
-#line 425 "bison.y"
-                                                {(yyval.st).f = (yyvsp[-2].st).f + (yyvsp[0].st).f; (yyval.st).a = newast((yyvsp[-1].sval),(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 2341 "y.tab.c"
+#line 528 "bison.y"
+               {(yyval.st).s = "MENOR";(yyval.st).operador = "<";}
+#line 2386 "y.tab.c"
     break;
 
   case 62:
-#line 426 "bison.y"
-                                        {(yyval.st).f = (yyvsp[-2].st).f - (yyvsp[0].st).f; (yyval.st).a = newast((yyvsp[-1].sval),(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 2347 "y.tab.c"
+#line 529 "bison.y"
+                       {(yyval.st).s = "MAYOR IGUAL";(yyval.st).operador = ">=";}
+#line 2392 "y.tab.c"
     break;
 
   case 63:
-#line 427 "bison.y"
-                                                {(yyval.st).f = (yyvsp[-2].st).f * (yyvsp[0].st).f; (yyval.st).a = newast((yyvsp[-1].sval),(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 2353 "y.tab.c"
+#line 530 "bison.y"
+                      {(yyval.st).s = "MENOR IGUAL";(yyval.st).operador = "<=";}
+#line 2398 "y.tab.c"
     break;
 
   case 64:
-#line 428 "bison.y"
-                                        {(yyval.st).f = (yyvsp[-2].st).f / (yyvsp[0].st).f; (yyval.st).a = newast((yyvsp[-1].sval),(yyvsp[-2].st).a,(yyvsp[0].st).a);}
-#line 2359 "y.tab.c"
+#line 531 "bison.y"
+                    {(yyval.st).s = "DESIGUAL";(yyval.st).operador = "!=";}
+#line 2404 "y.tab.c"
     break;
 
   case 65:
-#line 429 "bison.y"
-                                {(yyval.st).f = (yyvsp[-1].st).f;}
-#line 2365 "y.tab.c"
+#line 535 "bison.y"
+             {(yyval.st).boo=1; (yyval.st).a = createBOOLVAR("True");}
+#line 2410 "y.tab.c"
     break;
 
   case 66:
-#line 434 "bison.y"
-                {(yyval.st).s = "IGUAL";(yyval.st).operador = "==";}
-#line 2371 "y.tab.c"
+#line 536 "bison.y"
+                {(yyval.st).boo=0; (yyval.st).a = createBOOLVAR("False");}
+#line 2416 "y.tab.c"
     break;
 
   case 67:
-#line 435 "bison.y"
-               {(yyval.st).s = "MAYOR";(yyval.st).operador = ">";}
-#line 2377 "y.tab.c"
+#line 547 "bison.y"
+                                                                {(yyval.st).s = "INT OP BOOL INT";(yyval.st).error = "empty";(yyval.st).boo = compare((yyvsp[-1].st).operador, (float)(yyvsp[-2].st).i, (float)(yyvsp[0].st).i); (yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a); }
+#line 2422 "y.tab.c"
     break;
 
   case 68:
-#line 436 "bison.y"
-               {(yyval.st).s = "MENOR";(yyval.st).operador = "<";}
-#line 2383 "y.tab.c"
-    break;
-
-  case 69:
-#line 437 "bison.y"
-                       {(yyval.st).s = "MAYOR IGUAL";(yyval.st).operador = ">=";}
-#line 2389 "y.tab.c"
-    break;
-
-  case 70:
-#line 438 "bison.y"
-                      {(yyval.st).s = "MENOR IGUAL";(yyval.st).operador = "<=";}
-#line 2395 "y.tab.c"
-    break;
-
-  case 71:
-#line 439 "bison.y"
-                    {(yyval.st).s = "DESIGUAL";(yyval.st).operador = "!=";}
-#line 2401 "y.tab.c"
-    break;
-
-  case 72:
-#line 443 "bison.y"
-             {(yyval.st).boo=1; (yyval.st).a = createBOOLVAR("True");}
-#line 2407 "y.tab.c"
-    break;
-
-  case 73:
-#line 444 "bison.y"
-                {(yyval.st).boo=0; (yyval.st).a = createBOOLVAR("False");}
-#line 2413 "y.tab.c"
-    break;
-
-  case 74:
-#line 455 "bison.y"
-                                                                {(yyval.st).s = "INT OP BOOL INT";(yyval.st).error = "empty";(yyval.st).boo = compare((yyvsp[-1].st).operador, (float)(yyvsp[-2].st).i, (float)(yyvsp[0].st).i); (yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a); }
-#line 2419 "y.tab.c"
-    break;
-
-  case 75:
-#line 456 "bison.y"
-                                                                        {(yyval.st).s = "INT OP BOOL FLOAT";(yyval.st).error = "empty";(yyval.st).boo = compare((yyvsp[-1].st).operador, (float)(yyvsp[-2].st).i, (yyvsp[0].st).f); (yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a);}
-#line 2425 "y.tab.c"
-    break;
-
-  case 76:
-#line 457 "bison.y"
-                                                                        {(yyval.st).s = "FLOAT OP BOOL INT";(yyval.st).error = "empty";(yyval.st).boo = compare((yyvsp[-1].st).operador, (yyvsp[-2].st).f, (float)(yyvsp[0].st).i); (yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a);}
-#line 2431 "y.tab.c"
-    break;
-
-  case 77:
-#line 458 "bison.y"
-                                                                        {(yyval.st).s = "FLOAT OP BOOL FLOAT"; (yyval.st).error = "empty";(yyval.st).boo = compare((yyvsp[-1].st).operador, (yyvsp[-2].st).f, (yyvsp[0].st).f); (yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a);}
-#line 2437 "y.tab.c"
-    break;
-
-  case 78:
-#line 459 "bison.y"
+#line 551 "bison.y"
                                                                 {
 			(yyval.st).s = "VAR OP BOOL INT";
 			if(!searchVar(tabla, size, (yyvsp[-2].st).s)) {
@@ -2454,11 +2439,11 @@ yyreduce:
 				
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 2458 "y.tab.c"
+#line 2443 "y.tab.c"
     break;
 
-  case 79:
-#line 475 "bison.y"
+  case 69:
+#line 567 "bison.y"
                                                                 {
 			(yyval.st).s = "INT OP BOOL VAR";
 			if(!searchVar(tabla, size, (yyvsp[0].st).s)) {
@@ -2475,53 +2460,11 @@ yyreduce:
 				
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 2479 "y.tab.c"
+#line 2464 "y.tab.c"
     break;
 
-  case 80:
-#line 491 "bison.y"
-                                                                        {
-			(yyval.st).s = "VAR OP BOOL FLOAT";
-			if(!searchVar(tabla, size, (yyvsp[-2].st).s)) {
-				(yyval.st).error = "empty";
-				if(strcmp("integer", getVarType(tabla, size, (yyvsp[-2].st).s)) == 0){
-					(yyval.st).boo = compare((yyvsp[-1].st).operador, (float)retrieveIntFromTable(tabla, size, (yyvsp[-2].st).s), (yyvsp[0].st).f);
-					(yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a);
-				} else if(strcmp("float", getVarType(tabla, size, (yyvsp[-2].st).s))  == 0){
-					(yyval.st).boo = compare((yyvsp[-1].st).operador, retrieveFloatFromTable(tabla, size, (yyvsp[-2].st).s), (yyvsp[0].st).f);
-					(yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a);
-				} else {
-					(yyval.st).error = "Esta variable tiene un tipo incorrecto";
-				}  
-				
-			} else {(yyval.st).error = "Variable declared or wrong type";}
-		}
-#line 2500 "y.tab.c"
-    break;
-
-  case 81:
-#line 507 "bison.y"
-                                                                        {
-			(yyval.st).s = "FLOAT OP BOOL VAR";
-			if(!searchVar(tabla, size, (yyvsp[0].st).s)) {
-				(yyval.st).error = "empty";
-				if(strcmp("integer", getVarType(tabla, size, (yyvsp[0].st).s)) == 0){
-					(yyval.st).boo = compare((yyvsp[-1].st).operador,	(yyvsp[-2].st).f, (float)retrieveIntFromTable(tabla, size, (yyvsp[0].st).s));
-					(yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a);
-				} else if(strcmp("float", getVarType(tabla, size, (yyvsp[-2].st).s))  == 0){
-					(yyval.st).boo = compare((yyvsp[-1].st).operador, (yyvsp[-2].st).f, retrieveFloatFromTable(tabla, size, (yyvsp[0].st).s));
-					(yyval.st).a=newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a);
-				} else {
-					(yyval.st).error = "Esta variable tiene un tipo incorrecto";
-				}  
-				
-			} else {(yyval.st).error = "Variable declared or wrong type";}
-		}
-#line 2521 "y.tab.c"
-    break;
-
-  case 82:
-#line 523 "bison.y"
+  case 70:
+#line 615 "bison.y"
                                                                 {
 			(yyval.st).s = "VAR OP BOOL VAR";
 			if(!searchVar(tabla, size, (yyvsp[-2].st).s) && !searchVar(tabla, size, (yyvsp[0].st).s)) {
@@ -2544,71 +2487,71 @@ yyreduce:
 				
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 2548 "y.tab.c"
+#line 2491 "y.tab.c"
     break;
 
-  case 83:
-#line 545 "bison.y"
+  case 71:
+#line 637 "bison.y"
                                         {(yyval.st).s = "PARENTESIS BOOL PARENTESIS"; (yyval.st).boo = (yyvsp[-1].st).boo;}
-#line 2554 "y.tab.c"
+#line 2497 "y.tab.c"
     break;
 
-  case 84:
-#line 549 "bison.y"
+  case 72:
+#line 641 "bison.y"
                 {(yyval.sval) = "Comentario\n";}
-#line 2560 "y.tab.c"
+#line 2503 "y.tab.c"
     break;
 
-  case 85:
-#line 553 "bison.y"
+  case 73:
+#line 645 "bison.y"
                                 {(yyval.st).s = "IF BOOL THEN";}
-#line 2566 "y.tab.c"
+#line 2509 "y.tab.c"
     break;
 
-  case 86:
-#line 554 "bison.y"
+  case 74:
+#line 646 "bison.y"
                                                 {(yyval.st).s = "ELSE";}
-#line 2572 "y.tab.c"
+#line 2515 "y.tab.c"
     break;
 
-  case 87:
-#line 555 "bison.y"
+  case 75:
+#line 647 "bison.y"
                                 {(yyval.st).s = "ELSEIF BOOL THEN";}
-#line 2578 "y.tab.c"
+#line 2521 "y.tab.c"
     break;
 
-  case 88:
-#line 556 "bison.y"
+  case 76:
+#line 648 "bison.y"
                                         {(yyval.st).s = "END IF SEMICOLON";}
-#line 2584 "y.tab.c"
+#line 2527 "y.tab.c"
     break;
 
-  case 89:
-#line 561 "bison.y"
+  case 77:
+#line 653 "bison.y"
                                {(yyval.sval) = "Bucle while\n";}
-#line 2590 "y.tab.c"
+#line 2533 "y.tab.c"
     break;
 
-  case 90:
-#line 562 "bison.y"
+  case 78:
+#line 654 "bison.y"
                               {(yyval.sval)="Fin de bucle\n";}
-#line 2596 "y.tab.c"
+#line 2539 "y.tab.c"
     break;
 
-  case 91:
-#line 571 "bison.y"
+  case 79:
+#line 663 "bison.y"
             {(yyval.st).s = (yyvsp[0].sval); (yyval.st).a = createSTR((yyvsp[0].sval));}
-#line 2602 "y.tab.c"
+#line 2545 "y.tab.c"
     break;
 
-  case 92:
-#line 575 "bison.y"
+  case 80:
+#line 667 "bison.y"
             {(yyval.st).s = (yyvsp[0].sval); (yyval.st).a = createSTR((yyvsp[0].sval));}
-#line 2608 "y.tab.c"
+#line 2551 "y.tab.c"
     break;
 
 
-#line 2612 "y.tab.c"
+#line 2555 "y.tab.c"
 
       default: break;
     }
@@ -2846,7 +2789,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 580 "bison.y"
+#line 672 "bison.y"
 
 //FUNCIONES DE AST
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r) {

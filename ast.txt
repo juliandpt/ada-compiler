@@ -1,16 +1,14 @@
 
 =
-String
-
-=
-String
-
-=
-<
++
 Constante
 
 Constante
 
 
 =
+-
+Constante
+
 String
+

@@ -1,7 +1,4 @@
 procedure Main is
-
-   variable_string : String := "mostro";
-   variable_string2 : String := "titan";
-   variable_bool : Boolean := 2<1;
-   variable_string2 := variable_string;
+   variable_int: Integer := 3+1;
+   variable_float: Float := 1.2 - variable_int;
 end Main ;
