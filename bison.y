@@ -98,6 +98,8 @@ float retrieveFloatFromTable(struct symb *tabla, int size, char* name);
 char* retrieveStringFromTable(struct symb *tabla, int size, char* name);
 bool retrieveBoolFromTable(struct symb *tabla, int size, char* name);
 char* getVarType(struct symb *tabla, int size, char* name);
+int operateInt(char* operator, int left, int right);
+float operateFloat(char* operator, float left, float right);
 
 bool checkVarAndType(struct symb *tabla, int size, char* name, char* type);
 bool searchVar(struct symb *tabla, int size, char* name);
@@ -134,7 +136,7 @@ void printAST(struct ast nodos[], int i, int encontrado, int salida);
 // TOKENS GENERALES
 %token<sval> PLUS MINUS MULTIPLY DIVIDE // operadores
 %token LEFT RIGHT OPEN CLOSE // parentesis/llaves
-%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR LOOP_ END IF THEN CHAR AND OR ELSE ELSEIF BOOLEAN_MIX PROCEDURE IS// palabras reservadas
+%token WHILE BOOL CASE INTEGERDEC FLOATDEC CHARDEC STRINGDEC BEG STR LOOP_ END IF THEN CHAR AND OR ELSE ELSEIF PROCEDURE IS// palabras reservadas
 %token LESS MORE EQUAL GREATER_THAN LESSER_THAN NOT_EQUAL COMPARE  // operadores logicos
 %token COMMENT COLON SEMICOLON QUOTE //simbolos reservados
 %token NEWLINE QUIT //cosas de flex
@@ -163,9 +165,7 @@ void printAST(struct ast nodos[], int i, int encontrado, int salida);
 %type<st> BOOLEAN_OP
 %type<st> BOOLEAN_OPERATORS
 %type<st> BOOLEAN_MIX
-%type<st> BOOLEAN_VAR
 %type<sval> BEGIN
-%type<st> TRUE FALSE
 
 // statements
 %type<st> IF_COND
@@ -180,6 +180,10 @@ void printAST(struct ast nodos[], int i, int encontrado, int salida);
 
 %type<st> OPERATOR
 %type<st> OPERAND
+
+%type<st> AUXOPER
+%type<st> AUX_BOOLEAN_OP
+%type<st> TYPEDECLARATION
 
 %start PROCLINE
 
@@ -201,118 +205,189 @@ AUXINT: COMMA INT {}
 	| {}
 ;
 
-DECL: VAR_NAME COLON DECLINTEGER COLON EQUAL VAR_NAME SEMICOLON 
-	{$$.s = "Declaracion de variable Integer igual a variable"; 
-	if(searchVar(tabla, size, $1.s) && checkVarAndType(tabla, size, $6.s,"integer")) {
-			insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true );
-			$$.a = assignAST($6.a);
-		} else {yyerror("Variable declared or wrong type");}
-	}
-	| VAR_NAME COLON DECLINTEGER COLON EQUAL VAR_NAME OPERATOR VAR_NAME SEMICOLON {
-			$$.s = "Declaracion de variable Integer igual a variable integer + variable integer"; 
-			if(searchVar(tabla, size, $1.s) && checkVarAndType(tabla, size, $6.s, "integer") && checkVarAndType(tabla, size, $8.s, "integer")) {
-				$$.error = "empty";
-				if(strcmp($7.operador, "+") == 0) { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s) + retrieveIntFromTable(tabla, size, $8.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "-") == 0) { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s) - retrieveIntFromTable(tabla, size, $8.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "*") == 0) { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s) * retrieveIntFromTable(tabla, size, $8.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "/") == 0) { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s) / retrieveIntFromTable(tabla, size, $8.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				$$.a = assignAST(newast($7.operador, $6.a, $8.a));
-			} else {$$.error = "Variable declared or wrong type";}
-		}
-	| VAR_NAME COLON DECLINTEGER COLON EQUAL VAR_NAME OPERATOR OPERATION SEMICOLON {
-			$$.s = "Declaracion de variable Integer igual a variable integer + operacion"; 
-			if(searchVar(tabla, size, $1.s) && checkVarAndType(tabla, size, $6.s, "integer")) {
-				$$.error = "empty";
-				if(strcmp($7.operador, "+") == 0) { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s) + $8.i, "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "-") == 0) { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s) - $8.i, "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "*") == 0) { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s) * $8.i, "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "/") == 0) { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $6.s) / $8.i, "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				$$.a = assignAST(newast($7.operador, $6.a, $8.a));
-			} else {$$.error = "Variable declared or wrong type";}
-		}
-	| VAR_NAME COLON DECLINTEGER COLON EQUAL OPERATION OPERATOR VAR_NAME SEMICOLON {
-			$$.s = "Declaracion de variable Integer igual a operacion + variable integer"; 
-			if(searchVar(tabla, size, $1.s) && checkVarAndType(tabla, size, $6.s, "integer")) {
-				$$.error = "empty";
-				if(strcmp($7.operador, "+") == 0) { insertElement(tabla, &size, $8.i + retrieveIntFromTable(tabla, size, $6.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "-") == 0) { insertElement(tabla, &size, $8.i - retrieveIntFromTable(tabla, size, $6.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "*") == 0) { insertElement(tabla, &size, $8.i * retrieveIntFromTable(tabla, size, $6.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				if(strcmp($7.operador, "/") == 0) { insertElement(tabla, &size, $8.i / retrieveIntFromTable(tabla, size, $6.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true ); }
-				$$.a = assignAST(newast($7.operador, $6.a, $8.a));
-			} else {$$.error = "Variable declared or wrong type";}
-		}
-	| VAR_NAME COLON DECLINTEGER COLON EQUAL OPERATION SEMICOLON {
-			$$.s = "Declaracion de variable Integer igual a operacion aritmetica"; 
-			if (searchVar(tabla, size, $1.s)) {
-				$$.error = "empty";insertElement(tabla, &size, $6.i, "", 0.0, $1.s, false, &elementosOcupados, "integer", true );$$.a = assignAST($6.a);} else {$$.error = "Variable declared or wrong type";}
-	 	}
-
-	| VAR_NAME COLON DECLINTEGER SEMICOLON {
-		$$.s = "Declaracion de variable Integer vacia";
-		if (searchVar(tabla, size, $1.s)) {
-				$$.error = "empty";insertElement(tabla, &size, 0, "", 0.0, $1.s, false, &elementosOcupados, "integer", false );} else {$$.error = "Variable declared";}
-	}
-
-	| VAR_NAME COLON DECLFLOAT COLON EQUAL VAR_NAME SEMICOLON {
-			{$$.s = "Declaracion de variable Float igual a variable float"; 
-				if(searchVar(tabla, size, $1.s) && checkVarAndType(tabla, size, $6.s,"float")) {
-				$$.error = "empty";
-					insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, $6.s), $1.s, false, &elementosOcupados, "float", true );
-					$$.a = assignAST($6.a);
-				} else {$$.error = "Variable declared or wrong type";}
+AUXOPER: 
+	VAR_NAME {
+		if(!searchVar(tabla, size, $1.s)) { 
+			if(strcmp(getVarType(tabla, size, $1.s), "integer")==0) {
+				$$.i = retrieveIntFromTable(tabla, size, $1.s);
+				$$.type = "integer";
+				$$.a = assignAST($1.a);
+			} else if(strcmp(getVarType(tabla, size, $1.s), "float")==0) {
+				$$.f = retrieveFloatFromTable(tabla, size, $1.s);
+				$$.type = "float";
+				$$.a = assignAST($1.a);
+			} else {
+				$$.error = "Variable de tipo incorrecto";
 			}
-		}
-	| VAR_NAME COLON DECLFLOAT COLON EQUAL VAR_NAME OPERATOR VAR_NAME SEMICOLON {
-			$$.s = "Declaracion de variable float igual a variable float + variable float"; 
-			if(searchVar(tabla, size, $1.s) && checkVarAndType(tabla, size, $6.s, "float") && checkVarAndType(tabla, size, $8.s, "float")) {
-				$$.error = "empty";
-				if(strcmp($7.operador, "+") == 0) { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, $6.s) + retrieveFloatFromTable(tabla, size, $8.s), $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "-") == 0) { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, $6.s) - retrieveFloatFromTable(tabla, size, $8.s), $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "*") == 0) { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, $6.s) * retrieveFloatFromTable(tabla, size, $8.s), $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "/") == 0) { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, $6.s) / retrieveFloatFromTable(tabla, size, $8.s), $1.s, false, &elementosOcupados, "float", true ); }
-				$$.a = assignAST(newast($7.operador, $6.a, $8.a));
-			} else {$$.error = "Variable declared or wrong type";}
-		}
-	| VAR_NAME COLON DECLFLOAT COLON EQUAL VAR_NAME OPERATOR OPERATION SEMICOLON {
-			$$.s = "Declaracion de variable float igual a variable float + operacion"; 
-			if(searchVar(tabla, size, $1.s) && (checkVarAndType(tabla, size, $6.s, "float") || checkVarAndType(tabla, size, $6.s, "integer"))) {
-				$$.error = "empty";
-				int isFloat = strcmp($8.type, "float");
-				float leftValue = strcmp(getVarType(tabla, size, $6.s), "float") == 0 ? retrieveFloatFromTable(tabla, size, $6.s) : (float)retrieveIntFromTable(tabla, size, $6.s);
-				float rightValue = isFloat == 0 ? $8.f : (float)$8.i;
-				if(strcmp($7.operador, "+") == 0) { insertElement(tabla, &size, 0, "", leftValue + rightValue, $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "-") == 0) { insertElement(tabla, &size, 0, "", leftValue - rightValue, $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "*") == 0) { insertElement(tabla, &size, 0, "", leftValue * rightValue, $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "/") == 0) { insertElement(tabla, &size, 0, "", leftValue / rightValue, $1.s, false, &elementosOcupados, "float", true ); }
-				$$.a = assignAST(newast($7.operador, $6.a, $8.a));
-			} else {$$.error = "Variable declared or wrong type";}
-		}
-	| VAR_NAME COLON DECLFLOAT COLON EQUAL OPERATION OPERATOR VAR_NAME SEMICOLON {
-			$$.s = "Declaracion de variable float igual a operacion + variable float"; 
-			if(searchVar(tabla, size, $1.s) && (checkVarAndType(tabla, size, $8.s, "float") || checkVarAndType(tabla, size, $8.s, "integer"))) {
-				$$.error = "empty";
-				int isFloat = strcmp($6.type, "float");
-				float leftValue = isFloat == 0 ? $6.f : (float)$6.i;
-				float rightValue = strcmp(getVarType(tabla, size, $8.s), "float") == 0 ? retrieveFloatFromTable(tabla, size, $8.s) : (float)retrieveIntFromTable(tabla, size, $8.s);
-				printf("left value: %f\n", leftValue);
-				printf("right value: %f\n", rightValue);
-				if(strcmp($7.operador, "+") == 0) { insertElement(tabla, &size, 0, "", leftValue + rightValue, $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "-") == 0) { insertElement(tabla, &size, 0, "", leftValue - rightValue, $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "*") == 0) { insertElement(tabla, &size, 0, "", leftValue * rightValue, $1.s, false, &elementosOcupados, "float", true ); }
-				if(strcmp($7.operador, "/") == 0) { insertElement(tabla, &size, 0, "", leftValue / rightValue, $1.s, false, &elementosOcupados, "float", true ); }
-				$$.a = assignAST(newast($7.operador, $6.a, $8.a));
-			} else {$$.error = "Variable declared or wrong type";}
-		}
-	| VAR_NAME COLON DECLFLOAT COLON EQUAL OPERATION SEMICOLON 
-	{$$.s = "Declaracion de variable Float igual a operacion aritmetica";
-	if(searchVar(tabla, size, $1.s)) {
-				int isFloat = strcmp($6.type, "float");
-				$$.error = "empty"; insertElement(tabla, &size, 0, "", isFloat == 0 ? $6.f : (float)$6.i, $1.s, false, &elementosOcupados, "float", true );$$.a = assignAST($6.a);} else {$$.error = "Variable declared or wrong type";}}
-	| VAR_NAME COLON DECLFLOAT SEMICOLON {
-		$$.s = "Declaracion de variable float vacia";
-		if (searchVar(tabla, size, $1.s)) {
-				$$.error = "empty";insertElement(tabla, &size, 0, "", 0.0, $1.s, false, &elementosOcupados, "float", false );} else {$$.error = "Variable declared";}
+			
+		} else {yyerror("Variable not declared");}
+	
 	}
+	| VAR_NAME OPERATOR VAR_NAME {
+		if(!searchVar(tabla, size, $1.s) && !searchVar(tabla, size, $3.s)) { 
+			if(strcmp(getVarType(tabla, size, $1.s), "integer")==0 && strcmp(getVarType(tabla, size, $3.s), "integer")==0) {
+
+				$$.i = operateInt($2.operador, retrieveIntFromTable(tabla, size, $1.s), retrieveIntFromTable(tabla, size, $3.s));
+				$$.type = "integer";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $1.s), "float")==0 && strcmp(getVarType(tabla, size, $3.s), "integer")==0) {
+
+				$$.f = operateFloat($2.operador, retrieveFloatFromTable(tabla, size, $1.s), (float)retrieveIntFromTable(tabla, size, $3.s));
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $1.s), "integer")==0 && strcmp(getVarType(tabla, size, $3.s), "float")==0) {
+				
+				$$.f = operateFloat($2.operador, (float)retrieveIntFromTable(tabla, size, $1.s), retrieveFloatFromTable(tabla, size, $3.s));
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $3.s), "float")==0 && strcmp(getVarType(tabla, size, $3.s), "float")==0) {
+				
+				$$.f = operateFloat($2.operador, retrieveFloatFromTable(tabla, size, $1.s), retrieveFloatFromTable(tabla, size, $3.s));
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else {
+				$$.error = "Variable de tipo incorrecto";
+			}
+			
+		} else {yyerror("Variable not declared");}
+	}
+	| VAR_NAME OPERATOR OPERATION {
+		if(!searchVar(tabla, size, $1.s)) { 
+			if(strcmp(getVarType(tabla, size, $1.s), "integer")==0 && strcmp($3.type, "integer")==0) {
+
+				$$.i = operateInt($2.operador, retrieveIntFromTable(tabla, size, $1.s), $3.i);
+				$$.type = "integer";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $1.s), "float")==0 && strcmp($3.type, "integer")==0) {
+
+				$$.f = operateFloat($2.operador, retrieveFloatFromTable(tabla, size, $1.s), (float)$3.i);
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $1.s), "integer")==0 && strcmp($3.type, "float")==0) {
+				
+				$$.f = operateFloat($2.operador, (float)retrieveIntFromTable(tabla, size, $1.s), $3.f);
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $3.s), "float")==0 && strcmp($3.type, "float")==0) {
+				
+				$$.f = operateFloat($2.operador, retrieveFloatFromTable(tabla, size, $1.s), $3.f);
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else {
+				$$.error = "Variable de tipo incorrecto";
+			}
+			
+		} else {yyerror("Variable not declared");}
+	}
+	| OPERATION OPERATOR VAR_NAME {
+		if(!searchVar(tabla, size, $3.s)) { 
+
+			if(strcmp($1.type, "integer")==0 && strcmp(getVarType(tabla, size, $3.s), "integer")==0) {
+
+				$$.i = operateInt($2.operador, $1.i, retrieveIntFromTable(tabla, size, $3.s));
+				$$.type = "integer";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp($1.type, "float")==0 && strcmp(getVarType(tabla, size, $3.s), "integer")==0) {
+
+				$$.f = operateFloat($2.operador, $1.f, (float)retrieveIntFromTable(tabla, size, $3.s));
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp($1.type, "integer")==0 && strcmp(getVarType(tabla, size, $3.s), "float")==0) {
+				
+				$$.f = operateFloat($2.operador, (float)$1.i, retrieveFloatFromTable(tabla, size, $3.s));
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp($1.type, "float")==0 && strcmp(getVarType(tabla, size, $3.s), "float")==0) {
+				
+				$$.f = operateFloat($2.operador, $1.f, retrieveFloatFromTable(tabla, size, $3.s));
+				$$.type = "float";
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else {
+				$$.error = "Variable de tipo incorrecto";
+			}
+			
+		} else {yyerror("Variable not declared");}
+	}
+	| OPERATION {
+		if(strcmp($1.type, "integer")==0) {
+			$$.i = $1.i;
+			$$.type = "integer";
+			$$.a = assignAST($1.a);
+		} else if(strcmp($1.type, "float")==0) {
+			$$.f = $1.f;
+			$$.type = "float";
+			$$.a = assignAST($1.a);
+		} else {
+			$$.error = "Variable de tipo incorrecto";
+		}
+			
+	}
+;
+
+TYPEDECLARATION: 
+	DECLINTEGER {
+		$$.type = "integer";
+	}
+	| DECLFLOAT {
+		$$.type = "float";
+	}
+;
+
+
+DECL: 
+	VAR_NAME COLON TYPEDECLARATION COLON EQUAL AUXOPER SEMICOLON {
+		$$.s = "Declaracion de variable Integer o Float";
+		if(strcmp($6.error, "empty")==0){
+			$$.error = $6.error;
+			if(strcmp($3.type, "integer")==0 && strcmp($6.type, "integer")==0){
+				insertElement(tabla, &size, $6.i, "", 0.0, $1.s, false, &elementosOcupados, "integer", true );
+				$$.a = $6.a;
+			} else if(strcmp($3.type, "float")==0 && strcmp($6.type, "float")==0){
+				insertElement(tabla, &size, 0, "", $6.f, $1.s, false, &elementosOcupados, "float", true );
+				$$.a = $6.a;
+			} else if(strcmp($3.type, "float")==0 && strcmp($6.type, "integer")==0){
+				insertElement(tabla, &size, 0, "", (float)$6.i, $1.s, false, &elementosOcupados, "float", true );
+				$$.a = $6.a;
+			} else {
+				$$.error = "Error diferente tipo de variable (int, float)";
+			}
+
+		} else {
+			$$.error = $6.error;
+		}
+		
+	}
+
+	| VAR_NAME COLON TYPEDECLARATION SEMICOLON {
+		$$.s = "Declaracion de variable Integer o Float vacia";
+		if(strcmp($3.type, "integer")==0){
+			if (searchVar(tabla, size, $1.s)) {
+				$$.error = "empty";insertElement(tabla, &size, 0, "", 0.0, $1.s, false, &elementosOcupados, "integer", false );
+			} else {
+				$$.error = "Variable already declared";
+			}
+		} else if(strcmp($3.type, "float")==0){ 
+			if (searchVar(tabla, size, $1.s)) {
+				$$.error = "empty";insertElement(tabla, &size, 0, "", 0.0, $1.s, false, &elementosOcupados, "float", false );
+			} else {
+				$$.error = "Variable already declared";
+			}	
+		}
+	}
+
+
 	| VAR_NAME COLON DECLBOOLEAN COLON EQUAL VAR_NAME SEMICOLON {
 			if(searchVar(tabla, size, $1.s) && checkVarAndType(tabla, size, $6.s, "boolean")) {
 				$$.error = "empty";
@@ -321,7 +396,7 @@ DECL: VAR_NAME COLON DECLINTEGER COLON EQUAL VAR_NAME SEMICOLON
 			} else {$$.error = "Variable declared or wrong type";}
 			$$.s = "Declaracion de variable Boolean a operacion booleana";
 		}
-	| VAR_NAME COLON DECLBOOLEAN COLON EQUAL BOOLEAN_OP SEMICOLON {
+	| VAR_NAME COLON DECLBOOLEAN COLON EQUAL AUX_BOOLEAN_OP SEMICOLON {
 			if(strcmp($6.error,"empty") == 0 ){
 				printf("no errors bool decl with bool op");
 				if(searchVar(tabla, size, $1.s)) {
@@ -336,6 +411,15 @@ DECL: VAR_NAME COLON DECLINTEGER COLON EQUAL VAR_NAME SEMICOLON
 			
 			$$.s = "Declaracion de variable Boolean a operacion booleana";
 		}
+
+	| VAR_NAME COLON EQUAL   SEMICOLON	{
+		//NO IMPLEMENTADO variable_int1 := variable_int1 + 1;
+		// SE PUEDEN USAR TODAS LAS GRAMÁTICAS EXTRAS QUE HE CREADO AUXILIARES
+		// UNA QUE ENVUELVA TODAS
+		
+	}
+
+
 	| VAR_NAME COLON DECLBOOLEAN SEMICOLON {
 			$$.s = "Declaracion de variable Boolean vacia";
 			if (searchVar(tabla, size, $1.s)) {
@@ -359,55 +443,11 @@ DECL: VAR_NAME COLON DECLINTEGER COLON EQUAL VAR_NAME SEMICOLON
 			if (searchVar(tabla, size, $1.s)) {
 			$$.error = "empty";insertElement(tabla, &size, 0, "", 0.0, $1.s, false, &elementosOcupados, "string", false );} else {$$.error = "Variable declared";}
 		}
-	| VAR_NAME COLON EQUAL VAR_NAME SEMICOLON {
-			$$.s = "Asignacion de variable a otra variable";
-			if(searchVar(tabla, size, $1.s)) { $$.error = "Assigning to an undeclared variable"; }
-			else if(searchVar(tabla, size, $4.s)) {$$.error = "Assigning undeclared variable to existing variable";}
-			else if(!searchVar(tabla, size, $1.s) && !searchVar(tabla, size, $4.s)) {
-				char* firstVarType = getVarType(tabla, size, $1.s);
-				char* secondVarType = getVarType(tabla, size, $4.s);
-				if(strcmp(firstVarType, secondVarType) == 0) {
-					$$.error = "empty";
-					if (firstVarType == "integer") { insertElement(tabla, &size, retrieveIntFromTable(tabla, size, $4.s), "", 0.0, $1.s, false, &elementosOcupados, "integer", true); }
-					else if (firstVarType == "float") { insertElement(tabla, &size, 0, "", retrieveFloatFromTable(tabla, size, $4.s), $1.s, false, &elementosOcupados, "float", true); }
-					else if (firstVarType == "string") { insertElement(tabla, &size, 0, retrieveStringFromTable(tabla, size, $4.s), 0.0, $1.s, false, &elementosOcupados, "string", true); }
-					else if (firstVarType == "boolean") { insertElement(tabla, &size, 0, "", 0.0, $1.s, retrieveBoolFromTable(tabla, size, $4.s), &elementosOcupados, "boolean", true); }
-					$$.a = assignAST($4.a);
-				} else {
-					$$.error = "Uncompatible types";
-				}
-			}
-		} 
-	| VAR_NAME COLON EQUAL VAR_NAME OPERATOR VAR_NAME SEMICOLON {
-
-		}
-	| VAR_NAME COLON EQUAL VAR_NAME OPERATOR OPERATION SEMICOLON {$$.s = "Variable igual a Variable operacion con operacion aritmetica";}
-	//| VAR_NAME COLON EQUAL VAR_NAME OPERATOR OPERATION2 SEMICOLON {}
-	| VAR_NAME COLON EQUAL OPERATION OPERATOR VAR_NAME SEMICOLON {}
-	//| VAR_NAME COLON EQUAL OPERATION2 OPERATOR VAR_NAME SEMICOLON {}
-	| VAR_NAME COLON EQUAL OPERATION SEMICOLON {}
-	//| VAR_NAME COLON EQUAL OPERATION2 SEMICOLON {}
-	| VAR_NAME COLON EQUAL VAR_NAME BOOLEAN_OP VAR_NAME SEMICOLON {}
-	| VAR_NAME COLON EQUAL VAR_NAME BOOLEAN_OP INT SEMICOLON {}
-	| VAR_NAME COLON EQUAL VAR_NAME BOOLEAN_OP FLOAT SEMICOLON {}
-	| VAR_NAME COLON EQUAL INT BOOLEAN_OP VAR_NAME SEMICOLON {}
-	| VAR_NAME COLON EQUAL FLOAT BOOLEAN_OP VAR_NAME SEMICOLON {}
-	| VAR_NAME COLON EQUAL BOOLEAN_OP SEMICOLON {}
-	| VAR_NAME COLON EQUAL BOOLEAN_VAR SEMICOLON {}
-	| VAR_NAME COLON EQUAL STRING SEMICOLON {}
-
-	| TYPE VAR_NAME IS RANGE INT DOTDOT INT SEMICOLON {}
-	| TYPE VAR_NAME IS DECLARRAY LEFT INT DOTDOT INT RIGHT OF VAR_NAME SEMICOLON {}
-	| VAR_NAME COLON VAR_NAME COLON EQUAL LEFT INT AUXINT RIGHT SEMICOLON {}
-
-	// variable : Integer ;
-	// variable := 3 + 3 ;
-	// variable : Integer := 3 + 3 ;
 ;
 
 CONTENT: 
 	IF_COND  {printf("Contenido: %s\t Linea: %d\n", $1.s, yylineno); if(!$1.a){ ;} else {eval(*$1.a, &size);};}
-	| BOOLEAN_OP  {printf("%s", "$1.s");}
+	| BOOLEAN_OP  {printf("%s", $1.s);}
 	| BOOLEAN_MIX  {printf("%s", $1.s);}
 	| WLOOP  {printf("%s", $1);}
 	| COM  {printf("Contenido: %s\t Linea: %d\n", $1, yylineno); }
@@ -501,6 +541,7 @@ OPERATION:
 			$$.a = newast("/",$1.a,$3.a);
 		}
 	| LEFT OPERATION RIGHT {if(strcmp($2.type, "float") == 0) {$$.f = $2.f;} else {$$.i = $2.i;}}
+;
 
 // Expresiones booleanas
 BOOLEAN_OPERATORS:
@@ -511,88 +552,120 @@ BOOLEAN_OPERATORS:
 	| LESSER_THAN {$$.s = "MENOR IGUAL";$$.operador = "<=";}
 	| NOT_EQUAL {$$.s = "DESIGUAL";$$.operador = "!=";}
 ;
-// VARIABLES BOOLEANAS
-BOOLEAN_VAR:
-	TRUE {$$.boo=1; $$.a = createBOOLVAR("True");}
-	| FALSE {$$.boo=0; $$.a = createBOOLVAR("False");}
+
+AUX_BOOLEAN_OP: 
+	BOOLEAN_MIX {$$ = $1;}
+	| BOOLEAN_OP {$$ = $1;}
 ;
-/*
+
 // Operaciones booleanas con and y or
 BOOLEAN_MIX:
-	BOOLEAN_OP AND BOOLEAN_OP {$$="Expresiones booleanas con AND\n";}
-	BOOLEAN_OP OR BOOLEAN_OP {$$="Expresiones booleanas con OR\n";}
+	BOOLEAN_OP AND BOOLEAN_OP {
+		$$.s="Expresiones booleanas con AND\n";
+		$$.error = "empty";
+		if($1.boo == $3.boo){
+			$$.boo = 1;
+		} else {
+			$$.boo = 0;
+		}
+	}
+	| BOOLEAN_OP OR BOOLEAN_OP {
+		$$.s="Expresiones booleanas con OR\n";
+		$$.error = "empty";
+		if($1.boo == 1 || $3.boo == 1){
+			$$.boo = 1;
+		} else {
+			$$.boo = 0;
+		}
+	}
 ;
-*/
+
 // Operaciones booleanas
 BOOLEAN_OP:
-	OPERATION BOOLEAN_OPERATORS OPERATION 			{$$.s = "INT OP BOOL INT";$$.error = "empty";$$.boo = compare($2.operador, (float)$1.i, (float)$3.i); $$.a=newast($2.operador, $1.a, $3.a); }
-	//| OPERATION BOOLEAN_OPERATORS OPERATION2 			{$$.s = "INT OP BOOL FLOAT";$$.error = "empty";$$.boo = compare($2.operador, (float)$1.i, $3.f); $$.a=newast($2.operador, $1.a, $3.a);}
-	//| OPERATION2 BOOLEAN_OPERATORS OPERATION 			{$$.s = "FLOAT OP BOOL INT";$$.error = "empty";$$.boo = compare($2.operador, $1.f, (float)$3.i); $$.a=newast($2.operador, $1.a, $3.a);}
-	//| OPERATION2 BOOLEAN_OPERATORS OPERATION2 			{$$.s = "FLOAT OP BOOL FLOAT"; $$.error = "empty";$$.boo = compare($2.operador, $1.f, $3.f); $$.a=newast($2.operador, $1.a, $3.a);}
+	OPERATION BOOLEAN_OPERATORS OPERATION 			{
+		$$.s = "INT OP BOOL INT";
+		$$.error = "empty";
+		if(strcmp($1.type, "integer")==0 && strcmp($3.type, "integer")==0){	
+			$$.boo = compare($2.operador, (float)$1.i, (float)$3.i);
+			$$.a = newast($2.operador, $1.a, $3.a); 
+		} else if(strcmp($3.type, "integer")==0){	
+			$$.boo = compare($2.operador, $1.f, (float)$3.i);
+			$$.a = newast($2.operador, $1.a, $3.a); 
+		} else if(strcmp($1.type, "integer")==0){	
+			$$.boo = compare($2.operador, (float)$1.i, $3.f);
+			$$.a = newast($2.operador, $1.a, $3.a); 
+		} else {	
+			$$.boo = compare($2.operador, $1.f, $3.f);
+			$$.a = newast($2.operador, $1.a, $3.a); 
+		}  
+	}
+
 	| VAR_NAME BOOLEAN_OPERATORS OPERATION 			{
-			$$.s = "VAR OP BOOL INT";
-			if(!searchVar(tabla, size, $1.s)) {
-				$$.error = "empty";
-				if(strcmp("integer", getVarType(tabla, size, $1.s)) == 0){
-					$$.boo = compare($2.operador, (float)retrieveIntFromTable(tabla, size, $1.s), (float)$3.i);
-					$$.a=newast($2.operador, $1.a, $3.a);
-				} else if(strcmp("float", getVarType(tabla, size, $1.s))  == 0){
-					$$.boo = compare($2.operador, retrieveFloatFromTable(tabla, size, $1.s), (float)$3.i);
-					$$.a=newast($2.operador, $1.a, $3.a);
-				} else {
-					$$.error = "Esta variable tiene un tipo incorrecto";
-				}  
+
+		$$.s = "VAR OP BOOL INT";
+		if(!searchVar(tabla, size, $1.s)) { 
+			$$.error = "empty";
+			if(strcmp(getVarType(tabla, size, $1.s), "integer")==0 && strcmp($3.type, "integer")==0) {
+
+				$$.boo = compare($2.operador, (float)retrieveIntFromTable(tabla, size, $1.s), (float)$3.i);
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $1.s), "float")==0 && strcmp($3.type, "integer")==0) {
+
+				$$.boo = compare($2.operador, retrieveFloatFromTable(tabla, size, $1.s), (float)$3.i);
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $1.s), "integer")==0 && strcmp($3.type, "float")==0) {
 				
-			} else {$$.error = "Variable declared or wrong type";}
+				$$.boo = compare($2.operador, (float)retrieveIntFromTable(tabla, size, $1.s), $3.f);
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else if(strcmp(getVarType(tabla, size, $1.s), "float")==0 && strcmp($3.type, "float")==0) {
+				
+				$$.boo = compare($2.operador, retrieveFloatFromTable(tabla, size, $1.s), $3.f);
+				$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+			} else {
+				$$.error = "Variable de tipo incorrecto";
+			}
+			
+		} else {yyerror("Variable not declared");}
+
 		}
+
 	| OPERATION BOOLEAN_OPERATORS VAR_NAME 			{
 			$$.s = "INT OP BOOL VAR";
-			if(!searchVar(tabla, size, $3.s)) {
+			if(!searchVar(tabla, size, $3.s)) { 
 				$$.error = "empty";
-				if(strcmp("integer", getVarType(tabla, size, $3.s)) == 0){
+				if(strcmp($1.type, "integer")==0 && strcmp(getVarType(tabla, size, $3.s), "integer")==0) {
+
 					$$.boo = compare($2.operador, (float)$1.i, (float)retrieveIntFromTable(tabla, size, $3.s));
-					$$.a=newast($2.operador, $1.a, $3.a);
-				} else if(strcmp("float", getVarType(tabla, size, $1.s))  == 0){
+					$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+				} else if(strcmp($1.type, "float")==0 && strcmp(getVarType(tabla, size, $3.s), "integer")==0) {
+					printf("holaa");
+					$$.boo = compare($2.operador, $1.f, (float)retrieveIntFromTable(tabla, size, $3.s));
+					$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+				} else if(strcmp($1.type, "integer")==0 && strcmp(getVarType(tabla, size, $3.s), "float")==0) {
+					
 					$$.boo = compare($2.operador, (float)$1.i, retrieveFloatFromTable(tabla, size, $3.s));
-					$$.a=newast($2.operador, $1.a, $3.a);
+					$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
+				} else if(strcmp($1.type, "float")==0 && strcmp(getVarType(tabla, size, $3.s), "float")==0) {
+					
+					$$.boo = compare($2.operador, $1.f, retrieveFloatFromTable(tabla, size, $3.s));
+					$$.a = assignAST(newast($2.operador, $1.a, $3.a));
+
 				} else {
-					$$.error = "Esta variable tiene un tipo incorrecto";
-				}  
-				
-			} else {$$.error = "Variable declared or wrong type";}
+					$$.error = "Variable de tipo incorrecto";
+				}
+			
+			} else {
+				yyerror("Variable not declared");
+			}
 		}
-	// | VAR_NAME BOOLEAN_OPERATORS OPERATION2 			{
-	// 		$$.s = "VAR OP BOOL FLOAT";
-	// 		if(!searchVar(tabla, size, $1.s)) {
-	// 			$$.error = "empty";
-	// 			if(strcmp("integer", getVarType(tabla, size, $1.s)) == 0){
-	// 				$$.boo = compare($2.operador, (float)retrieveIntFromTable(tabla, size, $1.s), $3.f);
-	// 				$$.a=newast($2.operador, $1.a, $3.a);
-	// 			} else if(strcmp("float", getVarType(tabla, size, $1.s))  == 0){
-	// 				$$.boo = compare($2.operador, retrieveFloatFromTable(tabla, size, $1.s), $3.f);
-	// 				$$.a=newast($2.operador, $1.a, $3.a);
-	// 			} else {
-	// 				$$.error = "Esta variable tiene un tipo incorrecto";
-	// 			}  
-				
-	// 		} else {$$.error = "Variable declared or wrong type";}
-	// 	}
-	// | OPERATION2 BOOLEAN_OPERATORS VAR_NAME 			{
-	// 		$$.s = "FLOAT OP BOOL VAR";
-	// 		if(!searchVar(tabla, size, $3.s)) {
-	// 			$$.error = "empty";
-	// 			if(strcmp("integer", getVarType(tabla, size, $3.s)) == 0){
-	// 				$$.boo = compare($2.operador,	$1.f, (float)retrieveIntFromTable(tabla, size, $3.s));
-	// 				$$.a=newast($2.operador, $1.a, $3.a);
-	// 			} else if(strcmp("float", getVarType(tabla, size, $1.s))  == 0){
-	// 				$$.boo = compare($2.operador, $1.f, retrieveFloatFromTable(tabla, size, $3.s));
-	// 				$$.a=newast($2.operador, $1.a, $3.a);
-	// 			} else {
-	// 				$$.error = "Esta variable tiene un tipo incorrecto";
-	// 			}  
-				
-	// 		} else {$$.error = "Variable declared or wrong type";}
-	// 	}
+
 	| VAR_NAME BOOLEAN_OPERATORS VAR_NAME 			{
 			$$.s = "VAR OP BOOL VAR";
 			if(!searchVar(tabla, size, $1.s) && !searchVar(tabla, size, $3.s)) {
@@ -616,6 +689,20 @@ BOOLEAN_OP:
 			} else {$$.error = "Variable declared or wrong type";}
 		}
 	| LEFT BOOLEAN_OP RIGHT 	{$$.s = "PARENTESIS BOOL PARENTESIS"; $$.boo = $2.boo;}
+	| VAR_NAME {
+		$$.s = "PARENTESIS BOOL PARENTESIS";
+		if(!searchVar(tabla, size, $1.s)){
+			if(strcmp("boolean", getVarType(tabla, size, $1.s)) == 0){
+				$$.boo = retrieveBoolFromTable(tabla, size, $1.s);
+			} else {
+				$$.error = "La variable no es un boolean";
+			}
+		} else {
+			$$.error = "variable no declarada";
+		}
+	}
+	| TRUE {$$.boo=1; $$.a = createBOOLVAR("True");}
+	| FALSE {$$.boo=0; $$.a = createBOOLVAR("False");}
 ;
 
 COM:
@@ -623,9 +710,9 @@ COM:
 ;
 
 IF_COND: 
-	IF BOOLEAN_OP THEN	{$$.s = "IF BOOL THEN";}
+	IF AUX_BOOLEAN_OP THEN	{$$.s = "IF BOOL THEN";}
 	| ELSE  				{$$.s = "ELSE";}
-    | ELSEIF BOOLEAN_OP THEN  	{$$.s = "ELSEIF BOOL THEN";}
+    | ELSEIF AUX_BOOLEAN_OP THEN  	{$$.s = "ELSEIF BOOL THEN";}
 	| END IF SEMICOLON 		{$$.s = "END IF SEMICOLON";}
 
 ;
@@ -928,6 +1015,8 @@ void insertElement(struct symb *tabla, int *size, int valor, char* svalor, float
 int compare(char* operator, float left, float right) {
 	printf("left: %f\n", left);
 	printf("right: %f\n", right);
+	printf("operator: %s\n", operator);
+	
 	if(strcmp(operator,">") == 0){
 		return left > right ? 1 : 0;
 	} else if(strcmp(operator,"<") == 0){
@@ -956,6 +1045,7 @@ char* getVarType(struct symb *tabla, int size, char* name) {
 	}
 }
 
+// devuelve false si encuentra la variable
 bool searchVar(struct symb *tabla, int size, char* name) {
 	int elementIndex = -1;
 	for(int i = 0; i < size; i++) {
@@ -1043,6 +1133,30 @@ bool retrieveBoolFromTable(struct symb *tabla, int size, char* name) {
 
 	return tabla[elementIndex].vbool;
 }
+int operateInt(char* operator, int left, int right){
+	if(strcmp(operator, "+")==0){
+		return left + right;
+	} else if(strcmp(operator, "-")==0){
+		return left - right;
+	} else if(strcmp(operator, "*")==0){
+		return left * right;
+	} else if(strcmp(operator, "/")==0){
+		return left / right;
+	}
+}
+
+float operateFloat(char* operator, float left, float right){
+	if(strcmp(operator, "+")==0){
+		return left + right;
+	} else if(strcmp(operator, "-")==0){
+		return left - right;
+	} else if(strcmp(operator, "*")==0){
+		return left * right;
+	} else if(strcmp(operator, "/")==0){
+		return left / right;
+	}
+}
+
 
 void write_file(char *filename, char *content) {
     FILE *file;

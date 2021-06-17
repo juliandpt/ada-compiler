@@ -77,39 +77,38 @@ extern int yydebug;
     OR = 283,
     ELSE = 284,
     ELSEIF = 285,
-    BOOLEAN_MIX = 286,
-    PROCEDURE = 287,
-    IS = 288,
-    LESS = 289,
-    MORE = 290,
-    EQUAL = 291,
-    GREATER_THAN = 292,
-    LESSER_THAN = 293,
-    NOT_EQUAL = 294,
-    COMPARE = 295,
-    COMMENT = 296,
-    COLON = 297,
-    SEMICOLON = 298,
-    QUOTE = 299,
-    NEWLINE = 300,
-    QUIT = 301,
-    TRUE = 302,
-    FALSE = 303,
-    TYPE = 304,
-    RANGE = 305,
-    DOTDOT = 306,
-    OF = 307,
-    COMMA = 308,
-    WHEN = 309,
-    FOR = 310,
-    OTHERS = 311,
-    ARROW = 312,
-    VAR = 313,
-    DECLINTEGER = 314,
-    DECLFLOAT = 315,
-    DECLBOOLEAN = 316,
-    DECLARRAY = 317,
-    DECLSTRING = 318
+    PROCEDURE = 286,
+    IS = 287,
+    LESS = 288,
+    MORE = 289,
+    EQUAL = 290,
+    GREATER_THAN = 291,
+    LESSER_THAN = 292,
+    NOT_EQUAL = 293,
+    COMPARE = 294,
+    COMMENT = 295,
+    COLON = 296,
+    SEMICOLON = 297,
+    QUOTE = 298,
+    NEWLINE = 299,
+    QUIT = 300,
+    TRUE = 301,
+    FALSE = 302,
+    TYPE = 303,
+    RANGE = 304,
+    DOTDOT = 305,
+    OF = 306,
+    COMMA = 307,
+    WHEN = 308,
+    FOR = 309,
+    OTHERS = 310,
+    ARROW = 311,
+    VAR = 312,
+    DECLINTEGER = 313,
+    DECLFLOAT = 314,
+    DECLBOOLEAN = 315,
+    DECLARRAY = 316,
+    DECLSTRING = 317
   };
 #endif
 /* Tokens.  */
@@ -141,45 +140,44 @@ extern int yydebug;
 #define OR 283
 #define ELSE 284
 #define ELSEIF 285
-#define BOOLEAN_MIX 286
-#define PROCEDURE 287
-#define IS 288
-#define LESS 289
-#define MORE 290
-#define EQUAL 291
-#define GREATER_THAN 292
-#define LESSER_THAN 293
-#define NOT_EQUAL 294
-#define COMPARE 295
-#define COMMENT 296
-#define COLON 297
-#define SEMICOLON 298
-#define QUOTE 299
-#define NEWLINE 300
-#define QUIT 301
-#define TRUE 302
-#define FALSE 303
-#define TYPE 304
-#define RANGE 305
-#define DOTDOT 306
-#define OF 307
-#define COMMA 308
-#define WHEN 309
-#define FOR 310
-#define OTHERS 311
-#define ARROW 312
-#define VAR 313
-#define DECLINTEGER 314
-#define DECLFLOAT 315
-#define DECLBOOLEAN 316
-#define DECLARRAY 317
-#define DECLSTRING 318
+#define PROCEDURE 286
+#define IS 287
+#define LESS 288
+#define MORE 289
+#define EQUAL 290
+#define GREATER_THAN 291
+#define LESSER_THAN 292
+#define NOT_EQUAL 293
+#define COMPARE 294
+#define COMMENT 295
+#define COLON 296
+#define SEMICOLON 297
+#define QUOTE 298
+#define NEWLINE 299
+#define QUIT 300
+#define TRUE 301
+#define FALSE 302
+#define TYPE 303
+#define RANGE 304
+#define DOTDOT 305
+#define OF 306
+#define COMMA 307
+#define WHEN 308
+#define FOR 309
+#define OTHERS 310
+#define ARROW 311
+#define VAR 312
+#define DECLINTEGER 313
+#define DECLFLOAT 314
+#define DECLBOOLEAN 315
+#define DECLARRAY 316
+#define DECLSTRING 317
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 111 "bison.y"
+#line 113 "bison.y"
 
 	int eval;
 	float fval;
@@ -201,7 +199,7 @@ union YYSTYPE
 		int boo;
 	}st;
 
-#line 205 "y.tab.h"
+#line 203 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
