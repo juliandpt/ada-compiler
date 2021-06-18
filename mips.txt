@@ -1,0 +1,14 @@
+.data
+variable_string: .ascii \"holi"\
+variable_int1: .word 4
+variable_float1: .float 1.800000
+variable_bool: .byte 0
+.text
+lw $s0,variable_string
+lw $s1,variable_int1
+lw $s2,variable_float1
+li $t0, 2.000000
+move $s2, $t0
+lw $s3,variable_bool
+li $t1, 8
+move $s1, $t1

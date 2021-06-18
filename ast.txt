@@ -15,6 +15,11 @@ Constante
 =
 
 =
+Constante
+
+=
+
+=
 ==
 Constante
 
@@ -22,13 +27,7 @@ String
 
 
 =
-
-=
-<
 String
-
-Constante
-
 
 =
 

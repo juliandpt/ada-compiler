@@ -1,10 +1,11 @@
 procedure Main is
 
    variable_string : String := "holi";
-   variable_int1 : Integer := 2 + 22 ;
+   variable_int1 : Integer := 2 + 2 ;
    variable_float1 : Float := 1.8;
+   variable_float1 := 2.0;
    variable_bool : Boolean :=  1.8 == variable_float1 ;
-   variable_bool2 : Boolean :=  variable_int1 < 25 ;
+   variable_bool2 : Boolean :=  variable_bool ;
 
 
    if variable_float1 > 0.0 and variable_bool then

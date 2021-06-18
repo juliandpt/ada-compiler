@@ -73,6 +73,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include "mips.c"
 
 extern int yylex();
 extern int yyparse();
@@ -178,7 +179,7 @@ int compare(char* operator, float left, float right);
 void eval(struct ast a, int* size);
 void printAST(struct ast nodos[], int i, int encontrado, int salida);
 
-#line 182 "y.tab.c"
+#line 183 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -355,7 +356,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 113 "bison.y"
+#line 114 "bison.y"
 
 	int eval;
 	float fval;
@@ -377,7 +378,7 @@ union YYSTYPE
 		int boo;
 	}st;
 
-#line 381 "y.tab.c"
+#line 382 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -816,16 +817,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   198
+#define YYLAST   173
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  63
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  20
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  67
+#define YYNRULES  64
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  122
+#define YYNSTATES  112
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   317
@@ -880,13 +881,13 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   194,   194,   203,   203,   210,   229,   265,   301,   338,
-     357,   360,   367,   390,   410,   418,   433,   504,   513,   523,
-     532,   540,   541,   545,   546,   547,   548,   549,   550,   554,
-     555,   556,   557,   561,   562,   566,   571,   587,   603,   619,
-     635,   640,   641,   642,   643,   644,   645,   649,   650,   655,
-     664,   677,   695,   729,   762,   784,   785,   797,   798,   802,
-     806,   807,   808,   809,   814,   815,   824,   828
+       0,   195,   195,   204,   204,   211,   230,   266,   302,   339,
+     358,   361,   368,   393,   413,   421,   436,   512,   521,   531,
+     543,   551,   552,   556,   557,   558,   559,   560,   561,   565,
+     566,   567,   568,   572,   573,   577,   582,   598,   603,   604,
+     605,   606,   607,   608,   612,   613,   618,   627,   640,   658,
+     692,   725,   747,   748,   760,   761,   765,   769,   770,   771,
+     772,   777,   778,   787,   791
 };
 #endif
 
@@ -939,7 +940,7 @@ static const yytype_int16 yytoknum[] =
 };
 #endif
 
-#define YYPACT_NINF (-76)
+#define YYPACT_NINF (-58)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -953,19 +954,18 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -27,   -48,    23,   -76,    16,   -76,   -76,    27,   -76,   -76,
-      13,    13,    -3,    13,   -76,    13,   -76,   -76,   -76,   -76,
-     -76,   -76,   120,   -76,   -13,   -76,   -76,   -76,   110,    85,
-       8,   134,     7,    10,    30,    39,    40,   -76,   -13,    57,
-     171,   171,   171,   171,   -76,   -76,   -76,   -76,   -76,   -76,
-       4,    13,    13,   -15,     4,   -76,   -76,   -76,   -76,   -76,
-     -76,   -76,   -76,   171,    18,    18,   -76,   -76,   182,   -76,
-     -76,   -76,    13,   -76,   -76,    -4,    21,    34,   182,   -76,
-     176,   -76,    41,   127,   -76,    72,    63,   -76,    64,   -76,
-      65,   -76,   -76,   171,   171,   171,   171,   -48,   -76,   -76,
-     -76,   -76,     4,    13,   -18,     4,   -76,   182,   -76,    70,
-     103,   -76,    71,    73,    74,   186,   190,   -76,   -76,   -76,
-     -76,   -76
+     -16,   -52,    12,   -58,   -15,   -58,   -58,    55,   -58,   -58,
+      19,    19,    -6,    19,   -58,    19,   -58,   -58,   -58,   -58,
+     -58,   -58,   108,   -58,   -20,   -58,   -58,   -58,   115,    98,
+      15,   124,     7,    -7,    -3,     5,    31,   -58,   -20,    35,
+     -58,   -58,   -58,   -58,   -58,   -58,   -58,   -58,   -58,   -58,
+      34,    10,    19,    19,   -26,    10,   -58,   -58,   -58,   -58,
+     -58,   -58,   -58,   -58,    34,   165,   165,   -58,   -58,   -58,
+      19,   -58,   -58,   -21,     3,    11,   165,   -58,   159,   -58,
+      21,   108,   -58,    91,    36,   -58,    39,   -58,    40,   -58,
+     -58,    10,    10,    19,   -17,    10,   -58,   165,   -58,    28,
+      84,   -58,    45,    46,    47,   165,   165,   -58,   -58,   -58,
+     -58,   -58
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -973,33 +973,32 @@ static const yytype_int16 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,    66,     0,     1,     4,     0,    33,    34,
-       0,     0,     0,     0,    61,     0,    59,    57,    58,    28,
-       3,    35,     0,    25,    24,    27,    23,    26,    56,     0,
-       0,    56,     0,     0,     0,     0,     0,    47,    48,     0,
-       0,     0,     0,     0,    43,    42,    44,    45,    46,    41,
-       0,     0,     0,     0,     0,    40,    55,    64,    65,    63,
-       2,    60,    62,     0,    36,    37,    38,    39,    51,    53,
-      49,    50,     0,    10,    11,     0,     0,     0,    52,    54,
-       0,    22,     0,     9,    21,    56,     0,    17,     0,    20,
-       0,    13,    16,    29,    30,    31,    32,     0,    29,    30,
-      31,    32,     0,     0,     0,     0,     8,     7,     6,     0,
-      56,    67,     0,     0,     0,     9,     5,    15,    14,    18,
+       0,     0,     0,    63,     0,     1,     4,     0,    33,    34,
+       0,     0,     0,     0,    58,     0,    56,    54,    55,    28,
+       3,    35,     0,    25,    24,    27,    23,    26,    53,     0,
+       0,    53,     0,     0,     0,     0,     0,    44,    45,     0,
+      29,    30,    31,    32,    40,    39,    41,    42,    43,    38,
+       0,     0,     0,     0,     0,     0,    37,    52,    61,    62,
+      60,     2,    57,    59,     0,    36,    48,    50,    46,    47,
+       0,    10,    11,     0,     0,     0,    49,    51,     0,    22,
+       0,     9,    21,    53,     0,    17,     0,    20,     0,    13,
+      16,     0,     0,     0,     0,     0,     8,     7,     6,     0,
+      53,    64,     0,     0,     0,     9,     5,    15,    14,    18,
       19,    12
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -76,   -76,   -76,     2,   -76,   -76,   -76,   -76,   -75,   -76,
-      -8,   -17,   -14,   113,    17,   -76,   -76,   -76,    -1,   -76
+     -58,   -58,   -58,   -18,   -58,   -58,   -58,   -58,   -57,   -58,
+      -9,   -19,   -13,    74,    20,   -58,   -58,   -58,    -1,   -58
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     7,    81,    77,    19,    82,    20,    97,    21,
-      22,    54,    36,    37,    38,    25,    26,    27,    31,   113
+       0,     2,     7,    79,    75,    19,    80,    20,    50,    21,
+      22,    55,    36,    37,    38,    25,    26,    27,    31,   103
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -1007,50 +1006,46 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       4,    39,    29,   111,     1,    50,    28,     8,     9,     3,
-     102,    35,    50,    63,    51,    52,     8,     9,    56,    33,
-      72,    34,    10,     5,    24,    42,    43,    30,    32,    57,
-       8,     9,    64,    65,    66,    67,    10,    86,    87,     3,
-      11,   102,    68,    73,    74,    75,    78,    76,     6,    69,
-      12,    13,    58,    79,     3,    80,    14,    15,    84,    17,
-      18,     3,    88,    89,    83,    61,    50,    16,    70,    71,
-       3,    85,    59,    17,    18,    90,    91,    98,    99,   100,
-     101,    60,    62,    92,     3,    64,    65,    66,    67,   109,
-      40,    41,    42,    43,   107,    55,   106,   115,   103,   104,
-     105,   108,   110,   112,   116,    44,    45,   114,    46,    47,
-      48,    49,   117,   119,    -5,   120,   121,     0,    44,    45,
-      23,    46,    47,    48,    49,    40,    41,    42,    43,     0,
-       0,     0,    93,    94,    95,    96,    44,    45,     0,    46,
-      47,    48,    49,    44,    45,   118,    46,    47,    48,    49,
-       0,    53,     0,    44,    45,     0,    46,    47,    48,    49,
-      44,    45,     0,    46,    47,    48,    49,    44,    45,     0,
-      46,    47,    48,    49,     8,     9,     0,     0,     0,     0,
-      63,    40,    41,    42,    43,     0,    55,    40,    41,    42,
-      43,    93,    94,    95,    96,    98,    99,   100,   101
+       4,    29,    39,    51,   101,     3,    28,    52,    53,    70,
+      51,    35,     5,     8,     9,     1,    33,     6,    34,    64,
+      84,    85,     8,     9,    91,    57,    92,    24,    10,    58,
+      30,    32,    71,    72,    73,    59,    74,     8,     9,    60,
+       3,    65,    66,    64,    86,    87,    76,    61,    91,    92,
+      67,     3,    88,    89,    77,    78,    62,    82,     8,     9,
+      63,    81,    51,    90,    10,    17,    18,     3,    11,    83,
+     107,    93,    68,    69,    94,    95,     3,   104,    12,    13,
+      99,    23,    65,    97,    14,    15,   105,   109,   110,   111,
+      96,    98,   100,   102,   106,    16,    40,    41,    42,    43,
+       0,    17,    18,    40,    41,    42,    43,     0,    56,     0,
+       0,     0,     3,    40,    41,    42,    43,    44,    45,     0,
+      46,    47,    48,    49,    44,    45,   108,    46,    47,    48,
+      49,    44,    45,    -5,    46,    47,    48,    49,     0,     0,
+       0,    44,    45,     0,    46,    47,    48,    49,    44,    45,
+       0,    46,    47,    48,    49,     0,    54,    44,    45,     0,
+      46,    47,    48,    49,    40,    41,    42,    43,     0,    56,
+      40,    41,    42,    43
 };
 
 static const yytype_int8 yycheck[] =
 {
-       1,    15,    10,    21,    31,    22,     7,     3,     4,    57,
-      85,    12,    29,     9,    27,    28,     3,     4,    10,    22,
-      35,    24,     9,     0,     7,     7,     8,    10,    11,    22,
-       3,     4,    40,    41,    42,    43,     9,    41,    42,    57,
-      13,   116,    50,    58,    59,    60,    54,    62,    32,    50,
-      23,    24,    42,    54,    57,    63,    29,    30,    72,    46,
-      47,    57,    41,    42,    72,    25,    83,    40,    51,    52,
-      57,    72,    42,    46,    47,    41,    42,     5,     6,     7,
-       8,    42,    25,    42,    57,    93,    94,    95,    96,   103,
-       5,     6,     7,     8,   102,    10,    97,   105,    35,    35,
-      35,   102,   103,   104,   105,    33,    34,   105,    36,    37,
-      38,    39,    42,    42,    42,    42,    42,    -1,    33,    34,
-       7,    36,    37,    38,    39,     5,     6,     7,     8,    -1,
-      -1,    -1,     5,     6,     7,     8,    33,    34,    -1,    36,
-      37,    38,    39,    33,    34,    42,    36,    37,    38,    39,
-      -1,    41,    -1,    33,    34,    -1,    36,    37,    38,    39,
-      33,    34,    -1,    36,    37,    38,    39,    33,    34,    -1,
-      36,    37,    38,    39,     3,     4,    -1,    -1,    -1,    -1,
-       9,     5,     6,     7,     8,    -1,    10,     5,     6,     7,
-       8,     5,     6,     7,     8,     5,     6,     7,     8
+       1,    10,    15,    22,    21,    57,     7,    27,    28,    35,
+      29,    12,     0,     3,     4,    31,    22,    32,    24,     9,
+      41,    42,     3,     4,    81,    10,    83,     7,     9,    22,
+      10,    11,    58,    59,    60,    42,    62,     3,     4,    42,
+      57,    50,    51,     9,    41,    42,    55,    42,   105,   106,
+      51,    57,    41,    42,    55,    64,    25,    70,     3,     4,
+      25,    70,    81,    42,     9,    46,    47,    57,    13,    70,
+      42,    35,    52,    53,    35,    35,    57,    95,    23,    24,
+      93,     7,    91,    92,    29,    30,    95,    42,    42,    42,
+      91,    92,    93,    94,    95,    40,     5,     6,     7,     8,
+      -1,    46,    47,     5,     6,     7,     8,    -1,    10,    -1,
+      -1,    -1,    57,     5,     6,     7,     8,    33,    34,    -1,
+      36,    37,    38,    39,    33,    34,    42,    36,    37,    38,
+      39,    33,    34,    42,    36,    37,    38,    39,    -1,    -1,
+      -1,    33,    34,    -1,    36,    37,    38,    39,    33,    34,
+      -1,    36,    37,    38,    39,    -1,    41,    33,    34,    -1,
+      36,    37,    38,    39,     5,     6,     7,     8,    -1,    10,
+       5,     6,     7,     8
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -1062,12 +1057,11 @@ static const yytype_int8 yystos[] =
       70,    72,    73,    76,    77,    78,    79,    80,    81,    73,
       77,    81,    77,    22,    24,    81,    75,    76,    77,    75,
        5,     6,     7,     8,    33,    34,    36,    37,    38,    39,
-      74,    27,    28,    41,    74,    10,    10,    22,    42,    42,
-      42,    25,    25,     9,    73,    73,    73,    73,    73,    81,
-      77,    77,    35,    58,    59,    60,    62,    67,    73,    81,
-      73,    66,    69,    73,    75,    81,    41,    42,    41,    42,
-      41,    42,    42,     5,     6,     7,     8,    71,     5,     6,
-       7,     8,    71,    35,    35,    35,    81,    73,    81,    75,
+      71,    74,    27,    28,    41,    74,    10,    10,    22,    42,
+      42,    42,    25,    25,     9,    73,    73,    81,    77,    77,
+      35,    58,    59,    60,    62,    67,    73,    81,    73,    66,
+      69,    73,    75,    81,    41,    42,    41,    42,    41,    42,
+      42,    71,    71,    35,    35,    35,    81,    73,    81,    75,
       81,    21,    81,    82,    66,    73,    81,    42,    42,    42,
       42,    42
 };
@@ -1078,10 +1072,10 @@ static const yytype_int8 yyr1[] =
        0,    63,    64,    65,    65,    66,    66,    66,    66,    66,
       67,    67,    68,    68,    68,    68,    68,    68,    68,    68,
       68,    69,    69,    70,    70,    70,    70,    70,    70,    71,
-      71,    71,    71,    72,    72,    73,    73,    73,    73,    73,
-      73,    74,    74,    74,    74,    74,    74,    75,    75,    76,
-      76,    77,    77,    77,    77,    77,    77,    77,    77,    78,
-      79,    79,    79,    79,    80,    80,    81,    82
+      71,    71,    71,    72,    72,    73,    73,    73,    74,    74,
+      74,    74,    74,    74,    75,    75,    76,    76,    77,    77,
+      77,    77,    77,    77,    77,    77,    78,    79,    79,    79,
+      79,    80,    80,    81,    82
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1090,10 +1084,10 @@ static const yytype_int8 yyr2[] =
        0,     2,     7,     2,     0,     1,     3,     3,     3,     1,
        1,     1,     7,     4,     7,     7,     5,     4,     7,     7,
        4,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     3,     3,     1,     1,
        1,     1,     1,     1,     1,     1,     3,     3,     3,     3,
-       3,     1,     1,     1,     1,     1,     1,     1,     1,     3,
-       3,     3,     3,     3,     3,     3,     1,     1,     1,     1,
-       3,     1,     3,     3,     3,     3,     1,     1
+       3,     3,     3,     1,     1,     1,     1,     3,     1,     3,
+       3,     3,     3,     1,     1
 };
 
 
@@ -1656,7 +1650,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* PROCLINE: PROCEDURE VAR_NAME IS ADDCONTENT END VAR_NAME SEMICOLON  */
-#line 194 "bison.y"
+#line 195 "bison.y"
                                                                         {
 			if(strcmp((yyvsp[-5].st).s, (yyvsp[-1].st).s) == 0){
 				printf("procedure comienza y termina con el mismo nombre\n");
@@ -1664,11 +1658,11 @@ yyreduce:
 				printf("procedure NO comienza y termina con el mismo nombre\n");
 			}
 		}
-#line 1668 "y.tab.c"
+#line 1662 "y.tab.c"
     break;
 
   case 5: /* AUXOPER: VAR_NAME  */
-#line 210 "bison.y"
+#line 211 "bison.y"
                  {
 		if(!searchVar(tabla, size, (yyvsp[0].st).s)) { 
 			if(strcmp(getVarType(tabla, size, (yyvsp[0].st).s), "integer")==0) {
@@ -1688,11 +1682,11 @@ yyreduce:
 		} else {yyerror("Variable not declared");}
 	
 	}
-#line 1692 "y.tab.c"
+#line 1686 "y.tab.c"
     break;
 
   case 6: /* AUXOPER: VAR_NAME OPERATOR VAR_NAME  */
-#line 229 "bison.y"
+#line 230 "bison.y"
                                      {
 		if(!searchVar(tabla, size, (yyvsp[-2].st).s) && !searchVar(tabla, size, (yyvsp[0].st).s)) { 
 			if(strcmp(getVarType(tabla, size, (yyvsp[-2].st).s), "integer")==0 && strcmp(getVarType(tabla, size, (yyvsp[0].st).s), "integer")==0) {
@@ -1729,11 +1723,11 @@ yyreduce:
 			
 		} else {yyerror("Variable not declared");}
 	}
-#line 1733 "y.tab.c"
+#line 1727 "y.tab.c"
     break;
 
   case 7: /* AUXOPER: VAR_NAME OPERATOR OPERATION  */
-#line 265 "bison.y"
+#line 266 "bison.y"
                                       {
 		if(!searchVar(tabla, size, (yyvsp[-2].st).s)) { 
 			if(strcmp(getVarType(tabla, size, (yyvsp[-2].st).s), "integer")==0 && strcmp((yyvsp[0].st).type, "integer")==0) {
@@ -1770,11 +1764,11 @@ yyreduce:
 			
 		} else {yyerror("Variable not declared");}
 	}
-#line 1774 "y.tab.c"
+#line 1768 "y.tab.c"
     break;
 
   case 8: /* AUXOPER: OPERATION OPERATOR VAR_NAME  */
-#line 301 "bison.y"
+#line 302 "bison.y"
                                       {
 		if(!searchVar(tabla, size, (yyvsp[0].st).s)) { 
 
@@ -1812,11 +1806,11 @@ yyreduce:
 			
 		} else {yyerror("Variable not declared");}
 	}
-#line 1816 "y.tab.c"
+#line 1810 "y.tab.c"
     break;
 
   case 9: /* AUXOPER: OPERATION  */
-#line 338 "bison.y"
+#line 339 "bison.y"
                     {
 		if(strcmp((yyvsp[0].st).type, "integer")==0) {
 			(yyval.st).i = (yyvsp[0].st).i;
@@ -1833,54 +1827,56 @@ yyreduce:
 		}
 			
 	}
-#line 1837 "y.tab.c"
+#line 1831 "y.tab.c"
     break;
 
   case 10: /* TYPEDECLARATION: DECLINTEGER  */
-#line 357 "bison.y"
+#line 358 "bison.y"
                     {
 		(yyval.st).type = "integer";
 	}
-#line 1845 "y.tab.c"
+#line 1839 "y.tab.c"
     break;
 
   case 11: /* TYPEDECLARATION: DECLFLOAT  */
-#line 360 "bison.y"
+#line 361 "bison.y"
                     {
 		(yyval.st).type = "float";
 	}
-#line 1853 "y.tab.c"
+#line 1847 "y.tab.c"
     break;
 
   case 12: /* DECL: VAR_NAME COLON TYPEDECLARATION COLON EQUAL AUXOPER SEMICOLON  */
-#line 367 "bison.y"
+#line 368 "bison.y"
                                                                      {
 		(yyval.st).s = "Declaracion de variable Integer o Float";
 		if(strcmp((yyvsp[-1].st).error, "empty")==0){
 			(yyval.st).error = (yyvsp[-1].st).error;
 			if(strcmp((yyvsp[-4].st).type, "integer")==0 && strcmp((yyvsp[-1].st).type, "integer")==0){
 				insertElement(tabla, &size, (yyvsp[-1].st).i, "", 0.0, (yyvsp[-6].st).s, false, &elementosOcupados, "integer", true );
+				mipsVar_insert_mips_variable_declaration((yyvsp[-4].st).type, (yyvsp[-6].st).s, (yyvsp[-1].st).i, NULL, -500, false);
 				(yyval.st).a = (yyvsp[-1].st).a;
 			} else if(strcmp((yyvsp[-4].st).type, "float")==0 && strcmp((yyvsp[-1].st).type, "float")==0){
 				insertElement(tabla, &size, 0, "", (yyvsp[-1].st).f, (yyvsp[-6].st).s, false, &elementosOcupados, "float", true );
+				mipsVar_insert_mips_variable_declaration((yyvsp[-4].st).type, (yyvsp[-6].st).s, -500, NULL, (yyvsp[-1].st).f, false);
 				(yyval.st).a = (yyvsp[-1].st).a;
 			} else if(strcmp((yyvsp[-4].st).type, "float")==0 && strcmp((yyvsp[-1].st).type, "integer")==0){
 				insertElement(tabla, &size, 0, "", (float)(yyvsp[-1].st).i, (yyvsp[-6].st).s, false, &elementosOcupados, "float", true );
+				mipsVar_insert_mips_variable_declaration((yyvsp[-4].st).type, (yyvsp[-6].st).s, -500, NULL, (yyvsp[-1].st).f, false);
 				(yyval.st).a = (yyvsp[-1].st).a;
 			} else {
 				(yyval.st).error = "Error diferente tipo de variable (int, float)";
 			}
-
 		} else {
 			(yyval.st).error = (yyvsp[-1].st).error;
 		}
 		
 	}
-#line 1880 "y.tab.c"
+#line 1876 "y.tab.c"
     break;
 
   case 13: /* DECL: VAR_NAME COLON TYPEDECLARATION SEMICOLON  */
-#line 390 "bison.y"
+#line 393 "bison.y"
                                                    {
 		(yyval.st).s = "Declaracion de variable Integer o Float vacia";
 		if(strcmp((yyvsp[-1].st).type, "integer")==0){
@@ -1899,11 +1895,11 @@ yyreduce:
 			}	
 		}
 	}
-#line 1903 "y.tab.c"
+#line 1899 "y.tab.c"
     break;
 
   case 14: /* DECL: VAR_NAME COLON DECLBOOLEAN COLON EQUAL VAR_NAME SEMICOLON  */
-#line 410 "bison.y"
+#line 413 "bison.y"
                                                                     {
 			if(searchVar(tabla, size, (yyvsp[-6].st).s) && checkVarAndType(tabla, size, (yyvsp[-1].st).s, "boolean")) {
 				(yyval.st).error = "empty";
@@ -1912,17 +1908,17 @@ yyreduce:
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 			(yyval.st).s = "Declaracion de variable Boolean a operacion booleana";
 		}
-#line 1916 "y.tab.c"
+#line 1912 "y.tab.c"
     break;
 
   case 15: /* DECL: VAR_NAME COLON DECLBOOLEAN COLON EQUAL AUX_BOOLEAN_OP SEMICOLON  */
-#line 418 "bison.y"
+#line 421 "bison.y"
                                                                           {
 			if(strcmp((yyvsp[-1].st).error,"empty") == 0 ){
-				// printf("no errors bool decl with bool op");
 				if(searchVar(tabla, size, (yyvsp[-6].st).s)) {
 					(yyval.st).error = "empty";
 					insertElement(tabla, &size, 0, "", 0.0, (yyvsp[-6].st).s, (yyvsp[-1].st).boo ? true : false, &elementosOcupados, "boolean", true );
+					mipsVar_insert_mips_variable_declaration("boolean", (yyvsp[-6].st).s, -500, NULL, -500, (yyvsp[-1].st).boo == 1);
 					(yyval.st).a = assignAST((yyvsp[-1].st).a);
 				} else {(yyval.st).error = "Variable declared or wrong type";}
 			} else {
@@ -1931,72 +1927,77 @@ yyreduce:
 			
 			(yyval.st).s = "Declaracion de variable Boolean a operacion booleana";
 		}
-#line 1935 "y.tab.c"
+#line 1931 "y.tab.c"
     break;
 
   case 16: /* DECL: VAR_NAME COLON EQUAL AUXCOMPLETO SEMICOLON  */
-#line 433 "bison.y"
-                                                        {// variable := ALGO ;
-		//NO IMPLEMENTADO variable_int1 := variable_int1 + 1;
-		// SE PUEDEN USAR TODAS LAS GRAMÁTICAS EXTRAS QUE HE CREADO AUXILIARES
-		// UNA QUE ENVUELVA TODAS
+#line 436 "bison.y"
+                                                        {
 		(yyval.st).s = "asignación de variable a cualquier cosa";
 		if(strcmp((yyvsp[-1].st).error,"empty") == 0 ) {
 			(yyval.st).error = (yyvsp[-1].st).error;
 			if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "integer")==0 && strcmp((yyvsp[-1].st).type, "integer")==0) {
 				
 				insertElement(tabla, &size, (yyvsp[-1].st).i, "", 0.0, (yyvsp[-4].st).s, false, &elementosOcupados, "integer", true );
+				mipsIns_asign_val_to_var((yyvsp[-4].st).s, "integer", (yyvsp[-1].st).i, 0.0, NULL, false);
 				(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 			} else if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "float")==0 && strcmp((yyvsp[-1].st).type, "integer")==0) {
 
 				insertElement(tabla, &size, 0, "", (float)(yyvsp[-1].st).i, (yyvsp[-4].st).s, false, &elementosOcupados, "float", true );
+				mipsIns_asign_val_to_var((yyvsp[-4].st).s, "float", 0, (float)(yyvsp[-1].st).i, NULL, false);
 				(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 			} else if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "float")==0 && strcmp((yyvsp[-1].st).type, "float")==0) {
 
 				insertElement(tabla, &size, 0, "", (yyvsp[-1].st).f, (yyvsp[-4].st).s, false, &elementosOcupados, "float", true );
+				mipsIns_asign_val_to_var((yyvsp[-4].st).s, "float", 0, (yyvsp[-1].st).f, NULL, false);
 				(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 			} else if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "boolean")==0 && strcmp((yyvsp[-1].st).type, "boolean")==0) {
 
 				insertElement(tabla, &size, 0, "", 0.0, (yyvsp[-4].st).s, (yyvsp[-1].st).boo ? true : false, &elementosOcupados, "boolean", true );
+				mipsIns_asign_val_to_var((yyvsp[-4].st).s, "boolean", 0, 0.0, NULL, (yyvsp[-1].st).boo == 1);
 				(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 			} else if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "string")==0 && strcmp((yyvsp[-1].st).type, "string")==0) {
 
 				insertElement(tabla, &size, 0, (yyvsp[-1].st).s, 0.0, (yyvsp[-4].st).s, false, &elementosOcupados, "string", true );
+				mipsIns_asign_val_to_var((yyvsp[-4].st).s, "boolean", 0, 0.0, (yyvsp[-1].st).s, false);
 				(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 			} else if(strcmp((yyvsp[-1].st).type, "var")==0) {
 
 				if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "integer")==0 && strcmp((yyvsp[-1].st).type, "integer")==0) {
-
+				
 					insertElement(tabla, &size, (yyvsp[-1].st).i, "", 0.0, (yyvsp[-4].st).s, false, &elementosOcupados, "integer", true );
+					mipsIns_asign_val_to_var((yyvsp[-4].st).s, "integer", (yyvsp[-1].st).i, 0.0, NULL, false);
 					(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 				} else if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "float")==0 && strcmp((yyvsp[-1].st).type, "integer")==0) {
 
 					insertElement(tabla, &size, 0, "", (float)(yyvsp[-1].st).i, (yyvsp[-4].st).s, false, &elementosOcupados, "float", true );
+					mipsIns_asign_val_to_var((yyvsp[-4].st).s, "float", 0, (float)(yyvsp[-1].st).i, NULL, false);
 					(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 				} else if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "float")==0 && strcmp((yyvsp[-1].st).type, "float")==0) {
 
 					insertElement(tabla, &size, 0, "", (yyvsp[-1].st).f, (yyvsp[-4].st).s, false, &elementosOcupados, "float", true );
+					mipsIns_asign_val_to_var((yyvsp[-4].st).s, "float", 0, (yyvsp[-1].st).f, NULL, false);
 					(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 				} else if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "boolean")==0 && strcmp((yyvsp[-1].st).type, "boolean")==0) {
 
 					insertElement(tabla, &size, 0, "", 0.0, (yyvsp[-4].st).s, (yyvsp[-1].st).boo ? true : false, &elementosOcupados, "boolean", true );
+					mipsIns_asign_val_to_var((yyvsp[-4].st).s, "boolean", 0, 0.0, NULL, (yyvsp[-1].st).boo == 1);
 					(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
 				} else if(strcmp(getVarType(tabla, size, (yyvsp[-4].st).s), "string")==0 && strcmp((yyvsp[-1].st).type, "string")==0) {
 
 					insertElement(tabla, &size, 0, (yyvsp[-1].st).s, 0.0, (yyvsp[-4].st).s, false, &elementosOcupados, "string", true );
+					mipsIns_asign_val_to_var((yyvsp[-4].st).s, "boolean", 0, 0.0, (yyvsp[-1].st).s, false);
 					(yyval.st).a = assignAST((yyvsp[-1].st).a);
 
-				} else {
-					(yyval.st).error = "Invalid assignation type";
 				}
 			} else {
 				(yyval.st).error = "Invalid assignation type";
@@ -2005,11 +2006,11 @@ yyreduce:
 			(yyval.st).error = (yyvsp[-1].st).error;
 		}
 	}
-#line 2009 "y.tab.c"
+#line 2010 "y.tab.c"
     break;
 
   case 17: /* DECL: VAR_NAME COLON DECLBOOLEAN SEMICOLON  */
-#line 504 "bison.y"
+#line 512 "bison.y"
                                                {
 			(yyval.st).s = "Declaracion de variable Boolean vacia";
 			if (searchVar(tabla, size, (yyvsp[-3].st).s)) {
@@ -2019,11 +2020,11 @@ yyreduce:
 				(yyval.st).error = "Variable declared";
 			}
 		}
-#line 2023 "y.tab.c"
+#line 2024 "y.tab.c"
     break;
 
   case 18: /* DECL: VAR_NAME COLON DECLSTRING COLON EQUAL VAR_NAME SEMICOLON  */
-#line 513 "bison.y"
+#line 521 "bison.y"
                                                                    {
 			(yyval.st).s = "Declaracion de variable String igual a variable String"; 
 			if(searchVar(tabla, size, (yyvsp[-6].st).s) && checkVarAndType(tabla, size, (yyvsp[-1].st).s,"string")) {
@@ -2034,267 +2035,207 @@ yyreduce:
 				(yyval.st).error = "Variable declared or wrong type";
 			}
 		}
-#line 2038 "y.tab.c"
+#line 2039 "y.tab.c"
     break;
 
   case 19: /* DECL: VAR_NAME COLON DECLSTRING COLON EQUAL STRING SEMICOLON  */
-#line 523 "bison.y"
+#line 531 "bison.y"
                                                                  {
 			(yyval.st).s = "Declaracion con string";
 			if(searchVar(tabla, size, (yyvsp[-6].st).s)) {
 				(yyval.st).error = "empty"; 
-				insertElement(tabla, &size, 0, (yyvsp[-1].st).s, 0.0, (yyvsp[-6].st).s, false, &elementosOcupados, "string", true );(yyval.st).a = assignAST((yyvsp[-1].st).a);
+				insertElement(tabla, &size, 0, (yyvsp[-1].st).s, 0.0, (yyvsp[-6].st).s, false, &elementosOcupados, "string", true );
+				mipsVar_insert_mips_variable_declaration("string", (yyvsp[-6].st).s, -500, (yyvsp[-1].st).s, -500, false);
+				(yyval.st).a = assignAST((yyvsp[-1].st).a);
+
 			} else {
 				(yyval.st).error = "Variable declared or wrong type";
 			}
 		}
-#line 2052 "y.tab.c"
+#line 2056 "y.tab.c"
     break;
 
   case 20: /* DECL: VAR_NAME COLON DECLSTRING SEMICOLON  */
-#line 532 "bison.y"
+#line 543 "bison.y"
                                               {
 			(yyval.st).s = "Declaracion de variable String vacia";
 			if (searchVar(tabla, size, (yyvsp[-3].st).s)) {
 			(yyval.st).error = "empty";insertElement(tabla, &size, 0, "", 0.0, (yyvsp[-3].st).s, false, &elementosOcupados, "string", false );} else {(yyval.st).error = "Variable declared";}
 		}
-#line 2062 "y.tab.c"
+#line 2066 "y.tab.c"
     break;
 
   case 21: /* AUXCOMPLETO: AUX_BOOLEAN_OP  */
-#line 540 "bison.y"
+#line 551 "bison.y"
                        {(yyval.st) = (yyvsp[0].st);}
-#line 2068 "y.tab.c"
+#line 2072 "y.tab.c"
     break;
 
   case 22: /* AUXCOMPLETO: AUXOPER  */
-#line 541 "bison.y"
+#line 552 "bison.y"
                   {(yyval.st) = (yyvsp[0].st); }
-#line 2074 "y.tab.c"
+#line 2078 "y.tab.c"
     break;
 
   case 23: /* CONTENT: IF_COND  */
-#line 545 "bison.y"
+#line 556 "bison.y"
                  {printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].st).s, yylineno); if(!(yyvsp[0].st).a){ ;} else {eval(*(yyvsp[0].st).a, &size);};}
-#line 2080 "y.tab.c"
+#line 2084 "y.tab.c"
     break;
 
   case 24: /* CONTENT: BOOLEAN_OP  */
-#line 546 "bison.y"
+#line 557 "bison.y"
                       {printf("%s", (yyvsp[0].st).s);}
-#line 2086 "y.tab.c"
+#line 2090 "y.tab.c"
     break;
 
   case 25: /* CONTENT: BOOLEAN_MIX  */
-#line 547 "bison.y"
+#line 558 "bison.y"
                        {printf("%s", (yyvsp[0].st).s);}
-#line 2092 "y.tab.c"
+#line 2096 "y.tab.c"
     break;
 
   case 26: /* CONTENT: WLOOP  */
-#line 548 "bison.y"
+#line 559 "bison.y"
                  {printf("%s", (yyvsp[0].sval));}
-#line 2098 "y.tab.c"
+#line 2102 "y.tab.c"
     break;
 
   case 27: /* CONTENT: COM  */
-#line 549 "bison.y"
+#line 560 "bison.y"
                {printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].sval), yylineno); }
-#line 2104 "y.tab.c"
+#line 2108 "y.tab.c"
     break;
 
   case 28: /* CONTENT: DECL  */
-#line 550 "bison.y"
+#line 561 "bison.y"
                {if(strcmp((yyvsp[0].st).error, "empty") == 0){printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].st).s, yylineno); if(!(yyvsp[0].st).a){ ;} else {eval(*(yyvsp[0].st).a, &size);};} else {yyerror((yyvsp[0].st).error);}}
-#line 2110 "y.tab.c"
+#line 2114 "y.tab.c"
     break;
 
   case 29: /* OPERATOR: PLUS  */
-#line 554 "bison.y"
+#line 565 "bison.y"
              {(yyval.st).operador = "+";}
-#line 2116 "y.tab.c"
+#line 2120 "y.tab.c"
     break;
 
   case 30: /* OPERATOR: MINUS  */
-#line 555 "bison.y"
+#line 566 "bison.y"
                 {(yyval.st).operador = "-";}
-#line 2122 "y.tab.c"
+#line 2126 "y.tab.c"
     break;
 
   case 31: /* OPERATOR: MULTIPLY  */
-#line 556 "bison.y"
+#line 567 "bison.y"
                    {(yyval.st).operador = "*";}
-#line 2128 "y.tab.c"
+#line 2132 "y.tab.c"
     break;
 
   case 32: /* OPERATOR: DIVIDE  */
-#line 557 "bison.y"
+#line 568 "bison.y"
                  {(yyval.st).operador = "/";}
-#line 2134 "y.tab.c"
+#line 2138 "y.tab.c"
     break;
 
   case 33: /* OPERAND: INT  */
-#line 561 "bison.y"
+#line 572 "bison.y"
             {(yyval.st).i = (yyvsp[0].eval); (yyval.st).type = "integer"; (yyval.st).error="empty"; (yyval.st).a = createNum((yyvsp[0].eval));}
-#line 2140 "y.tab.c"
+#line 2144 "y.tab.c"
     break;
 
   case 34: /* OPERAND: FLOAT  */
-#line 562 "bison.y"
+#line 573 "bison.y"
                       {(yyval.st).f = (yyvsp[0].fval); (yyval.st).type = "float"; (yyval.st).error="empty"; (yyval.st).a = createNum((yyvsp[0].fval));}
-#line 2146 "y.tab.c"
+#line 2150 "y.tab.c"
     break;
 
   case 35: /* OPERATION: OPERAND  */
-#line 566 "bison.y"
+#line 577 "bison.y"
                 {
 		(yyval.st).type = (yyvsp[0].st).type;
 		(yyval.st).a = (yyvsp[0].st).a;
 		if (strcmp("integer", (yyvsp[0].st).type) == 0) {(yyval.st).i = (yyvsp[0].st).i;} else {(yyval.st).f = (yyvsp[0].st).f;}
 	}
-#line 2156 "y.tab.c"
+#line 2160 "y.tab.c"
     break;
 
-  case 36: /* OPERATION: OPERATION PLUS OPERATION  */
-#line 571 "bison.y"
+  case 36: /* OPERATION: OPERATION OPERATOR OPERATION  */
+#line 582 "bison.y"
                                         {
 			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
-				(yyval.st).f = (yyvsp[-2].st).f + (yyvsp[0].st).f;
+				(yyval.st).f = operateFloat((yyvsp[-1].st).operador, (yyvsp[-2].st).f, (yyvsp[0].st).f);
 				(yyval.st).type = "float";
 			} else if (strcmp((yyvsp[0].st).type, "float") == 0) {
-				(yyval.st).f = (float)(yyvsp[-2].st).i + (yyvsp[0].st).f;
+				(yyval.st).f = operateFloat((yyvsp[-1].st).operador, (float)(yyvsp[-2].st).i, (yyvsp[0].st).f);
 				(yyval.st).type = "float";
 			} else if (strcmp((yyvsp[-2].st).type, "float") == 0) {
-				(yyval.st).f = (yyvsp[-2].st).f + (float)(yyvsp[0].st).i;
+				(yyval.st).f = operateFloat((yyvsp[-1].st).operador, (yyvsp[-2].st).f, (float)(yyvsp[0].st).i);
 				(yyval.st).type = "float";
 			} else {
-				(yyval.st).i = (yyvsp[-2].st).i + (yyvsp[0].st).i;
+				(yyval.st).i = operateInt((yyvsp[-1].st).operador, (yyvsp[-2].st).i, (yyvsp[0].st).i);
 				(yyval.st).type = "integer";
 			}
-			(yyval.st).a = newast("+",(yyvsp[-2].st).a,(yyvsp[0].st).a);
+			(yyval.st).a = newast((yyvsp[-1].st).operador,(yyvsp[-2].st).a,(yyvsp[0].st).a);
 		}
-#line 2177 "y.tab.c"
+#line 2181 "y.tab.c"
     break;
 
-  case 37: /* OPERATION: OPERATION MINUS OPERATION  */
-#line 587 "bison.y"
-                                        {
-			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
-				(yyval.st).f = (yyvsp[-2].st).f - (yyvsp[0].st).f;
-				(yyval.st).type = "float";
-			} else if (strcmp((yyvsp[0].st).type, "float") == 0) {
-				(yyval.st).f = (float)(yyvsp[-2].st).i - (yyvsp[0].st).f;
-				(yyval.st).type = "float";
-			} else if (strcmp((yyvsp[-2].st).type, "float") == 0) {
-				(yyval.st).f = (yyvsp[-2].st).f - (float)(yyvsp[0].st).i;
-				(yyval.st).type = "float";
-			} else {
-				(yyval.st).i = (yyvsp[-2].st).i - (yyvsp[0].st).i;
-				(yyval.st).type = "integer";
-			}
-			(yyval.st).a = newast("-",(yyvsp[-2].st).a,(yyvsp[0].st).a);
-		}
-#line 2198 "y.tab.c"
-    break;
-
-  case 38: /* OPERATION: OPERATION MULTIPLY OPERATION  */
-#line 603 "bison.y"
-                                        {
-			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
-				(yyval.st).f = (yyvsp[-2].st).f * (yyvsp[0].st).f;
-				(yyval.st).type = "float";
-			} else if (strcmp((yyvsp[0].st).type, "float") == 0) {
-				(yyval.st).f = (float)(yyvsp[-2].st).i * (yyvsp[0].st).f;
-				(yyval.st).type = "float";
-			} else if (strcmp((yyvsp[-2].st).type, "float") == 0) {
-				(yyval.st).f = (yyvsp[-2].st).f * (float)(yyvsp[0].st).i;
-				(yyval.st).type = "float";
-			} else {
-				(yyval.st).i = (yyvsp[-2].st).i * (yyvsp[0].st).i;
-				(yyval.st).type = "integer";
-			}
-			(yyval.st).a = newast("*",(yyvsp[-2].st).a,(yyvsp[0].st).a);
-		}
-#line 2219 "y.tab.c"
-    break;
-
-  case 39: /* OPERATION: OPERATION DIVIDE OPERATION  */
-#line 619 "bison.y"
-                                        {
-			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
-				(yyval.st).f = (yyvsp[-2].st).f / (yyvsp[0].st).f;
-				(yyval.st).type = "float";
-			} else if (strcmp((yyvsp[0].st).type, "float") == 0) {
-				(yyval.st).f = (float)(yyvsp[-2].st).i / (yyvsp[0].st).f;
-				(yyval.st).type = "float";
-			} else if (strcmp((yyvsp[-2].st).type, "float") == 0) {
-				(yyval.st).f = (yyvsp[-2].st).f / (float)(yyvsp[0].st).i;
-				(yyval.st).type = "float";
-			} else {
-				(yyval.st).i = (yyvsp[-2].st).i / (yyvsp[0].st).i;
-				(yyval.st).type = "integer";
-			}
-			(yyval.st).a = newast("/",(yyvsp[-2].st).a,(yyvsp[0].st).a);
-		}
-#line 2240 "y.tab.c"
-    break;
-
-  case 40: /* OPERATION: LEFT OPERATION RIGHT  */
-#line 635 "bison.y"
+  case 37: /* OPERATION: LEFT OPERATION RIGHT  */
+#line 598 "bison.y"
                                {if(strcmp((yyvsp[-1].st).type, "float") == 0) {(yyval.st).f = (yyvsp[-1].st).f;} else {(yyval.st).i = (yyvsp[-1].st).i;}}
-#line 2246 "y.tab.c"
+#line 2187 "y.tab.c"
     break;
 
-  case 41: /* BOOLEAN_OPERATORS: COMPARE  */
-#line 640 "bison.y"
+  case 38: /* BOOLEAN_OPERATORS: COMPARE  */
+#line 603 "bison.y"
                 {(yyval.st).s = "IGUAL";(yyval.st).operador = "==";}
-#line 2252 "y.tab.c"
+#line 2193 "y.tab.c"
     break;
 
-  case 42: /* BOOLEAN_OPERATORS: MORE  */
-#line 641 "bison.y"
+  case 39: /* BOOLEAN_OPERATORS: MORE  */
+#line 604 "bison.y"
                {(yyval.st).s = "MAYOR";(yyval.st).operador = ">";}
-#line 2258 "y.tab.c"
+#line 2199 "y.tab.c"
     break;
 
-  case 43: /* BOOLEAN_OPERATORS: LESS  */
-#line 642 "bison.y"
+  case 40: /* BOOLEAN_OPERATORS: LESS  */
+#line 605 "bison.y"
                {(yyval.st).s = "MENOR";(yyval.st).operador = "<";}
-#line 2264 "y.tab.c"
+#line 2205 "y.tab.c"
     break;
 
-  case 44: /* BOOLEAN_OPERATORS: GREATER_THAN  */
-#line 643 "bison.y"
+  case 41: /* BOOLEAN_OPERATORS: GREATER_THAN  */
+#line 606 "bison.y"
                        {(yyval.st).s = "MAYOR IGUAL";(yyval.st).operador = ">=";}
-#line 2270 "y.tab.c"
+#line 2211 "y.tab.c"
     break;
 
-  case 45: /* BOOLEAN_OPERATORS: LESSER_THAN  */
-#line 644 "bison.y"
+  case 42: /* BOOLEAN_OPERATORS: LESSER_THAN  */
+#line 607 "bison.y"
                       {(yyval.st).s = "MENOR IGUAL";(yyval.st).operador = "<=";}
-#line 2276 "y.tab.c"
+#line 2217 "y.tab.c"
     break;
 
-  case 46: /* BOOLEAN_OPERATORS: NOT_EQUAL  */
-#line 645 "bison.y"
+  case 43: /* BOOLEAN_OPERATORS: NOT_EQUAL  */
+#line 608 "bison.y"
                     {(yyval.st).s = "DESIGUAL";(yyval.st).operador = "!=";}
-#line 2282 "y.tab.c"
+#line 2223 "y.tab.c"
     break;
 
-  case 47: /* AUX_BOOLEAN_OP: BOOLEAN_MIX  */
-#line 649 "bison.y"
+  case 44: /* AUX_BOOLEAN_OP: BOOLEAN_MIX  */
+#line 612 "bison.y"
                     {(yyval.st) = (yyvsp[0].st); (yyval.st).type = "boolean";}
-#line 2288 "y.tab.c"
+#line 2229 "y.tab.c"
     break;
 
-  case 48: /* AUX_BOOLEAN_OP: BOOLEAN_OP  */
-#line 650 "bison.y"
+  case 45: /* AUX_BOOLEAN_OP: BOOLEAN_OP  */
+#line 613 "bison.y"
                      {(yyval.st) = (yyvsp[0].st); (yyval.st).type = "boolean";}
-#line 2294 "y.tab.c"
+#line 2235 "y.tab.c"
     break;
 
-  case 49: /* BOOLEAN_MIX: BOOLEAN_OP AND BOOLEAN_OP  */
-#line 655 "bison.y"
+  case 46: /* BOOLEAN_MIX: BOOLEAN_OP AND BOOLEAN_OP  */
+#line 618 "bison.y"
                                   {
 		(yyval.st).s="Expresiones booleanas con AND\n";
 		(yyval.st).error = "empty";
@@ -2304,11 +2245,11 @@ yyreduce:
 			(yyval.st).boo = 0;
 		}
 	}
-#line 2308 "y.tab.c"
+#line 2249 "y.tab.c"
     break;
 
-  case 50: /* BOOLEAN_MIX: BOOLEAN_OP OR BOOLEAN_OP  */
-#line 664 "bison.y"
+  case 47: /* BOOLEAN_MIX: BOOLEAN_OP OR BOOLEAN_OP  */
+#line 627 "bison.y"
                                    {
 		(yyval.st).s="Expresiones booleanas con OR\n";
 		(yyval.st).error = "empty";
@@ -2318,11 +2259,11 @@ yyreduce:
 			(yyval.st).boo = 0;
 		}
 	}
-#line 2322 "y.tab.c"
+#line 2263 "y.tab.c"
     break;
 
-  case 51: /* BOOLEAN_OP: OPERATION BOOLEAN_OPERATORS OPERATION  */
-#line 677 "bison.y"
+  case 48: /* BOOLEAN_OP: OPERATION BOOLEAN_OPERATORS OPERATION  */
+#line 640 "bison.y"
                                                                 {
 		(yyval.st).s = "INT OP BOOL INT";
 		(yyval.st).error = "empty";
@@ -2340,11 +2281,11 @@ yyreduce:
 			(yyval.st).a = newast((yyvsp[-1].st).operador, (yyvsp[-2].st).a, (yyvsp[0].st).a); 
 		}  
 	}
-#line 2344 "y.tab.c"
+#line 2285 "y.tab.c"
     break;
 
-  case 52: /* BOOLEAN_OP: VAR_NAME BOOLEAN_OPERATORS OPERATION  */
-#line 695 "bison.y"
+  case 49: /* BOOLEAN_OP: VAR_NAME BOOLEAN_OPERATORS OPERATION  */
+#line 658 "bison.y"
                                                                 {
 
 		(yyval.st).s = "VAR OP BOOL INT";
@@ -2378,11 +2319,11 @@ yyreduce:
 		} else {yyerror("Variable not declared");}
 
 		}
-#line 2382 "y.tab.c"
+#line 2323 "y.tab.c"
     break;
 
-  case 53: /* BOOLEAN_OP: OPERATION BOOLEAN_OPERATORS VAR_NAME  */
-#line 729 "bison.y"
+  case 50: /* BOOLEAN_OP: OPERATION BOOLEAN_OPERATORS VAR_NAME  */
+#line 692 "bison.y"
                                                                 {
 			(yyval.st).s = "INT OP BOOL VAR";
 			if(!searchVar(tabla, size, (yyvsp[0].st).s)) { 
@@ -2415,11 +2356,11 @@ yyreduce:
 				yyerror("Variable not declared");
 			}
 		}
-#line 2419 "y.tab.c"
+#line 2360 "y.tab.c"
     break;
 
-  case 54: /* BOOLEAN_OP: VAR_NAME BOOLEAN_OPERATORS VAR_NAME  */
-#line 762 "bison.y"
+  case 51: /* BOOLEAN_OP: VAR_NAME BOOLEAN_OPERATORS VAR_NAME  */
+#line 725 "bison.y"
                                                                 {
 			(yyval.st).s = "VAR OP BOOL VAR";
 			if(!searchVar(tabla, size, (yyvsp[-2].st).s) && !searchVar(tabla, size, (yyvsp[0].st).s)) {
@@ -2442,17 +2383,17 @@ yyreduce:
 				
 			} else {(yyval.st).error = "Variable declared or wrong type";}
 		}
-#line 2446 "y.tab.c"
+#line 2387 "y.tab.c"
     break;
 
-  case 55: /* BOOLEAN_OP: LEFT BOOLEAN_OP RIGHT  */
-#line 784 "bison.y"
+  case 52: /* BOOLEAN_OP: LEFT BOOLEAN_OP RIGHT  */
+#line 747 "bison.y"
                                         {(yyval.st).s = "PARENTESIS BOOL PARENTESIS"; (yyval.st).boo = (yyvsp[-1].st).boo;}
-#line 2452 "y.tab.c"
+#line 2393 "y.tab.c"
     break;
 
-  case 56: /* BOOLEAN_OP: VAR_NAME  */
-#line 785 "bison.y"
+  case 53: /* BOOLEAN_OP: VAR_NAME  */
+#line 748 "bison.y"
                    {
 		(yyval.st).s = "PARENTESIS BOOL PARENTESIS";
 		if(!searchVar(tabla, size, (yyvsp[0].st).s)){
@@ -2465,77 +2406,77 @@ yyreduce:
 			(yyval.st).error = "variable no declarada";
 		}
 	}
-#line 2469 "y.tab.c"
+#line 2410 "y.tab.c"
     break;
 
-  case 57: /* BOOLEAN_OP: TRUE  */
-#line 797 "bison.y"
+  case 54: /* BOOLEAN_OP: TRUE  */
+#line 760 "bison.y"
                {(yyval.st).boo=1; (yyval.st).a = createBOOLVAR("True");}
-#line 2475 "y.tab.c"
+#line 2416 "y.tab.c"
     break;
 
-  case 58: /* BOOLEAN_OP: FALSE  */
-#line 798 "bison.y"
+  case 55: /* BOOLEAN_OP: FALSE  */
+#line 761 "bison.y"
                 {(yyval.st).boo=0; (yyval.st).a = createBOOLVAR("False");}
-#line 2481 "y.tab.c"
+#line 2422 "y.tab.c"
     break;
 
-  case 59: /* COM: COMMENT  */
-#line 802 "bison.y"
+  case 56: /* COM: COMMENT  */
+#line 765 "bison.y"
                 {(yyval.sval) = "Comentario\n";}
-#line 2487 "y.tab.c"
+#line 2428 "y.tab.c"
     break;
 
-  case 60: /* IF_COND: IF AUX_BOOLEAN_OP THEN  */
-#line 806 "bison.y"
+  case 57: /* IF_COND: IF AUX_BOOLEAN_OP THEN  */
+#line 769 "bison.y"
                                 {(yyval.st).s = "IF BOOL THEN";}
-#line 2493 "y.tab.c"
+#line 2434 "y.tab.c"
     break;
 
-  case 61: /* IF_COND: ELSE  */
-#line 807 "bison.y"
+  case 58: /* IF_COND: ELSE  */
+#line 770 "bison.y"
                                                 {(yyval.st).s = "ELSE";}
-#line 2499 "y.tab.c"
+#line 2440 "y.tab.c"
     break;
 
-  case 62: /* IF_COND: ELSEIF AUX_BOOLEAN_OP THEN  */
-#line 808 "bison.y"
+  case 59: /* IF_COND: ELSEIF AUX_BOOLEAN_OP THEN  */
+#line 771 "bison.y"
                                         {(yyval.st).s = "ELSEIF BOOL THEN";}
-#line 2505 "y.tab.c"
+#line 2446 "y.tab.c"
     break;
 
-  case 63: /* IF_COND: END IF SEMICOLON  */
-#line 809 "bison.y"
+  case 60: /* IF_COND: END IF SEMICOLON  */
+#line 772 "bison.y"
                                         {(yyval.st).s = "END IF SEMICOLON";}
-#line 2511 "y.tab.c"
+#line 2452 "y.tab.c"
     break;
 
-  case 64: /* WLOOP: WHILE BOOLEAN_OP LOOP_  */
-#line 814 "bison.y"
+  case 61: /* WLOOP: WHILE BOOLEAN_OP LOOP_  */
+#line 777 "bison.y"
                                {(yyval.sval) = "Bucle while\n";}
-#line 2517 "y.tab.c"
+#line 2458 "y.tab.c"
     break;
 
-  case 65: /* WLOOP: END LOOP_ SEMICOLON  */
-#line 815 "bison.y"
+  case 62: /* WLOOP: END LOOP_ SEMICOLON  */
+#line 778 "bison.y"
                               {(yyval.sval)="Fin de bucle\n";}
-#line 2523 "y.tab.c"
+#line 2464 "y.tab.c"
     break;
 
-  case 66: /* VAR_NAME: VAR  */
-#line 824 "bison.y"
+  case 63: /* VAR_NAME: VAR  */
+#line 787 "bison.y"
             {(yyval.st).s = (yyvsp[0].sval); (yyval.st).a = createSTR((yyvsp[0].sval)); (yyval.st).type = "var";}
-#line 2529 "y.tab.c"
+#line 2470 "y.tab.c"
     break;
 
-  case 67: /* STRING: STR  */
-#line 828 "bison.y"
+  case 64: /* STRING: STR  */
+#line 791 "bison.y"
             {(yyval.st).s = (yyvsp[0].sval); (yyval.st).a = createSTR((yyvsp[0].sval));}
-#line 2535 "y.tab.c"
+#line 2476 "y.tab.c"
     break;
 
 
-#line 2539 "y.tab.c"
+#line 2480 "y.tab.c"
 
       default: break;
     }
@@ -2734,7 +2675,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 833 "bison.y"
+#line 796 "bison.y"
 
 //FUNCIONES DE AST
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r) {
@@ -3043,6 +2984,8 @@ char* getVarType(struct symb *tabla, int size, char* name) {
 			return tabla[i].type;
 		}
 	}
+
+	return "";
 }
 
 // devuelve false si encuentra la variable
@@ -3170,10 +3113,15 @@ void write_file(char *filename, char *content) {
 }
 
 int main(int argc,char *argv[]) {
+	mipsVar_create_data();
+	mipsIns_create_text(); 
+	mipsVar_initialize_struct();
+	mipsVar_initialize_valorStruct();
+	
 	initSymbolTable(tabla, 0, size);
 	initNodeArray(nodos, 0, size);
 	yyin = fopen(argv[1], "rt");
-	yyout = fopen(argv[2], "wt" );
+	// yyout = fopen(argv[2], "wt" );
  	yyparse();
 	printf("\nTabla de simbolos:");
 	for(int b = 0; b < 52; b++){
@@ -3192,4 +3140,29 @@ int main(int argc,char *argv[]) {
 
 	}
 	printAST(nodos,0,0,0);
+	mipsVar_write_declarations();
+
+
+	// Open two files to be merged
+   FILE *fp1 = fopen(filename_data, "r");
+   FILE *fp2 = fopen(filename_text, "r");
+  
+   // Open file to store the result
+   FILE *fp3 = fopen("mips.txt", "w");
+   char c;
+  
+   // Copy contents of first file to file3.txt
+   while ((c = fgetc(fp1)) != EOF)
+      fputc(c, fp3);
+  
+   // Copy contents of second file to file3.txt
+   while ((c = fgetc(fp2)) != EOF)
+      fputc(c, fp3);
+  
+   fclose(fp1);
+   fclose(fp2);
+   fclose(fp3);
+
+	 remove(filename_data);
+	 remove(filename_text);
 }
