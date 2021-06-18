@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.5.1.  */
+/* A Bison parser, made by GNU Bison 3.7.5.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2021 Free Software Foundation,
    Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,8 +31,9 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
 
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
@@ -44,74 +45,83 @@
 extern int yydebug;
 #endif
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    FLOAT = 259,
-    PLUS = 260,
-    MINUS = 261,
-    MULTIPLY = 262,
-    DIVIDE = 263,
-    LEFT = 264,
-    RIGHT = 265,
-    OPEN = 266,
-    CLOSE = 267,
-    WHILE = 268,
-    BOOL = 269,
-    CASE = 270,
-    INTEGERDEC = 271,
-    FLOATDEC = 272,
-    CHARDEC = 273,
-    STRINGDEC = 274,
-    BEG = 275,
-    STR = 276,
-    LOOP_ = 277,
-    END = 278,
-    IF = 279,
-    THEN = 280,
-    CHAR = 281,
-    AND = 282,
-    OR = 283,
-    ELSE = 284,
-    ELSEIF = 285,
-    PROCEDURE = 286,
-    IS = 287,
-    LESS = 288,
-    MORE = 289,
-    EQUAL = 290,
-    GREATER_THAN = 291,
-    LESSER_THAN = 292,
-    NOT_EQUAL = 293,
-    COMPARE = 294,
-    COMMENT = 295,
-    COLON = 296,
-    SEMICOLON = 297,
-    QUOTE = 298,
-    NEWLINE = 299,
-    QUIT = 300,
-    TRUE = 301,
-    FALSE = 302,
-    TYPE = 303,
-    RANGE = 304,
-    DOTDOT = 305,
-    OF = 306,
-    COMMA = 307,
-    WHEN = 308,
-    FOR = 309,
-    OTHERS = 310,
-    ARROW = 311,
-    VAR = 312,
-    DECLINTEGER = 313,
-    DECLFLOAT = 314,
-    DECLBOOLEAN = 315,
-    DECLARRAY = 316,
-    DECLSTRING = 317
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    INT = 258,                     /* INT  */
+    FLOAT = 259,                   /* FLOAT  */
+    PLUS = 260,                    /* PLUS  */
+    MINUS = 261,                   /* MINUS  */
+    MULTIPLY = 262,                /* MULTIPLY  */
+    DIVIDE = 263,                  /* DIVIDE  */
+    LEFT = 264,                    /* LEFT  */
+    RIGHT = 265,                   /* RIGHT  */
+    OPEN = 266,                    /* OPEN  */
+    CLOSE = 267,                   /* CLOSE  */
+    WHILE = 268,                   /* WHILE  */
+    BOOL = 269,                    /* BOOL  */
+    CASE = 270,                    /* CASE  */
+    INTEGERDEC = 271,              /* INTEGERDEC  */
+    FLOATDEC = 272,                /* FLOATDEC  */
+    CHARDEC = 273,                 /* CHARDEC  */
+    STRINGDEC = 274,               /* STRINGDEC  */
+    BEG = 275,                     /* BEG  */
+    STR = 276,                     /* STR  */
+    LOOP_ = 277,                   /* LOOP_  */
+    END = 278,                     /* END  */
+    IF = 279,                      /* IF  */
+    THEN = 280,                    /* THEN  */
+    CHAR = 281,                    /* CHAR  */
+    AND = 282,                     /* AND  */
+    OR = 283,                      /* OR  */
+    ELSE = 284,                    /* ELSE  */
+    ELSEIF = 285,                  /* ELSEIF  */
+    PROCEDURE = 286,               /* PROCEDURE  */
+    IS = 287,                      /* IS  */
+    LESS = 288,                    /* LESS  */
+    MORE = 289,                    /* MORE  */
+    EQUAL = 290,                   /* EQUAL  */
+    GREATER_THAN = 291,            /* GREATER_THAN  */
+    LESSER_THAN = 292,             /* LESSER_THAN  */
+    NOT_EQUAL = 293,               /* NOT_EQUAL  */
+    COMPARE = 294,                 /* COMPARE  */
+    COMMENT = 295,                 /* COMMENT  */
+    COLON = 296,                   /* COLON  */
+    SEMICOLON = 297,               /* SEMICOLON  */
+    QUOTE = 298,                   /* QUOTE  */
+    NEWLINE = 299,                 /* NEWLINE  */
+    QUIT = 300,                    /* QUIT  */
+    TRUE = 301,                    /* TRUE  */
+    FALSE = 302,                   /* FALSE  */
+    TYPE = 303,                    /* TYPE  */
+    RANGE = 304,                   /* RANGE  */
+    DOTDOT = 305,                  /* DOTDOT  */
+    OF = 306,                      /* OF  */
+    COMMA = 307,                   /* COMMA  */
+    WHEN = 308,                    /* WHEN  */
+    FOR = 309,                     /* FOR  */
+    OTHERS = 310,                  /* OTHERS  */
+    ARROW = 311,                   /* ARROW  */
+    VAR = 312,                     /* VAR  */
+    DECLINTEGER = 313,             /* DECLINTEGER  */
+    DECLFLOAT = 314,               /* DECLFLOAT  */
+    DECLBOOLEAN = 315,             /* DECLBOOLEAN  */
+    DECLARRAY = 316,               /* DECLARRAY  */
+    DECLSTRING = 317               /* DECLSTRING  */
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Tokens.  */
+/* Token kinds.  */
+#define YYEMPTY -2
+#define YYEOF 0
+#define YYerror 256
+#define YYUNDEF 257
 #define INT 258
 #define FLOAT 259
 #define PLUS 260
@@ -199,7 +209,7 @@ union YYSTYPE
 		int boo;
 	}st;
 
-#line 203 "y.tab.h"
+#line 213 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
