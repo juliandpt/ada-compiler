@@ -36,6 +36,7 @@ struct MipsValores {
 
 struct MipsVariables mipsVariables[100];
 struct MipsValores mipsValores[100];
+struct MipsValores mipsValoresLb[100];
 
 void mipsVar_initialize_struct();
 void mipsVar_initialize_valorStruct();
@@ -280,9 +281,15 @@ void mipsVar_write_declarations() {
                 
             } else if (strcmp(type, "string") == 0) {
                 if (mipsVariables[i].stVal != NULL) {
-                    write_file(filename_data, "\\");
-                    write_file(filename_data, mipsVariables[i].stVal);
-                    write_file(filename_data, "\\");
+                    char* aux;
+                    aux = mipsVariables[i].stVal;
+                    aux[strlen(aux)-1] = '\0';
+                    char auxfin[100] = "";
+                    strcat(auxfin, "\"\\");
+                    strcat(auxfin, aux);
+                    strcat(auxfin, "\\\"\"");
+                    auxfin[strlen(auxfin)] = '\0';
+                    write_file(filename_data, auxfin);
                 }
             }
             write_file(filename_data, "\n");
@@ -366,11 +373,20 @@ char* getTextFile() {
 
 void write_file(char *filename, char *content) {
     FILE *file;
-    printf("%s\n", filename);
     file = fopen(filename, "a");
     fprintf(file, "%s", content);
     fclose(file);
 }
+
+
+// loop: lb $a0,0($t0)
+    // beq $a0,$0,exit
+    // li $v0,11 # print character
+    // syscall
+    // addi $t0,$t0,1
+    // j loop
+// exit:
+
 
 void concatenateTxt(char* filename1, char* filename2, char* filename3) {
     // Open two files to be merged
