@@ -337,9 +337,10 @@ void mipsIns_else() {
 
 void mipsIns_endIf() {
     //concatenate filename con else con then
-    concatenateTxt("text.txt", "ifthen.txt", "aux.txt");
+    concatenateTxt("text.txt", "ifthen.txt", "fileaux.txt");
     remove("text.txt");
-    concatenateTxt("aux.txt", "ifelse.txt", "text.txt");
+    concatenateTxt("fileaux.txt", "ifelse.txt", "text.txt");
+    remove("fileaux.txt");
     remove("ifthen.txt");
     remove("ifelse.txt");
 
