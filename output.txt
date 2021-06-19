@@ -1,0 +1,21 @@
+Contenido: Declaracion con string	 Linea: 3
+Contenido: Declaracion de variable Integer o Float	 Linea: 4
+Contenido: Declaracion de variable Integer o Float	 Linea: 5
+Contenido: asignación de variable a cualquier cosa	 Linea: 6
+Contenido: Declaracion de variable Boolean a operacion booleana	 Linea: 7
+Contenido: Declaracion de variable Boolean a operacion booleana	 Linea: 8
+Contenido: IF BOOL THEN	 Linea: 11
+Contenido: asignación de variable a cualquier cosa	 Linea: 12
+Contenido: END IF SEMICOLON	 Linea: 13
+procedure comienza y termina con el mismo nombre
+
+Tabla de simbolos:
+Nombre	variable_string	INT	0	FLOAT	0.000000	STRING	"holi"	TIPO	string	BOOLEAN	false	ASSIGNED	true	
+
+Nombre	variable_int1	INT	8	FLOAT	0.000000	STRING	(null)	TIPO	integer	BOOLEAN	false	ASSIGNED	true	
+
+Nombre	variable_float1	INT	0	FLOAT	2.000000	STRING	(null)	TIPO	float	BOOLEAN	false	ASSIGNED	true	
+
+Nombre	variable_bool	INT	0	FLOAT	0.000000	STRING	(null)	TIPO	boolean	BOOLEAN	false	ASSIGNED	true	
+
+Nombre	variable_bool2	INT	0	FLOAT	0.000000	STRING	(null)	TIPO	boolean	BOOLEAN	false	ASSIGNED	true	
