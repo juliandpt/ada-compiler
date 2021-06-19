@@ -1,7 +1,6 @@
 #!/bin/bash
-rm ast.txt
-rm mips.txt
+rm *.txt
 flex comp.flex
 bison -dy bison.y
 gcc lex.yy.c y.tab.c -o analiza
-./analiza test.txt > output.txt
+./analiza main.adb > output.txt

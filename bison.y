@@ -76,8 +76,6 @@ struct ast nodos[52];
 
 struct symb tabla[52];
 
-// aux
-void write_file(char *filename, char *content);
 
 // tabla simbolos
 void initSymbolTable(struct symb *tabla, int inicio, int fin);
@@ -119,17 +117,12 @@ void printAST(struct ast nodos[], int i, int encontrado, int salida);
 	struct atributos{
 		int i;
 		float f;
-		int i2;
-		float f2;
-		char* operador;
+		int boo;
 		char* s;
-		char *temp1;
-		char *temp2;
-		char *temp3;
+		char* operador;
 		char* type;
 		struct ast *a;
 		char* error;
-		int boo;
 	}st;
 }
 // TIPOS
@@ -554,8 +547,6 @@ AUXCOMPLETO:
 
 CONTENT: 
 	IF_COND  {printf("Contenido: %s\t Linea: %d\n", $1.s, yylineno); if(!$1.a){ ;} else {eval(*$1.a, &size);};}
-	| BOOLEAN_OP  {printf("%s", $1.s);}
-	| BOOLEAN_MIX  {printf("%s", $1.s);}
 	| WLOOP  {printf("%s", $1);}
 	| COM  {printf("Contenido: %s\t Linea: %d\n", $1, yylineno); }
 	| DECL {if(strcmp($1.error, "empty") == 0){printf("Contenido: %s\t Linea: %d\n", $1.s, yylineno); if(!$1.a){ ;} else {eval(*$1.a, &size);};} else {yyerror($1.error);}}
@@ -766,10 +757,15 @@ COM:
 ;
 
 IF_COND: 
-	IF AUX_BOOLEAN_OP THEN	{$$.s = "IF BOOL THEN";}
-	| ELSE  				{$$.s = "ELSE";}
+	IF AUX_BOOLEAN_OP THEN	{
+		$$.s = "IF BOOL THEN";
+		printf("i am an if\n");
+		mipsIns_if($2.boo);
+		// AUXCONTENT --> todas las funciones de mips para rellenar el if
+	}
+	| ELSE  				{$$.s = "ELSE";mipsIns_else();}
     | ELSEIF AUX_BOOLEAN_OP THEN  	{$$.s = "ELSEIF BOOL THEN";}
-	| END IF SEMICOLON 		{$$.s = "END IF SEMICOLON";}
+	| END IF SEMICOLON 		{$$.s = "END IF SEMICOLON"; mipsIns_endIf();}
 
 ;
 
@@ -1221,14 +1217,6 @@ float operateFloat(char* operator, float left, float right){
 	}
 }
 
-
-void write_file(char *filename, char *content) {
-    FILE *file;
-    file = fopen(filename, "a");
-    fprintf(file, "%s", content);
-    fclose(file);
-}
-
 int main(int argc,char *argv[]) {
 	mipsVar_create_data();
 	mipsIns_create_text(); 
@@ -1259,26 +1247,8 @@ int main(int argc,char *argv[]) {
 	printAST(nodos,0,0,0);
 	mipsVar_write_declarations();
 
+	concatenateTxt(filename_data, filename_text, "mips.txt");
 
-	// Open two files to be merged
-   FILE *fp1 = fopen(filename_data, "r");
-   FILE *fp2 = fopen(filename_text, "r");
-  
-   // Open file to store the result
-   FILE *fp3 = fopen("mips.txt", "w");
-   char c;
-  
-   // Copy contents of first file to file3.txt
-   while ((c = fgetc(fp1)) != EOF)
-      fputc(c, fp3);
-  
-   // Copy contents of second file to file3.txt
-   while ((c = fgetc(fp2)) != EOF)
-      fputc(c, fp3);
-  
-   fclose(fp1);
-   fclose(fp2);
-   fclose(fp3);
 
 	 remove(filename_data);
 	 remove(filename_text);

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 char *filename_data = "data.txt";
 char *filename_text = "text.txt";
@@ -11,6 +12,7 @@ int st_mipsValoresLength = 100;
 int liInsertado = 0;
 int ifnumber = 0;
 int whilenumber = 0;
+int whereami = 0;
 
 struct MipsVariables {
     char *type;
@@ -37,6 +39,8 @@ struct MipsValores mipsValores[100];
 
 void mipsVar_initialize_struct();
 void mipsVar_initialize_valorStruct();
+char* getTextFile();
+void concatenateTxt(char* filename1, char* filename2, char* filename3);
 
 // file writing
 void clear_file(char *filename);
@@ -63,6 +67,8 @@ void mipsIns_load_instruction_variable(char *filename, int index);
 char *mipsVar_assign_memory_pos(int i);
 void mipsIns_write_li_instruction(char *filename, char *memory_pos, char *value);
 
+//if
+void mipsIns_if(int value);
 
 // impementations ---------------
 void mipsVar_insert_mips_variable_declaration(char *type, char *varname, int val1, char *val2, float val3, bool val4) {
@@ -77,7 +83,7 @@ void mipsVar_insert_mips_variable_declaration(char *type, char *varname, int val
             mipsVariables[i].stVal = val2;
             mipsVariables[i].fval = val3;
             mipsVariables[i].bVal = val4;
-            mipsIns_load_instruction_variable(filename_text, i);
+            mipsIns_load_instruction_variable(getTextFile(), i);
             encontrado = 1;
         } else {
             i += 1;
@@ -129,28 +135,28 @@ void mipsIns_asign_val_to_var(char *varname, char *type, int val1, float val2, c
         int index_2 = 0;
         if (strcmp(type, "integer") == 0) {
             index_2 = mipsVar_insert_update_numVar(0, type, val1, 0, "", false);
-            mipsIns_write_li_instruction(filename_text, mipsIns_createLi_variable(mipsValores[index_2].memoryPos),
+            mipsIns_write_li_instruction(getTextFile(), mipsIns_createLi_variable(mipsValores[index_2].memoryPos),
                                          integer_to_string(mipsValores[index_2].ival));
         } else if (strcmp(type, "float") == 0) {
             // char* formattedHex;
             // sprintf(formattedHex "%08X" , *(unsigned int*)&val2 );
             index_2 = mipsVar_insert_update_numVar(0, type, 0.0, val2, "", false);
-            mipsIns_write_li_instruction(filename_text, mipsIns_createLi_variable(mipsValores[index_2].memoryPos),
+            mipsIns_write_li_instruction(getTextFile(), mipsIns_createLi_variable(mipsValores[index_2].memoryPos),
                                          float_to_string(mipsValores[index_2].fval));
         } else if (strcmp(type, "string") == 0) {
             index_2 = mipsVar_insert_update_numVar(0, type, 0, 0.0, val3, false);
-            mipsIns_write_li_instruction(filename_text, mipsIns_createLi_variable(mipsValores[index_2].memoryPos),
+            mipsIns_write_li_instruction(getTextFile(), mipsIns_createLi_variable(mipsValores[index_2].memoryPos),
                                          float_to_string(mipsValores[index_2].fval));
         } else if (strcmp(type, "boolean") == 0) {
             index_2 = mipsVar_insert_update_numVar(0, type, 0, 0.0, "", val4);
-            mipsIns_write_li_instruction(filename_text, mipsIns_createLi_variable(mipsValores[index_2].memoryPos),
+            mipsIns_write_li_instruction(getTextFile(), mipsIns_createLi_variable(mipsValores[index_2].memoryPos),
                                          float_to_string(mipsValores[index_2].fval));
         }
-        write_file(filename_text, "move ");
-        write_file(filename_text, mipsVar_assign_memory_pos(mipsVariables[index_1].memoryPos));
-        write_file(filename_text, ", ");
-        write_file(filename_text, mipsIns_createLi_variable(mipsValores[index_2].memoryPos));
-        write_file(filename_text, "\n");
+        write_file(getTextFile(), "move ");
+        write_file(getTextFile(), mipsVar_assign_memory_pos(mipsVariables[index_1].memoryPos));
+        write_file(getTextFile(), ", ");
+        write_file(getTextFile(), mipsIns_createLi_variable(mipsValores[index_2].memoryPos));
+        write_file(getTextFile(), "\n");
 
     }
 }
@@ -211,8 +217,8 @@ void mipsVar_create_data() {
 }
 
 void mipsIns_create_text() {
-    write_file(filename_text, ".text");
-    write_file(filename_text, "\n");
+    write_file(getTextFile(), ".text");
+    write_file(getTextFile(), "\n");
 }
 
 void mipsVar_initialize_valorStruct() {
@@ -301,4 +307,88 @@ char *mipsVar_get_variable_type(char *type) {
     } else {
         return "yes";
     }
+}
+
+void mipsIns_if(int value) {
+    char* dir = mipsIns_createLi_variable(value);
+    
+    mipsIns_write_li_instruction(getTextFile(), dir, integer_to_string(value));
+    write_file(getTextFile(), "bnez ");
+    write_file(getTextFile(), dir );
+    write_file(getTextFile(), ",");
+    write_file(getTextFile(), " then");
+    write_file(getTextFile(), integer_to_string(ifnumber));
+    write_file(getTextFile(), "\n");
+    whereami = 1;
+}
+
+void mipsIns_else() {
+
+
+    write_file(getTextFile(), "\n j endif");
+    write_file(getTextFile(), integer_to_string(ifnumber));
+    write_file(getTextFile(), "\n then");
+    write_file(getTextFile(), integer_to_string(ifnumber));
+    write_file(getTextFile(), ":\n");
+    
+    whereami = 2;
+    
+}
+
+void mipsIns_endIf() {
+    //concatenate filename con else con then
+    concatenateTxt("text.txt", "ifthen.txt", "aux.txt");
+    remove("text.txt");
+    concatenateTxt("aux.txt", "ifelse.txt", "text.txt");
+    remove("ifthen.txt");
+    remove("ifelse.txt");
+
+    whereami = 0;
+    write_file(getTextFile(), "\n");
+    write_file(getTextFile(), "endif");
+    write_file(getTextFile(), integer_to_string(ifnumber));
+    write_file(getTextFile(), ":");
+    write_file(getTextFile(), "\n");    
+    write_file(getTextFile(), "\n");  
+    ifnumber+=1;
+}
+
+char* getTextFile() {
+    if(whereami == 0){
+        return "text.txt";
+    } else if(whereami == 1){
+        return "ifthen.txt";
+    } else if(whereami == 2){
+        return "ifelse.txt";
+    }
+}
+
+void write_file(char *filename, char *content) {
+    FILE *file;
+    printf("%s\n", filename);
+    file = fopen(filename, "a");
+    fprintf(file, "%s", content);
+    fclose(file);
+}
+
+void concatenateTxt(char* filename1, char* filename2, char* filename3) {
+    // Open two files to be merged
+   FILE *fp1 = fopen(filename1, "r");
+   FILE *fp2 = fopen(filename2, "r");
+  
+   // Open file to store the result
+   FILE *fp3 = fopen(filename3, "w");
+   char c;
+  
+   // Copy contents of first file to file3.txt
+   while ((c = fgetc(fp1)) != EOF)
+      fputc(c, fp3);
+  
+   // Copy contents of second file to file3.txt
+   while ((c = fgetc(fp2)) != EOF)
+      fputc(c, fp3);
+  
+   fclose(fp1);
+   fclose(fp2);
+   fclose(fp3);
 }

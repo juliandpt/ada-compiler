@@ -50,6 +50,7 @@ then (then|THEN)
 {if}  	{return IF;}
 {false} {return FALSE;}
 {bool}  {return BOOL;}
+{else} {return ELSE;}
 "Boolean" {return DECLBOOLEAN;}
 {and} 	{return AND;}
 {or} 	{return OR;}
