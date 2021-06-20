@@ -15,7 +15,6 @@ void yyerror (char const *s) {
 	printf("\x1b[1;31m");
 	printf("%s\t Line %d\n", s, yylineno);
 	printf("\x1b[0m");
-	// fprintf (stderr, "%s\n", s);
  }
 
 char* ast_text = "ast.txt";
@@ -1063,11 +1062,7 @@ void insertElement(struct symb *tabla, int *size, int valor, char* svalor, float
      
 }
 
-int compare(char* operator, float left, float right) {
-	// printf("left: %f\n", left);
-	// printf("right: %f\n", right);
-	// printf("operator: %s\n", operator);
-	
+int compare(char* operator, float left, float right) {	
 	if(strcmp(operator,">") == 0){
 		return left > right ? 1 : 0;
 	} else if(strcmp(operator,"<") == 0){
@@ -1087,12 +1082,10 @@ int compare(char* operator, float left, float right) {
 }
 
 char* getVarType(struct symb *tabla, int size, char* name) {
-	// printf("%s\n",name);
 	for(int i = 0; i < size; i++) {
 		if(strcmp(tabla[i].vname, "._empty") == 0){
 			continue;
 		} else if (strcmp(tabla[i].vname, name) == 0) {
-			// printf("%s\n", tabla[i].type);
 			return tabla[i].type;
 		}
 	}
