@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <sys/stat.h>
 
 char *filename_data = "data.txt";
 char *filename_text = "text.txt";
@@ -69,6 +70,7 @@ void mipsIns_write_li_instruction(char *filename, char *memory_pos, char *value)
 
 //if
 void mipsIns_if(int value);
+bool file_exists (char *filename);
 
 // impementations ---------------
 void mipsVar_insert_mips_variable_declaration(char *type, char *varname, int val1, char *val2, float val3, bool val4) {
@@ -331,32 +333,49 @@ void mipsIns_if(int value) {
 void mipsIns_else() {
 
 
-    write_file(getTextFile(), "\n j endif");
-    write_file(getTextFile(), integer_to_string(ifnumber));
-    write_file(getTextFile(), "\n then");
-    write_file(getTextFile(), integer_to_string(ifnumber));
-    write_file(getTextFile(), ":\n");
-    
+
     whereami = 2;
-    
+
 }
 
 void mipsIns_endIf() {
     //concatenate filename con else con then
-    concatenateTxt("text.txt", "ifthen.txt", "fileaux.txt");
-    remove("text.txt");
-    concatenateTxt("fileaux.txt", "ifelse.txt", "text.txt");
-    remove("fileaux.txt");
-    remove("ifthen.txt");
-    remove("ifelse.txt");
+        
+        
 
+    if (file_exists("ifelse.txt")){
+        concatenateTxt("text.txt", "ifelse.txt", "fileaux.txt");
+        write_file("fileaux.txt", "\n j endif");
+        write_file("fileaux.txt", integer_to_string(ifnumber));
+        write_file("fileaux.txt", "\n then");
+        write_file("fileaux.txt", integer_to_string(ifnumber));
+        write_file("fileaux.txt", ":\n");
+        remove("text.txt");
+        concatenateTxt("fileaux.txt", "ifthen.txt", "text.txt");
+        remove("fileaux.txt");
+        remove("ifthen.txt");
+        remove("ifelse.txt");
+    }else{
+        write_file("text.txt", "\n j endif");
+        write_file("text.txt", integer_to_string(ifnumber));
+        write_file("text.txt", "\n then");
+        write_file("text.txt", integer_to_string(ifnumber));
+        write_file("text.txt", ":\n");
+        concatenateTxt("text.txt", "ifthen.txt", "fileaux.txt");
+        remove("text.txt");
+        rename("fileaux.txt", "text.txt");
+        remove("fileaux.txt");
+        remove("ifthen.txt");
+    }
+    
+    
     whereami = 0;
     write_file(getTextFile(), "\n");
     write_file(getTextFile(), "endif");
     write_file(getTextFile(), integer_to_string(ifnumber));
     write_file(getTextFile(), ":");
-    write_file(getTextFile(), "\n");    
-    write_file(getTextFile(), "\n");  
+    write_file(getTextFile(), "\n");
+    write_file(getTextFile(), "\n");
     ifnumber+=1;
 }
 
@@ -397,4 +416,9 @@ void concatenateTxt(char* filename1, char* filename2, char* filename3) {
    fclose(fp1);
    fclose(fp2);
    fclose(fp3);
+}
+
+bool file_exists (char *filename) {
+  struct stat   buffer;   
+  return (stat (filename, &buffer) == 0);
 }

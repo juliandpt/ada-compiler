@@ -1,5 +1,8 @@
 
 =
+String
+
+=
 +
 Constante
 
@@ -12,8 +15,32 @@ Constante
 =
 
 =
+==
+Constante
+
+String
+
+
+=
+String
+
+=
 *
 String
 
+Constante
+
+
+=
+
+=
+*
 String
 
+Constante
+
+
+=
+
+=
+Constante
