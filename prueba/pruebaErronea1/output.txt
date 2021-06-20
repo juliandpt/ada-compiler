@@ -1,0 +1,14 @@
+Contenido: Declaracion con string	 Linea: 3
+Contenido: Declaracion de variable Integer o Float	 Linea: 4
+Contenido: Declaracion de variable Integer o Float	 Linea: 5
+Contenido: Declaracion de variable Boolean a operacion booleana	 Linea: 6
+[1;31msyntax error	 Line 7
+[0m
+Tabla de simbolos:
+Nombre	variable_string	INT	0	FLOAT	0.000000	STRING	"Prueba 1"	TIPO	string	BOOLEAN	false	ASSIGNED	true	
+
+Nombre	variable_int1	INT	12	FLOAT	0.000000	STRING	(null)	TIPO	integer	BOOLEAN	false	ASSIGNED	true	
+
+Nombre	variable_float1	INT	0	FLOAT	1.800000	STRING	(null)	TIPO	float	BOOLEAN	false	ASSIGNED	true	
+
+Nombre	variable_bool	INT	0	FLOAT	0.000000	STRING	(null)	TIPO	boolean	BOOLEAN	true	ASSIGNED	true	

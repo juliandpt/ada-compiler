@@ -1,0 +1,10 @@
+.data
+variable_string: .ascii "\"Prueba 1\""
+variable_int1: .word 12
+variable_float1: .float 1.800000
+variable_bool: .byte 1
+.text
+lw $s0,variable_string
+lw $s1,variable_int1
+lw $s2,variable_float1
+lw $s3,variable_bool
