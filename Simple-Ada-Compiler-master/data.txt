@@ -1,3 +1,0 @@
-.data
-variable_int1: .word 2
-variable_float1: .float 1.800000

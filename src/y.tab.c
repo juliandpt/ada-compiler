@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "bison.y"
+#line 1 "./src/bison.y"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -354,7 +354,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 112 "bison.y"
+#line 112 "./src/bison.y"
 
 	int eval;
 	float fval;
@@ -879,8 +879,8 @@ static const yytype_int16 yyrline[] =
      536,   544,   545,   549,   550,   551,   552,   556,   557,   558,
      559,   563,   564,   568,   573,   589,   594,   595,   596,   597,
      598,   599,   603,   604,   609,   618,   631,   649,   683,   716,
-     738,   739,   751,   752,   756,   760,   766,   767,   768,   773,
-     774,   783,   787
+     738,   739,   751,   752,   756,   760,   765,   766,   767,   772,
+     773,   782,   786
 };
 #endif
 
@@ -1636,7 +1636,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* PROCLINE: PROCEDURE VAR_NAME IS ADDCONTENT END VAR_NAME SEMICOLON  */
-#line 188 "bison.y"
+#line 188 "./src/bison.y"
                                                                         {
 			if(strcmp((yyvsp[-5].st).s, (yyvsp[-1].st).s) == 0){
 				printf("procedure comienza y termina con el mismo nombre\n");
@@ -1648,7 +1648,7 @@ yyreduce:
     break;
 
   case 5: /* AUXOPER: VAR_NAME  */
-#line 204 "bison.y"
+#line 204 "./src/bison.y"
                  {
 		if(!searchVar(tabla, size, (yyvsp[0].st).s)) { 
 			if(strcmp(getVarType(tabla, size, (yyvsp[0].st).s), "integer")==0) {
@@ -1672,7 +1672,7 @@ yyreduce:
     break;
 
   case 6: /* AUXOPER: VAR_NAME OPERATOR VAR_NAME  */
-#line 223 "bison.y"
+#line 223 "./src/bison.y"
                                      {
 		if(!searchVar(tabla, size, (yyvsp[-2].st).s) && !searchVar(tabla, size, (yyvsp[0].st).s)) { 
 			if(strcmp(getVarType(tabla, size, (yyvsp[-2].st).s), "integer")==0 && strcmp(getVarType(tabla, size, (yyvsp[0].st).s), "integer")==0) {
@@ -1713,7 +1713,7 @@ yyreduce:
     break;
 
   case 7: /* AUXOPER: VAR_NAME OPERATOR OPERATION  */
-#line 259 "bison.y"
+#line 259 "./src/bison.y"
                                       {
 		if(!searchVar(tabla, size, (yyvsp[-2].st).s)) { 
 			if(strcmp(getVarType(tabla, size, (yyvsp[-2].st).s), "integer")==0 && strcmp((yyvsp[0].st).type, "integer")==0) {
@@ -1754,7 +1754,7 @@ yyreduce:
     break;
 
   case 8: /* AUXOPER: OPERATION OPERATOR VAR_NAME  */
-#line 295 "bison.y"
+#line 295 "./src/bison.y"
                                       {
 		if(!searchVar(tabla, size, (yyvsp[0].st).s)) { 
 
@@ -1796,7 +1796,7 @@ yyreduce:
     break;
 
   case 9: /* AUXOPER: OPERATION  */
-#line 332 "bison.y"
+#line 332 "./src/bison.y"
                     {
 		if(strcmp((yyvsp[0].st).type, "integer")==0) {
 			(yyval.st).i = (yyvsp[0].st).i;
@@ -1817,7 +1817,7 @@ yyreduce:
     break;
 
   case 10: /* TYPEDECLARATION: DECLINTEGER  */
-#line 351 "bison.y"
+#line 351 "./src/bison.y"
                     {
 		(yyval.st).type = "integer";
 	}
@@ -1825,7 +1825,7 @@ yyreduce:
     break;
 
   case 11: /* TYPEDECLARATION: DECLFLOAT  */
-#line 354 "bison.y"
+#line 354 "./src/bison.y"
                     {
 		(yyval.st).type = "float";
 	}
@@ -1833,7 +1833,7 @@ yyreduce:
     break;
 
   case 12: /* DECL: VAR_NAME COLON TYPEDECLARATION COLON EQUAL AUXOPER SEMICOLON  */
-#line 361 "bison.y"
+#line 361 "./src/bison.y"
                                                                      {
 		(yyval.st).s = "Declaracion de variable Integer o Float";
 		if(strcmp((yyvsp[-1].st).error, "empty")==0){
@@ -1862,7 +1862,7 @@ yyreduce:
     break;
 
   case 13: /* DECL: VAR_NAME COLON TYPEDECLARATION SEMICOLON  */
-#line 386 "bison.y"
+#line 386 "./src/bison.y"
                                                    {
 		(yyval.st).s = "Declaracion de variable Integer o Float vacia";
 		if(strcmp((yyvsp[-1].st).type, "integer")==0){
@@ -1885,7 +1885,7 @@ yyreduce:
     break;
 
   case 14: /* DECL: VAR_NAME COLON DECLBOOLEAN COLON EQUAL VAR_NAME SEMICOLON  */
-#line 406 "bison.y"
+#line 406 "./src/bison.y"
                                                                     {
 			if(searchVar(tabla, size, (yyvsp[-6].st).s) && checkVarAndType(tabla, size, (yyvsp[-1].st).s, "boolean")) {
 				(yyval.st).error = "empty";
@@ -1898,7 +1898,7 @@ yyreduce:
     break;
 
   case 15: /* DECL: VAR_NAME COLON DECLBOOLEAN COLON EQUAL AUX_BOOLEAN_OP SEMICOLON  */
-#line 414 "bison.y"
+#line 414 "./src/bison.y"
                                                                           {
 			if(strcmp((yyvsp[-1].st).error,"empty") == 0 ){
 				if(searchVar(tabla, size, (yyvsp[-6].st).s)) {
@@ -1917,7 +1917,7 @@ yyreduce:
     break;
 
   case 16: /* DECL: VAR_NAME COLON EQUAL AUXCOMPLETO SEMICOLON  */
-#line 429 "bison.y"
+#line 429 "./src/bison.y"
                                                         {
 		(yyval.st).s = "asignación de variable a cualquier cosa";
 		if(strcmp((yyvsp[-1].st).error,"empty") == 0 ) {
@@ -1996,7 +1996,7 @@ yyreduce:
     break;
 
   case 17: /* DECL: VAR_NAME COLON DECLBOOLEAN SEMICOLON  */
-#line 505 "bison.y"
+#line 505 "./src/bison.y"
                                                {
 			(yyval.st).s = "Declaracion de variable Boolean vacia";
 			if (searchVar(tabla, size, (yyvsp[-3].st).s)) {
@@ -2010,7 +2010,7 @@ yyreduce:
     break;
 
   case 18: /* DECL: VAR_NAME COLON DECLSTRING COLON EQUAL VAR_NAME SEMICOLON  */
-#line 514 "bison.y"
+#line 514 "./src/bison.y"
                                                                    {
 			(yyval.st).s = "Declaracion de variable String igual a variable String"; 
 			if(searchVar(tabla, size, (yyvsp[-6].st).s) && checkVarAndType(tabla, size, (yyvsp[-1].st).s,"string")) {
@@ -2025,7 +2025,7 @@ yyreduce:
     break;
 
   case 19: /* DECL: VAR_NAME COLON DECLSTRING COLON EQUAL STRING SEMICOLON  */
-#line 524 "bison.y"
+#line 524 "./src/bison.y"
                                                                  {
 			(yyval.st).s = "Declaracion con string";
 			if(searchVar(tabla, size, (yyvsp[-6].st).s)) {
@@ -2042,7 +2042,7 @@ yyreduce:
     break;
 
   case 20: /* DECL: VAR_NAME COLON DECLSTRING SEMICOLON  */
-#line 536 "bison.y"
+#line 536 "./src/bison.y"
                                               {
 			(yyval.st).s = "Declaracion de variable String vacia";
 			if (searchVar(tabla, size, (yyvsp[-3].st).s)) {
@@ -2052,79 +2052,79 @@ yyreduce:
     break;
 
   case 21: /* AUXCOMPLETO: AUX_BOOLEAN_OP  */
-#line 544 "bison.y"
+#line 544 "./src/bison.y"
                        {(yyval.st) = (yyvsp[0].st);}
 #line 2058 "y.tab.c"
     break;
 
   case 22: /* AUXCOMPLETO: AUXOPER  */
-#line 545 "bison.y"
+#line 545 "./src/bison.y"
                   {(yyval.st) = (yyvsp[0].st); }
 #line 2064 "y.tab.c"
     break;
 
   case 23: /* CONTENT: IF_COND  */
-#line 549 "bison.y"
+#line 549 "./src/bison.y"
                  {printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].st).s, yylineno); if(!(yyvsp[0].st).a){ ;} else {eval(*(yyvsp[0].st).a, &size);};}
 #line 2070 "y.tab.c"
     break;
 
   case 24: /* CONTENT: WLOOP  */
-#line 550 "bison.y"
+#line 550 "./src/bison.y"
                  {printf("%s", (yyvsp[0].sval));}
 #line 2076 "y.tab.c"
     break;
 
   case 25: /* CONTENT: COM  */
-#line 551 "bison.y"
+#line 551 "./src/bison.y"
                {printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].sval), yylineno); }
 #line 2082 "y.tab.c"
     break;
 
   case 26: /* CONTENT: DECL  */
-#line 552 "bison.y"
+#line 552 "./src/bison.y"
                {if(strcmp((yyvsp[0].st).error, "empty") == 0){printf("Contenido: %s\t Linea: %d\n", (yyvsp[0].st).s, yylineno); if(!(yyvsp[0].st).a){ ;} else {eval(*(yyvsp[0].st).a, &size);};} else {yyerror((yyvsp[0].st).error);}}
 #line 2088 "y.tab.c"
     break;
 
   case 27: /* OPERATOR: PLUS  */
-#line 556 "bison.y"
+#line 556 "./src/bison.y"
              {(yyval.st).operador = "+";}
 #line 2094 "y.tab.c"
     break;
 
   case 28: /* OPERATOR: MINUS  */
-#line 557 "bison.y"
+#line 557 "./src/bison.y"
                 {(yyval.st).operador = "-";}
 #line 2100 "y.tab.c"
     break;
 
   case 29: /* OPERATOR: MULTIPLY  */
-#line 558 "bison.y"
+#line 558 "./src/bison.y"
                    {(yyval.st).operador = "*";}
 #line 2106 "y.tab.c"
     break;
 
   case 30: /* OPERATOR: DIVIDE  */
-#line 559 "bison.y"
+#line 559 "./src/bison.y"
                  {(yyval.st).operador = "/";}
 #line 2112 "y.tab.c"
     break;
 
   case 31: /* OPERAND: INT  */
-#line 563 "bison.y"
+#line 563 "./src/bison.y"
             {(yyval.st).i = (yyvsp[0].eval); (yyval.st).type = "integer"; (yyval.st).error="empty"; (yyval.st).a = createNum((yyvsp[0].eval));}
 #line 2118 "y.tab.c"
     break;
 
   case 32: /* OPERAND: FLOAT  */
-#line 564 "bison.y"
+#line 564 "./src/bison.y"
                       {(yyval.st).f = (yyvsp[0].fval); (yyval.st).type = "float"; (yyval.st).error="empty"; (yyval.st).a = createNum((yyvsp[0].fval));}
 #line 2124 "y.tab.c"
     break;
 
   case 33: /* OPERATION: OPERAND  */
-#line 568 "bison.y"
+#line 568 "./src/bison.y"
                 {
 		(yyval.st).type = (yyvsp[0].st).type;
 		(yyval.st).a = (yyvsp[0].st).a;
@@ -2134,7 +2134,7 @@ yyreduce:
     break;
 
   case 34: /* OPERATION: OPERATION OPERATOR OPERATION  */
-#line 573 "bison.y"
+#line 573 "./src/bison.y"
                                         {
 			if(strcmp((yyvsp[-2].st).type, "float") == 0 && strcmp((yyvsp[0].st).type, "float") == 0) {
 				(yyval.st).f = operateFloat((yyvsp[-1].st).operador, (yyvsp[-2].st).f, (yyvsp[0].st).f);
@@ -2155,61 +2155,61 @@ yyreduce:
     break;
 
   case 35: /* OPERATION: LEFT OPERATION RIGHT  */
-#line 589 "bison.y"
+#line 589 "./src/bison.y"
                                {if(strcmp((yyvsp[-1].st).type, "float") == 0) {(yyval.st).f = (yyvsp[-1].st).f;} else {(yyval.st).i = (yyvsp[-1].st).i;}}
 #line 2161 "y.tab.c"
     break;
 
   case 36: /* BOOLEAN_OPERATORS: COMPARE  */
-#line 594 "bison.y"
+#line 594 "./src/bison.y"
                 {(yyval.st).s = "IGUAL";(yyval.st).operador = "==";}
 #line 2167 "y.tab.c"
     break;
 
   case 37: /* BOOLEAN_OPERATORS: MORE  */
-#line 595 "bison.y"
+#line 595 "./src/bison.y"
                {(yyval.st).s = "MAYOR";(yyval.st).operador = ">";}
 #line 2173 "y.tab.c"
     break;
 
   case 38: /* BOOLEAN_OPERATORS: LESS  */
-#line 596 "bison.y"
+#line 596 "./src/bison.y"
                {(yyval.st).s = "MENOR";(yyval.st).operador = "<";}
 #line 2179 "y.tab.c"
     break;
 
   case 39: /* BOOLEAN_OPERATORS: GREATER_THAN  */
-#line 597 "bison.y"
+#line 597 "./src/bison.y"
                        {(yyval.st).s = "MAYOR IGUAL";(yyval.st).operador = ">=";}
 #line 2185 "y.tab.c"
     break;
 
   case 40: /* BOOLEAN_OPERATORS: LESSER_THAN  */
-#line 598 "bison.y"
+#line 598 "./src/bison.y"
                       {(yyval.st).s = "MENOR IGUAL";(yyval.st).operador = "<=";}
 #line 2191 "y.tab.c"
     break;
 
   case 41: /* BOOLEAN_OPERATORS: NOT_EQUAL  */
-#line 599 "bison.y"
+#line 599 "./src/bison.y"
                     {(yyval.st).s = "DESIGUAL";(yyval.st).operador = "!=";}
 #line 2197 "y.tab.c"
     break;
 
   case 42: /* AUX_BOOLEAN_OP: BOOLEAN_MIX  */
-#line 603 "bison.y"
+#line 603 "./src/bison.y"
                     {(yyval.st) = (yyvsp[0].st); (yyval.st).type = "boolean";}
 #line 2203 "y.tab.c"
     break;
 
   case 43: /* AUX_BOOLEAN_OP: BOOLEAN_OP  */
-#line 604 "bison.y"
+#line 604 "./src/bison.y"
                      {(yyval.st) = (yyvsp[0].st); (yyval.st).type = "boolean";}
 #line 2209 "y.tab.c"
     break;
 
   case 44: /* BOOLEAN_MIX: BOOLEAN_OP AND BOOLEAN_OP  */
-#line 609 "bison.y"
+#line 609 "./src/bison.y"
                                   {
 		(yyval.st).s="Expresiones booleanas con AND\n";
 		(yyval.st).error = "empty";
@@ -2223,7 +2223,7 @@ yyreduce:
     break;
 
   case 45: /* BOOLEAN_MIX: BOOLEAN_OP OR BOOLEAN_OP  */
-#line 618 "bison.y"
+#line 618 "./src/bison.y"
                                    {
 		(yyval.st).s="Expresiones booleanas con OR\n";
 		(yyval.st).error = "empty";
@@ -2237,7 +2237,7 @@ yyreduce:
     break;
 
   case 46: /* BOOLEAN_OP: OPERATION BOOLEAN_OPERATORS OPERATION  */
-#line 631 "bison.y"
+#line 631 "./src/bison.y"
                                                                 {
 		(yyval.st).s = "INT OP BOOL INT";
 		(yyval.st).error = "empty";
@@ -2259,7 +2259,7 @@ yyreduce:
     break;
 
   case 47: /* BOOLEAN_OP: VAR_NAME BOOLEAN_OPERATORS OPERATION  */
-#line 649 "bison.y"
+#line 649 "./src/bison.y"
                                                                 {
 
 		(yyval.st).s = "VAR OP BOOL INT";
@@ -2297,7 +2297,7 @@ yyreduce:
     break;
 
   case 48: /* BOOLEAN_OP: OPERATION BOOLEAN_OPERATORS VAR_NAME  */
-#line 683 "bison.y"
+#line 683 "./src/bison.y"
                                                                 {
 			(yyval.st).s = "INT OP BOOL VAR";
 			if(!searchVar(tabla, size, (yyvsp[0].st).s)) { 
@@ -2334,7 +2334,7 @@ yyreduce:
     break;
 
   case 49: /* BOOLEAN_OP: VAR_NAME BOOLEAN_OPERATORS VAR_NAME  */
-#line 716 "bison.y"
+#line 716 "./src/bison.y"
                                                                 {
 			(yyval.st).s = "VAR OP BOOL VAR";
 			if(!searchVar(tabla, size, (yyvsp[-2].st).s) && !searchVar(tabla, size, (yyvsp[0].st).s)) {
@@ -2361,13 +2361,13 @@ yyreduce:
     break;
 
   case 50: /* BOOLEAN_OP: LEFT BOOLEAN_OP RIGHT  */
-#line 738 "bison.y"
+#line 738 "./src/bison.y"
                                         {(yyval.st).s = "PARENTESIS BOOL PARENTESIS"; (yyval.st).boo = (yyvsp[-1].st).boo;}
 #line 2367 "y.tab.c"
     break;
 
   case 51: /* BOOLEAN_OP: VAR_NAME  */
-#line 739 "bison.y"
+#line 739 "./src/bison.y"
                    {
 		(yyval.st).s = "PARENTESIS BOOL PARENTESIS";
 		if(!searchVar(tabla, size, (yyvsp[0].st).s)){
@@ -2384,78 +2384,77 @@ yyreduce:
     break;
 
   case 52: /* BOOLEAN_OP: TRUE  */
-#line 751 "bison.y"
+#line 751 "./src/bison.y"
                {(yyval.st).boo=1; (yyval.st).a = createBOOLVAR("True");}
 #line 2390 "y.tab.c"
     break;
 
   case 53: /* BOOLEAN_OP: FALSE  */
-#line 752 "bison.y"
+#line 752 "./src/bison.y"
                 {(yyval.st).boo=0; (yyval.st).a = createBOOLVAR("False");}
 #line 2396 "y.tab.c"
     break;
 
   case 54: /* COM: COMMENT  */
-#line 756 "bison.y"
+#line 756 "./src/bison.y"
                 {(yyval.sval) = "Comentario\n";}
 #line 2402 "y.tab.c"
     break;
 
   case 55: /* IF_COND: IF AUX_BOOLEAN_OP THEN  */
-#line 760 "bison.y"
+#line 760 "./src/bison.y"
                                 {
 		(yyval.st).s = "IF BOOL THEN";
-		printf("i am an if\n");
 		mipsIns_if((yyvsp[-1].st).boo);
 		// AUXCONTENT --> todas las funciones de mips para rellenar el if
 	}
-#line 2413 "y.tab.c"
+#line 2412 "y.tab.c"
     break;
 
   case 56: /* IF_COND: ELSE  */
-#line 766 "bison.y"
+#line 765 "./src/bison.y"
                                                 {(yyval.st).s = "ELSE";mipsIns_else();}
-#line 2419 "y.tab.c"
+#line 2418 "y.tab.c"
     break;
 
   case 57: /* IF_COND: ELSEIF AUX_BOOLEAN_OP THEN  */
-#line 767 "bison.y"
+#line 766 "./src/bison.y"
                                         {(yyval.st).s = "ELSEIF BOOL THEN";}
-#line 2425 "y.tab.c"
+#line 2424 "y.tab.c"
     break;
 
   case 58: /* IF_COND: END IF SEMICOLON  */
-#line 768 "bison.y"
+#line 767 "./src/bison.y"
                                         {(yyval.st).s = "END IF SEMICOLON"; mipsIns_endIf();}
-#line 2431 "y.tab.c"
+#line 2430 "y.tab.c"
     break;
 
   case 59: /* WLOOP: WHILE BOOLEAN_OP LOOP_  */
-#line 773 "bison.y"
+#line 772 "./src/bison.y"
                                {(yyval.sval) = "Bucle while\n";}
-#line 2437 "y.tab.c"
+#line 2436 "y.tab.c"
     break;
 
   case 60: /* WLOOP: END LOOP_ SEMICOLON  */
-#line 774 "bison.y"
+#line 773 "./src/bison.y"
                               {(yyval.sval)="Fin de bucle\n";}
-#line 2443 "y.tab.c"
+#line 2442 "y.tab.c"
     break;
 
   case 61: /* VAR_NAME: VAR  */
-#line 783 "bison.y"
+#line 782 "./src/bison.y"
             {(yyval.st).s = (yyvsp[0].sval); (yyval.st).a = createSTR((yyvsp[0].sval)); (yyval.st).type = "var";}
-#line 2449 "y.tab.c"
+#line 2448 "y.tab.c"
     break;
 
   case 62: /* STRING: STR  */
-#line 787 "bison.y"
+#line 786 "./src/bison.y"
             {(yyval.st).s = (yyvsp[0].sval); (yyval.st).a = createSTR((yyvsp[0].sval));}
-#line 2455 "y.tab.c"
+#line 2454 "y.tab.c"
     break;
 
 
-#line 2459 "y.tab.c"
+#line 2458 "y.tab.c"
 
       default: break;
     }
@@ -2654,7 +2653,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 792 "bison.y"
+#line 791 "./src/bison.y"
 
 //FUNCIONES DE AST
 struct ast *newast(char* nodetype, struct ast *l, struct ast *r) {

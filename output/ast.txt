@@ -25,6 +25,13 @@ String
 String
 
 =
+*
+String
+
+Constante
+
+
+=
 
 =
 *

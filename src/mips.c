@@ -36,7 +36,6 @@ struct MipsValores {
 
 struct MipsVariables mipsVariables[100];
 struct MipsValores mipsValores[100];
-struct MipsValores mipsValoresLb[100];
 
 void mipsVar_initialize_struct();
 void mipsVar_initialize_valorStruct();
@@ -377,16 +376,6 @@ void write_file(char *filename, char *content) {
     fprintf(file, "%s", content);
     fclose(file);
 }
-
-
-// loop: lb $a0,0($t0)
-    // beq $a0,$0,exit
-    // li $v0,11 # print character
-    // syscall
-    // addi $t0,$t0,1
-    // j loop
-// exit:
-
 
 void concatenateTxt(char* filename1, char* filename2, char* filename3) {
     // Open two files to be merged

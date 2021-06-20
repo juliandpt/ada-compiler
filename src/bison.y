@@ -759,7 +759,6 @@ COM:
 IF_COND: 
 	IF AUX_BOOLEAN_OP THEN	{
 		$$.s = "IF BOOL THEN";
-		printf("i am an if\n");
 		mipsIns_if($2.boo);
 		// AUXCONTENT --> todas las funciones de mips para rellenar el if
 	}

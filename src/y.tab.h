@@ -187,7 +187,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 112 "bison.y"
+#line 112 "./src/bison.y"
 
 	int eval;
 	float fval;
