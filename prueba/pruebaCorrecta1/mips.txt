@@ -1,0 +1,24 @@
+.data
+variable_string: .ascii "\"Prueba 1\""
+variable_int1: .word 12
+variable_float1: .float 1.800000
+variable_bool: .byte 1
+variable_float2: .float 3.600000
+.text
+lw $s0,variable_string
+lw $s1,variable_int1
+lw $s2,variable_float1
+lw $s3,variable_bool
+lw $s4,variable_float2
+li $t0, 0
+bnez $t0, then0
+li $t0, 24
+move $s1, $t0
+
+ j endif0
+ then0:
+li $t1, 2.800000
+move $s2, $t1
+
+endif0:
+
