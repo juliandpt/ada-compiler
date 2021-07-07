@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>    
 #include <string.h>
+#include <math.h>
 #include "symtab.h"
 #include "AST.h"
 
@@ -71,7 +72,7 @@ symrec *act;
 
 %}
 
-%token MAS, MENOS, POR, DIV, PAR_I, PAR_D, IF, THEN, MAYOR_Q, MENOR_Q, ELSE, SALTOLINEA, PROCEDURE, IS, END, BEGINN, DOSPUNTOS, INTEGER, FLOAT, STRING, BOOLEAN, IDENTIFICADORSIMB, PIZQ_COM, DOSPUNTOS_IGUAL, PDECH_COM, PUTLINE, ENDIF, TRUE, FALSE, COMENTARIO, WHILE, LOOP, ENDLOOP, IGUAL, FOR, IN, RANGO, FUNCION, RETURN
+%token MAS MENOS POR DIV PAR_I PAR_D IF THEN MAYOR_Q MENOR_Q ELSE SALTOLINEA PROCEDURE IS END BEGINN DOSPUNTOS INTEGER FLOAT STRING BOOLEAN IDENTIFICADORSIMB PIZQ_COM DOSPUNTOS_IGUAL PDECH_COM PUTLINE ENDIF TRUE FALSE COMENTARIO WHILE LOOP ENDLOOP IGUAL FOR IN RANGO FUNCION RETURN
 
 %left MAS MENOS
 %left POR DIV
@@ -100,33 +101,34 @@ symrec *act;
 
 
 %start programa
+
 %%
 
-programa : cuerpo {
- 	/*fprintf(yyout, ".data\n");
-	dataOper($$.a);
- 	fprintf(yyout, ".text\n");
-	textIf(globalSignCond,$$.f);
-	textWhile(globalSignCond, $$.f);*/
+programa: cuerpo {
+ 	// fprintf(yyout, ".data\n");
+	// dataOper($$.a);
+ 	// fprintf(yyout, ".text\n");
+	// textIf(globalSignCond,$$.f);
+	// textWhile(globalSignCond, $$.f);
 
 	printf("TODO OK\n"); 
 	fprintf(yyout, "TODO OK\n");
 }
 ;
 
-cuerpo : inicio SALTOLINEA sentencias fin
+cuerpo: inicio SALTOLINEA sentencias fin
 ;
 
 
-inicio : PROCEDURE nombreI IS //{fprintf(yyout, "Inicio -> procedure\n");}
+inicio: PROCEDURE nombreI IS {fprintf(yyout, "Inicio -> procedure\n");}
 ;
 
-fin : END nombreF //{fprintf(yyout, "Final -> end\n");}
+fin: END nombreF {fprintf(yyout, "Final -> end\n");}
 ;
 
 nombreI: IDENTIFICADOR {
 	//fprintf(yyout, "Nombre Inicio\n");
-	add_SymText ( "Nombre", $1, "string" )}
+	add_SymText ( "Nombre", $1, "string" );}
 ;
 
 
@@ -141,19 +143,19 @@ nombreF: IDENTIFICADOR {
 }
 ;
 
-sentencias : declaraciones SALTOLINEA comienzo SALTOLINEA sentencia SALTOLINEA 
+sentencias: declaraciones comienzo sentencia 
 ;
 
 
-comienzo: BEGINN //{fprintf(yyout, "Comienzo -> begin\n");}
+comienzo: BEGINN {fprintf(yyout, "Comienzo -> begin\n");}
 ;
 
 
-declaraciones : declaraciones SALTOLINEA declaracion
+declaraciones: declaraciones SALTOLINEA declaracion
 	| declaracion 
 ;
 
-declaracion : IDENTIFICADOR DOSPUNTOS tipo { 
+declaracion: IDENTIFICADOR DOSPUNTOS tipo { 
 	printf("Se declara la variable: %s \n", $1);
 	$$.texto = $1; add_SymText ( $$.texto, $$.texto, globalTipo);
 }
@@ -162,7 +164,7 @@ declaracion : IDENTIFICADOR DOSPUNTOS tipo {
 
 tipo: INTEGER {
 	globalTipo= "entero";
-	//fprintf(yyout, "Declaracion -> int\n");
+	fprintf(yyout, "Declaracion -> int\n");
 	}
       |FLOAT {
 	globalTipo= "float";
@@ -178,7 +180,7 @@ tipo: INTEGER {
 	}
 ;
 
-sentencia : sentencia SALTOLINEA expr 
+sentencia: sentencia SALTOLINEA expr 
 	| expr
  
 ;
@@ -282,35 +284,35 @@ calc:  calc MAS calc {
 				evalprint($$.a);
 				globalTipo = $1.tipo;
 				contadorOperadores(globalContadorOper, $$.a);
-				//printf("Suma (tipo=%s)\n", $$.tipo);
+				printf("Suma (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($1.tipo == "real") && ($3.tipo == "real")){
 				$$.a = newast('+', $1.a,$3.a); 
 				evalprint($$.a);
 				globalTipo = $1.tipo;
 				contadorOperadores(globalContadorOper, $$.a);
-				//printf("Suma (tipo=%s)\n", $$.tipo);
+				printf("Suma (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($1.tipo == "string")){
 				$$.a = newast('+', $1.a,$3.a); 
 				evalprint($$.a);
 				globalTipo = $3.tipo;
 				contadorOperadores(globalContadorOper, $$.a);
-				//printf("Suma (tipo=%s)\n", $$.tipo);
+				printf("Suma (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($3.tipo == "string")){
 				$$.a = newast('+', $1.a,$3.a); 
 				evalprint($$.a);
 				globalTipo = $1.tipo;
 				contadorOperadores(globalContadorOper, $$.a);
-				//printf("Suma (tipo=%s)\n", $$.tipo);
+				printf("Suma (tipo=%s)\n", $$.tipo);
 			}
 			else if (($3.tipo == "string") && ($1.tipo == "string")){
 				$$.a = newast('+', $1.a,$3.a); 
 				evalprint($$.a);
 				globalTipo = $1.tipo;
 				contadorOperadores(globalContadorOper, $$.a);
-				//printf("Suma (tipo=%s)\n", $$.tipo);
+				printf("Suma (tipo=%s)\n", $$.tipo);
 			}
 
 		} else {
@@ -329,28 +331,28 @@ calc:  calc MAS calc {
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Resta (tipo=%s)\n", $$.tipo);
+				printf("Resta (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($1.tipo == "real") && ($3.tipo == "real")){
 				$$.a = newast('-', $1.a,$3.a); 
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Resta (tipo=%s)\n", $$.tipo);
+				printf("Resta (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($1.tipo == "string")){
 				$$.a = newast('-', $1.a,$3.a); 
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Resta (tipo=%s)\n", $$.tipo);
+				printf("Resta (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($3.tipo == "string")){
 				$$.a = newast('-', $1.a,$3.a); 
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Resta (tipo=%s)\n", $$.tipo);
+				printf("Resta (tipo=%s)\n", $$.tipo);
 			}
 			else if (($3.tipo == "string") && ($1.tipo == "string")){
 				$$.a = newast('-', $1.a,$3.a); 
@@ -358,7 +360,7 @@ calc:  calc MAS calc {
 				globalTipo = $1.tipo;
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Resta (tipo=%s)\n", $$.tipo);
+				printf("Resta (tipo=%s)\n", $$.tipo);
 
 
 			}
@@ -378,21 +380,21 @@ calc:  calc MAS calc {
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Mult (tipo=%s)\n", $$.tipo);
+				printf("Mult (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($1.tipo == "real") && ($3.tipo == "real")){
 				$$.a = newast('*', $1.a,$3.a); 
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Mult (tipo=%s)\n", $$.tipo);
+				printf("Mult (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($1.tipo == "string")){
 				$$.a = newast('*', $1.a,$3.a); 
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Mult (tipo=%s)\n", $$.tipo);
+				printf("Mult (tipo=%s)\n", $$.tipo);
 
 
 			} 
@@ -401,7 +403,7 @@ calc:  calc MAS calc {
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Mult (tipo=%s)\n", $$.tipo);
+				printf("Mult (tipo=%s)\n", $$.tipo);
 			}
 			else if (($3.tipo == "string") && ($1.tipo == "string")){
 				$$.a = newast('*', $1.a,$3.a); 
@@ -409,7 +411,7 @@ calc:  calc MAS calc {
 				contadorOperadores(globalContadorOper, $$.a);
 
 				globalTipo = $1.tipo;
-				//printf("Mult (tipo=%s)\n", $$.tipo);
+				printf("Mult (tipo=%s)\n", $$.tipo);
 
 
 			}
@@ -434,21 +436,21 @@ calc:  calc MAS calc {
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Div (tipo=%s)\n", $$.tipo);
+				printf("Div (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($1.tipo == "real") && ($3.tipo == "real")){
 				$$.a = newast('/', $1.a,$3.a); 
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Div (tipo=%s)\n", $$.tipo);
+				printf("Div (tipo=%s)\n", $$.tipo);
 			} 
 			else if (($1.tipo == "string")){
 				$$.a = newast('/', $1.a,$3.a); 
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Div (tipo=%s)\n", $$.tipo);
+				printf("Div (tipo=%s)\n", $$.tipo);
 
 
 			} 
@@ -457,7 +459,7 @@ calc:  calc MAS calc {
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
 
-				//printf("Div (tipo=%s)\n", $$.tipo);
+				printf("Div (tipo=%s)\n", $$.tipo);
 
 			}
 			else if (($3.tipo == "string") && ($1.tipo == "string")){

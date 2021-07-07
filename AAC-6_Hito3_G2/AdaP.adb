@@ -1,13 +1,15 @@
 procedure Hello is
-	Marcos :Integer;
-	Paula :Integer;
-	Maria :Integer;
-	Jose :Integer;
-	Rosa :Integer;
-	Alberto :Integer;
-	Numero :Integer;
-
-begin	
+	Marcos:Integer;
+	Paula:Integer;
+	Maria:Integer;
+	Jose:Integer;
+	Rosa:Integer;
+	Alberto:Integer;
+	Numero:Integer;
+	Numero:=10 + 10;
+	
+begin
+	Numero:=10 + 10;
 	while 1 < 10 loop
 		Marcos := 2 * 3;
 		Paula := Marcos + 1;
