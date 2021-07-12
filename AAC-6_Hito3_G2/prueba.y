@@ -120,7 +120,7 @@ cuerpo: inicio SALTOLINEA sentencias fin
 ;
 
 
-inicio: PROCEDURE nombreI IS {fprintf(yyout, "Inicio -> procedure\n");}
+inicio: PROCEDURE nombreI IS {printf("Inicio -> procedure\n");}
 ;
 
 fin: END nombreF {fprintf(yyout, "Final -> end\n");}
@@ -143,11 +143,11 @@ nombreF: IDENTIFICADOR {
 }
 ;
 
-sentencias: declaraciones comienzo sentencia 
+sentencias: declaraciones SALTOLINEA comienzo SALTOLINEA sentencia {printf("sentencias");}
 ;
 
 
-comienzo: BEGINN {fprintf(yyout, "Comienzo -> begin\n");}
+comienzo: BEGINN {printf("begin\n");}
 ;
 
 
@@ -182,7 +182,6 @@ tipo: INTEGER {
 
 sentencia: sentencia SALTOLINEA expr 
 	| expr
- 
 ;
 
 expr: IDENTIFICADOR  DOSPUNTOS_IGUAL calc {
@@ -624,6 +623,7 @@ factor: NUMENTERO //{fprintf(yyout, "  factor--> NUMENTERO(%d)\n", $1);}
 bucle_while: WHILE calc LOOP SALTOLINEA sentencia SALTOLINEA ENDLOOP { 
 		//$$.f = newflow('W', $2.f, $4.f, NULL);  
  		//fprintf(yyout, "WHILEEEEEE\n");
+		printf("while\n");
  		fprintf(yyout, "..............................................\n");
  		fprintf(yyout, ".data\n");
 		dataOper($2.f);

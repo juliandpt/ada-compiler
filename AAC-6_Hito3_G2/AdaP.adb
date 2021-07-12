@@ -6,8 +6,6 @@ procedure Hello is
 	Rosa:Integer;
 	Alberto:Integer;
 	Numero:Integer;
-	Numero:=10 + 10;
-	
 begin
 	Numero:=10 + 10;
 	while 1 < 10 loop
