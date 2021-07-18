@@ -1,90 +1,66 @@
 %{
-#include <stdio.h>
 #include "y.tab.h"
-int nc, np, nl;
+
 %}
-%option noyywrap 
-%option yylineno
 
-bool (bool|boolean)
-false (false|FALSE)
-true (true|TRUE)
+%option noyywrap
 
-variable_name ([a-zA-Z|0-9|_|])+
-string (\".+\")
-fnum ([0-9])+[\,|\.]([0-9])+
-inum ([0-9])+
-procedure (procedure|procedure)
-range (range|RANGE)
-while (while|WHILE)
-for (for|FOR)
-case (case|CASE)
-when (when|WHEN)
-is (is|IS)
-others (others|OTHERS)
-end (end|END)
-loop (loop|LOOP)
-of (of|OF)
-type (type|TYPE)
+digito [0-9]
+letra [a-zA-Z]
+letraysimb [a-zA-Z_\.]
 
-and (and|AND)
-or (or|OR)
-
-if (if|IF)
-else (else|ELSE)
-elseif (elseif|ELSEIF)
-then (then|THEN)
 
 %%
+[ \t]+ ;
 
-[ \t]	;
-"\n"		{}
-{true}  {return TRUE;} //funciona por algun motivo, hay que poner esto arriba del todo
-{procedure} {return PROCEDURE;}
-{is} {return IS;}
-{end} {return END;}
-{range} {return RANGE;}
-{case}  {return CASE;}
-{when}  {return WHEN;}
-{then}  {return THEN;}
-{if}  	{return IF;}
-{false} {return FALSE;}
-{bool}  {return BOOL;}
-{else} {return ELSE;}
-"Boolean" {return DECLBOOLEAN;}
-{and} 	{return AND;}
-{or} 	{return OR;}
-"Integer" {return DECLINTEGER;}
-"Float" {return DECLFLOAT;}
-{fnum}	{yylval.fval = atof(yytext); return FLOAT;}
-{inum}	{yylval.eval = atoi(yytext); return INT;}
-{string}  {yylval.sval = strdup(yytext);return STR;}
-"String" {return DECLSTRING;}
-"array" {return DECLARRAY;}
-{while} {return WHILE;}
-{for}   {return FOR;}
-{others}  {return OTHERS;}
-{type} {return TYPE;}
-{variable_name}  {yylval.sval = strdup(yytext);return VAR;}
-":"		{return COLON;}
-";"		{return SEMICOLON;}
-"{"		{return OPEN;}
-"}"		{return CLOSE;}
-"+"		{return PLUS;}
-"-"		{return MINUS;}
-"*"		{return MULTIPLY;}
-"/"		{return DIVIDE;}
-"("		{return LEFT;}
-")"		{return RIGHT;}
-"<"		{return LESS;}
-">"		{return MORE;}
-"="		{return EQUAL;}
-"--".*	{return COMMENT;}
-">="    {return GREATER_THAN;}
-"<="    {return LESSER_THAN;}
-"!="    {return NOT_EQUAL;}
-"=="    {return COMPARE;}
-"=>"    {return ARROW;}
-".."    {return DOTDOT;}
-","     {return COMMA;}
+"+" 		return MAS;
+"-" 		return MENOS;
+"*" 		return POR;
+"/" 		return DIV;
+"(" 		return PAR_I;
+")" 		return PAR_D;
+"if"  		{ return IF;}
+"then" 		{ return THEN;}
+">" 		return MAYOR_Q;
+"<" 		return MENOR_Q;
+"else" 		return ELSE;
+"procedure" 	return PROCEDURE;
+"is" 		return IS;
+"end"		return END;
+"begin" 	return BEGINN;
+":" 		return DOSPUNTOS;
+"Integer" 	return INTEGER;
+"Float" 	return FLOAT;
+"String" 	return STRING;
+"Boolean"	return BOOLEAN;
+":=" 		return DOSPUNTOS_IGUAL;
+"(\"" 		return PIZQ_COM;
+"\")" 		return PDECH_COM;
+"Put_Line"	return PUTLINE;
+"end if" 	return ENDIF;
+"True" 		return TRUE;
+"False" 	return FALSE;
+"--" 		return COMENTARIO;
+"while" 	return WHILE;
+"loop" 		return LOOP;
+"end loop" 	return ENDLOOP;
+"=" 		return IGUAL;
+"for"		return FOR;
+"in"		return IN;
+".."		return RANGO;
+"function"	return FUNCION;
+"return"	return RETURN;
+
+
+[ \n]+ return SALTOLINEA;
+
+{letra}({letra}|{digito})* yylval.string=strdup(yytext); return IDENTIFICADOR; 
+{letraysimb}+ return IDENTIFICADORSIMB; 
+
+
+[-+]?{digito}+ yylval.number=atoi(yytext); return NUMENTERO;
+
+[-+]?{digito}+(.{digito}+)?((E|e)[-+]?{digito}+)? yylval.numberf=atof(yytext); return NUMREAL;
+
+. {printf("token erroneo\n");} 
 %%
