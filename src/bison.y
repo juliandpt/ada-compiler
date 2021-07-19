@@ -71,7 +71,7 @@ symrec *act;
 
 %}
 
-%token MAS MENOS POR DIV PAR_I PAR_D IF THEN MAYOR_Q MENOR_Q ELSE SALTOLINEA PROCEDURE IS END BEGINN DOSPUNTOS INTEGER FLOAT STRING BOOLEAN IDENTIFICADORSIMB PIZQ_COM DOSPUNTOS_IGUAL PDECH_COM PUTLINE ENDIF TRUE FALSE COMENTARIO WHILE LOOP ENDLOOP IGUAL FOR IN RANGO FUNCION RETURN
+%token MAS MENOS POR DIV PAR_I PAR_D IF THEN MAYOR_Q MENOR_Q ELSE SALTOLINEA PROCEDURE IS END BEGINN DOSPUNTOS INTEGER FLOAT STRING BOOLEAN IDENTIFICADORSIMB PIZQ_COM DOSPUNTOS_IGUAL PDECH_COM PUTLINE ENDIF TRUE FALSE COMENTARIO WHILE LOOP ENDLOOP IGUAL FOR IN RANGO FUNCION RETURN SEMICOLON
 
 %left MAS MENOS
 %left POR DIV
@@ -87,10 +87,10 @@ symrec *act;
         double numberf;
         char *string;
 	struct {
-     		char *tipo;
-    		int valor;
-    		double valord;
-    		char *texto;
+     	char *tipo;
+    	int valor;
+    	double valord;
+    	char *texto;
  		int booleanCond;
 		struct ast *a;
 		struct flow *f;
@@ -154,7 +154,7 @@ declaraciones: declaraciones SALTOLINEA declaracion
 	| declaracion 
 ;
 
-declaracion: IDENTIFICADOR DOSPUNTOS tipo { 
+declaracion: IDENTIFICADOR DOSPUNTOS tipo SEMICOLON { 
 	printf("Se declara la variable: %s \n", $1);
 	$$.texto = $1; add_SymText ( $$.texto, $$.texto, globalTipo);
 }
@@ -183,7 +183,7 @@ sentencia: sentencia SALTOLINEA expr
 	| expr
 ;
 
-expr: IDENTIFICADOR  DOSPUNTOS_IGUAL calc {
+expr: IDENTIFICADOR DOSPUNTOS_IGUAL calc SEMICOLON {
 	if (globalBoolCond == 0) {
 		globalBoolCond =0;
  		fprintf(yyout, "..............................................\n");
@@ -232,9 +232,9 @@ expr: IDENTIFICADOR  DOSPUNTOS_IGUAL calc {
 
 	}
 
-      |PUTLINE PIZQ_COM IDENTIFICADOR PDECH_COM {printf("Put_Line\n");}
-      |IDENTIFICADOR DOSPUNTOS_IGUAL factor {printf("Asignacion\n");}
-      |COMENTARIO IDENTIFICADOR {printf("Comentario\n");}
+      |PUTLINE PIZQ_COM IDENTIFICADOR PDECH_COM SEMICOLON{printf("Put_Line\n");}
+      |IDENTIFICADOR DOSPUNTOS_IGUAL factor SEMICOLON {printf("Asignacion\n");}
+      |COMENTARIO {printf("Comentario\n");}
       |bucle_while { printf("Bucle WHILE\n");   //printf("WHILE - %4.4g\n", eval($1.f));
 	}
       |bucle_for {printf("Bucle FOR\n");}
@@ -242,7 +242,7 @@ expr: IDENTIFICADOR  DOSPUNTOS_IGUAL calc {
 ;
 
 
-sentencia_if: IF calc THEN SALTOLINEA sentencia SALTOLINEA ENDIF {
+sentencia_if: IF calc THEN SALTOLINEA sentencia SALTOLINEA ENDIF SEMICOLON {
 		//$$.f = newflow('I', $2.f , $5.f, NULL); 
  		//fprintf(yyout, "IFFFFFFFFF\n");
  		fprintf(yyout, "..............................................\n");
@@ -578,7 +578,7 @@ calc:  calc MAS calc {
 ;
 
 
-funcion: FUNCION nombreFuncion PAR_I declaraciones PAR_D RETURN tipo IS SALTOLINEA BEGINN SALTOLINEA sentencia SALTOLINEA Fun SALTOLINEA END {
+funcion: FUNCION nombreFuncion PAR_I declaraciones PAR_D RETURN tipo IS SALTOLINEA BEGINN SALTOLINEA sentencia SALTOLINEA Fun SALTOLINEA END SEMICOLON {
 	//$$.fun = newfunc($4.fun, $11.fun);
 }
 ;
@@ -619,7 +619,7 @@ factor: NUMENTERO //{fprintf(yyout, "  factor--> NUMENTERO(%d)\n", $1);}
 ;
 
 
-bucle_while: WHILE calc LOOP SALTOLINEA sentencia SALTOLINEA ENDLOOP { 
+bucle_while: WHILE calc LOOP SALTOLINEA sentencia SALTOLINEA ENDLOOP SEMICOLON { 
 		//$$.f = newflow('W', $2.f, $4.f, NULL);  
  		//fprintf(yyout, "WHILEEEEEE\n");
 		printf("while\n");
@@ -637,7 +637,7 @@ bucle_while: WHILE calc LOOP SALTOLINEA sentencia SALTOLINEA ENDLOOP {
 }
 ;
 
-bucle_for: FOR factor IN rangos LOOP SALTOLINEA sentencia SALTOLINEA ENDLOOP
+bucle_for: FOR factor IN rangos LOOP SALTOLINEA sentencia SALTOLINEA ENDLOOP SEMICOLON
 ;
 
 rangos: factor RANGO factor //{fprintf(yyout, "Variable\n");}

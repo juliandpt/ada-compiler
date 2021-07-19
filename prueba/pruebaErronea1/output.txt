@@ -1,14 +1,35 @@
-Contenido: Declaracion con string	 Linea: 3
-Contenido: Declaracion de variable Integer o Float	 Linea: 4
-Contenido: Declaracion de variable Integer o Float	 Linea: 5
-Contenido: Declaracion de variable Boolean a operacion booleana	 Linea: 6
-[1;31msyntax error	 Line 7
-[0m
-Tabla de simbolos:
-Nombre	variable_string	INT	0	FLOAT	0.000000	STRING	"Prueba 1"	TIPO	string	BOOLEAN	false	ASSIGNED	true	
-
-Nombre	variable_int1	INT	12	FLOAT	0.000000	STRING	(null)	TIPO	integer	BOOLEAN	false	ASSIGNED	true	
-
-Nombre	variable_float1	INT	0	FLOAT	1.800000	STRING	(null)	TIPO	float	BOOLEAN	false	ASSIGNED	true	
-
-Nombre	variable_bool	INT	0	FLOAT	0.000000	STRING	(null)	TIPO	boolean	BOOLEAN	true	ASSIGNED	true	
+Nombre no esta definida, es Main. (tipo=string) 
+Inicio -> procedure
+Se declara la variable: Paula 
+Paula no esta definida, es Paula. (tipo=entero) 
+begin
+Multiplicacion
+Mult (tipo=entero)
+Resta
+Resta (tipo=entero)
+Condicion: 0 
+ERROR - No se ha declarado la variable: Marcos 
+**Condicion MENORQ
+ERROR - No es menor
+Multiplicacion
+Mult (tipo=entero)
+Condicion: 0 
+ERROR - No se ha declarado la variable: Marcos 
+Resta
+Resta (tipo=entero)
+Condicion: 0 
+ERROR - No se ha declarado la variable: Marcos 
+variable
+ERROR - Variable no existe: Marcos 
+**Condicion MENORQ
+CORRECTO - Es menor
+Multiplicacion
+HAY ERRORES NO SE REALIZA LA MULTIPLICACION
+Condicion: 0 
+variable
+ERROR - Variable no existe: Marcos 
+Suma
+HAY ERRORES NO SE REALIZA LA SUMA
+Condicion: 0 
+while
+Bucle WHILE

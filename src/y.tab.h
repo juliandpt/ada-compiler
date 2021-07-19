@@ -49,152 +49,117 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    FLOAT = 259,
-    PLUS = 260,
-    MINUS = 261,
-    MULTIPLY = 262,
-    DIVIDE = 263,
-    LEFT = 264,
-    RIGHT = 265,
-    OPEN = 266,
-    CLOSE = 267,
-    WHILE = 268,
-    BOOL = 269,
-    CASE = 270,
-    INTEGERDEC = 271,
-    FLOATDEC = 272,
-    CHARDEC = 273,
-    STRINGDEC = 274,
-    BEG = 275,
-    STR = 276,
-    LOOP_ = 277,
-    END = 278,
-    IF = 279,
-    THEN = 280,
-    CHAR = 281,
-    AND = 282,
-    OR = 283,
-    ELSE = 284,
-    ELSEIF = 285,
-    PROCEDURE = 286,
-    IS = 287,
-    LESS = 288,
-    MORE = 289,
-    EQUAL = 290,
-    GREATER_THAN = 291,
-    LESSER_THAN = 292,
-    NOT_EQUAL = 293,
-    COMPARE = 294,
-    COMMENT = 295,
-    COLON = 296,
+    MAS = 258,
+    MENOS = 259,
+    POR = 260,
+    DIV = 261,
+    PAR_I = 262,
+    PAR_D = 263,
+    IF = 264,
+    THEN = 265,
+    MAYOR_Q = 266,
+    MENOR_Q = 267,
+    ELSE = 268,
+    SALTOLINEA = 269,
+    PROCEDURE = 270,
+    IS = 271,
+    END = 272,
+    BEGINN = 273,
+    DOSPUNTOS = 274,
+    INTEGER = 275,
+    FLOAT = 276,
+    STRING = 277,
+    BOOLEAN = 278,
+    IDENTIFICADORSIMB = 279,
+    PIZQ_COM = 280,
+    DOSPUNTOS_IGUAL = 281,
+    PDECH_COM = 282,
+    PUTLINE = 283,
+    ENDIF = 284,
+    TRUE = 285,
+    FALSE = 286,
+    COMENTARIO = 287,
+    WHILE = 288,
+    LOOP = 289,
+    ENDLOOP = 290,
+    IGUAL = 291,
+    FOR = 292,
+    IN = 293,
+    RANGO = 294,
+    FUNCION = 295,
+    RETURN = 296,
     SEMICOLON = 297,
-    QUOTE = 298,
-    NEWLINE = 299,
-    QUIT = 300,
-    TRUE = 301,
-    FALSE = 302,
-    TYPE = 303,
-    RANGE = 304,
-    DOTDOT = 305,
-    OF = 306,
-    COMMA = 307,
-    WHEN = 308,
-    FOR = 309,
-    OTHERS = 310,
-    ARROW = 311,
-    VAR = 312,
-    DECLINTEGER = 313,
-    DECLFLOAT = 314,
-    DECLBOOLEAN = 315,
-    DECLARRAY = 316,
-    DECLSTRING = 317
+    NUMENTERO = 298,
+    NUMREAL = 299,
+    IDENTIFICADOR = 300
   };
 #endif
 /* Tokens.  */
-#define INT 258
-#define FLOAT 259
-#define PLUS 260
-#define MINUS 261
-#define MULTIPLY 262
-#define DIVIDE 263
-#define LEFT 264
-#define RIGHT 265
-#define OPEN 266
-#define CLOSE 267
-#define WHILE 268
-#define BOOL 269
-#define CASE 270
-#define INTEGERDEC 271
-#define FLOATDEC 272
-#define CHARDEC 273
-#define STRINGDEC 274
-#define BEG 275
-#define STR 276
-#define LOOP_ 277
-#define END 278
-#define IF 279
-#define THEN 280
-#define CHAR 281
-#define AND 282
-#define OR 283
-#define ELSE 284
-#define ELSEIF 285
-#define PROCEDURE 286
-#define IS 287
-#define LESS 288
-#define MORE 289
-#define EQUAL 290
-#define GREATER_THAN 291
-#define LESSER_THAN 292
-#define NOT_EQUAL 293
-#define COMPARE 294
-#define COMMENT 295
-#define COLON 296
+#define MAS 258
+#define MENOS 259
+#define POR 260
+#define DIV 261
+#define PAR_I 262
+#define PAR_D 263
+#define IF 264
+#define THEN 265
+#define MAYOR_Q 266
+#define MENOR_Q 267
+#define ELSE 268
+#define SALTOLINEA 269
+#define PROCEDURE 270
+#define IS 271
+#define END 272
+#define BEGINN 273
+#define DOSPUNTOS 274
+#define INTEGER 275
+#define FLOAT 276
+#define STRING 277
+#define BOOLEAN 278
+#define IDENTIFICADORSIMB 279
+#define PIZQ_COM 280
+#define DOSPUNTOS_IGUAL 281
+#define PDECH_COM 282
+#define PUTLINE 283
+#define ENDIF 284
+#define TRUE 285
+#define FALSE 286
+#define COMENTARIO 287
+#define WHILE 288
+#define LOOP 289
+#define ENDLOOP 290
+#define IGUAL 291
+#define FOR 292
+#define IN 293
+#define RANGO 294
+#define FUNCION 295
+#define RETURN 296
 #define SEMICOLON 297
-#define QUOTE 298
-#define NEWLINE 299
-#define QUIT 300
-#define TRUE 301
-#define FALSE 302
-#define TYPE 303
-#define RANGE 304
-#define DOTDOT 305
-#define OF 306
-#define COMMA 307
-#define WHEN 308
-#define FOR 309
-#define OTHERS 310
-#define ARROW 311
-#define VAR 312
-#define DECLINTEGER 313
-#define DECLFLOAT 314
-#define DECLBOOLEAN 315
-#define DECLARRAY 316
-#define DECLSTRING 317
+#define NUMENTERO 298
+#define NUMREAL 299
+#define IDENTIFICADOR 300
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 111 "./src/bison.y"
+#line 85 "./src/bison.y"
 
-	int eval;
-	float fval;
-	char* sval;
-
-	struct atributos{
-		int i;
-		float f;
-		int boo;
-		char* s;
-		char* operador;
-		char* type;
+        int number;
+        double numberf;
+        char *string;
+	struct {
+     		char *tipo;
+    		int valor;
+    		double valord;
+    		char *texto;
+ 		int booleanCond;
 		struct ast *a;
-		char* error;
-	}st;
+		struct flow *f;
+		struct fncall *fun;
+  		} snum;
 
-#line 198 "y.tab.h"
+#line 163 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -202,23 +167,9 @@ typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_DECLARED 1
 #endif
 
-/* Location type.  */
-#if ! defined YYLTYPE && ! defined YYLTYPE_IS_DECLARED
-typedef struct YYLTYPE YYLTYPE;
-struct YYLTYPE
-{
-  int first_line;
-  int first_column;
-  int last_line;
-  int last_column;
-};
-# define YYLTYPE_IS_DECLARED 1
-# define YYLTYPE_IS_TRIVIAL 1
-#endif
-
 
 extern YYSTYPE yylval;
-extern YYLTYPE yylloc;
+
 int yyparse (void);
 
 #endif /* !YY_YY_Y_TAB_H_INCLUDED  */

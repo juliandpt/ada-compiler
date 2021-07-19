@@ -1,12 +1,0 @@
-Contenido: Declaracion de variable Integer o Float	 Linea: 3
-Contenido: Declaracion de variable Integer o Float	 Linea: 4
-Contenido: asignación de variable a cualquier cosa	 Linea: 5
-Contenido: Declaracion de variable String vacia	 Linea: 6
-procedure comienza y termina con el mismo nombre
-
-Tabla de simbolos:
-Nombre	variable_int1	INT	12	FLOAT	0.000000	STRING	(null)	TIPO	integer	BOOLEAN	false	ASSIGNED	true	
-
-Nombre	variable_float1	INT	0	FLOAT	21.599998	STRING	(null)	TIPO	float	BOOLEAN	false	ASSIGNED	true	
-
-Nombre	variable_string1	INT	0	FLOAT	0.000000	STRING		TIPO	string	BOOLEAN	false	ASSIGNED	false	

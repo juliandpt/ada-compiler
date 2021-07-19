@@ -1,7 +1,7 @@
-procedure Main is
-
-   variable_int1 : Integer := 2 + 10 ;
-   variable_float1 : Float := 1.8;
-   variable_float1 := variable_float1 * variable_int1;
-   variable_string1: String;
-end Main ;
+procedure Hello is
+	variable_int1:Integer;
+	variable_int2:Integer;
+begin
+	variable_int1 := 50 * 2 - 5;
+   variable_int2 := variable_int1;
+end Hello
