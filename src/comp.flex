@@ -40,7 +40,7 @@ letraysimb [a-zA-Z_\.]
 "end if" 	return ENDIF;
 "True" 		return TRUE;
 "False" 	return FALSE;
-"--" 		return COMENTARIO;
+"--".* 		return COMENTARIO;
 "while" 	return WHILE;
 "loop" 		return LOOP;
 "end loop" 	return ENDLOOP;
@@ -50,6 +50,7 @@ letraysimb [a-zA-Z_\.]
 ".."		return RANGO;
 "function"	return FUNCION;
 "return"	return RETURN;
+";" return SEMICOLON;
 
 
 [ \n]+ return SALTOLINEA;
@@ -61,6 +62,4 @@ letraysimb [a-zA-Z_\.]
 [-+]?{digito}+ yylval.number=atoi(yytext); return NUMENTERO;
 
 [-+]?{digito}+(.{digito}+)?((E|e)[-+]?{digito}+)? yylval.numberf=atof(yytext); return NUMREAL;
-
-. {printf("token erroneo\n");} 
 %%
