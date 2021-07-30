@@ -17,57 +17,53 @@ int globalBoolCond = 0;
 char globalSignCond;
 char *globalTipo;
 
-
 //-----NUMEROS-----
-
 add_SymNum ( char *sym_name, int sym_val, char *sym_type ) {  
-symrec *s;
-   s = getsymNum (sym_name,sym_val);
-   if (s == 0){
-        s = putsymNum (sym_name,sym_val, sym_type);
-        printf( "%s no esta definida, es %d. (tipo=%s)\n", sym_name, sym_val, sym_type );
-   }else {
-          printf( "%s ya esta definida, es %d. (tipo=%s)\n", sym_name, sym_val, sym_type );
-   }
+	symrec *s;
+	s = getsymNum (sym_name,sym_val);
+
+	if (s == 0){
+		s = putsymNum (sym_name,sym_val, sym_type);
+		printf( "%s no esta definida, es %d. (tipo=%s)\n", sym_name, sym_val, sym_type );
+	} else {
+		printf( "%s ya esta definida, es %d. (tipo=%s)\n", sym_name, sym_val, sym_type );
+	}
 }
 
 Update_SymNum( char *sym_name, int sym_val ){ 
-symrec *act;
+	symrec *act;
 
-  if ( getsymNum( sym_name, sym_val ) == 0 ) {
-     printf( "%s no esta en la lista, es %d\n", sym_name, sym_val );
-  }else{
-     act = updatesymNum( sym_name, sym_val); 
-     printf( "%s se actualiza a: %d\n", act->name, act->num );
-  }
+	if (getsymNum( sym_name, sym_val ) == 0 ) {
+		printf( "%s no esta en la lista, es %d\n", sym_name, sym_val );
+	} else {
+		act = updatesymNum( sym_name, sym_val); 
+		printf( "%s se actualiza a: %d\n", act->name, act->num );
+	}
 }
 
 //-----TEXTOS-----
-
 add_SymText ( char *sym_name, char *sym_text, char *sym_type ) {  
-symrec *s;
-   s = getsymText (sym_name,sym_text);
-   if (s == 0){
-        s = putsymText (sym_name,sym_text, sym_type);
-        printf( "%s no esta definida, es %s. (tipo=%s) \n", sym_name, sym_text, sym_type );
-   }else {
-          printf( "%s ya esta definida, es %s. (tipo=%s) \n", sym_name, sym_text, sym_type );
-   }
+	symrec *s;
+	s = getsymText (sym_name,sym_text);
+
+	if (s == 0){
+		s = putsymText (sym_name,sym_text, sym_type);
+		printf( "%s no esta definida, es %s. (tipo=%s) \n", sym_name, sym_text, sym_type );
+	} else {
+		printf( "%s ya esta definida, es %s. (tipo=%s) \n", sym_name, sym_text, sym_type );
+	}
 }
 
 Update_SymText( char *sym_name, char *sym_text  ){ 
-symrec *act;
+	symrec *act;
 
-  if ( getsymText( sym_name, sym_text ) == 0 ) {
-     printf( "%s no esta en la lista, es %d\n", sym_name, sym_text );
-  }else{
-     act = updatesymText( sym_name, sym_text); 
-     printf( "%s se actualiza a: %s\n", act->name, act->text );
-  }
+	if ( etsymText( sym_name, sym_text ) == 0 ) {
+		printf( "%s no esta en la lista, es %d\n", sym_name, sym_text );
+	} else {
+		act = updatesymText( sym_name, sym_text); 
+		printf( "%s se actualiza a: %s\n", act->name, act->text );
+	}
 }
-
-
-
 
 %}
 
@@ -98,26 +94,18 @@ symrec *act;
   		} snum;
 }
 
-
 %start programa
 
 %%
 
 programa: cuerpo {
- 	// fprintf(yyout, ".data\n");
-	// dataOper($$.a);
- 	// fprintf(yyout, ".text\n");
-	// textIf(globalSignCond,$$.f);
-	// textWhile(globalSignCond, $$.f);
-
-	printf("TODO OK\n"); 
+ 	printf("TODO OK\n"); 
 	fprintf(yyout, "TODO OK\n");
 }
 ;
 
 cuerpo: inicio SALTOLINEA sentencias fin
 ;
-
 
 inicio: PROCEDURE nombreI IS {printf("Inicio -> procedure\n");}
 ;
@@ -126,14 +114,10 @@ fin: END nombreF {fprintf(yyout, "Final -> end\n");}
 ;
 
 nombreI: IDENTIFICADOR {
-	//fprintf(yyout, "Nombre Inicio\n");
 	add_SymText ( "Nombre", $1, "string" );}
 ;
 
-
 nombreF: IDENTIFICADOR {
-	//fprintf(yyout, "Nombre Final\n");
-
 	if (strcmp($1, getvalsymText("Nombre")) == 0) {
 		printf("CORRECTO - Coinciden los nombres\n");
 	} else {
@@ -145,10 +129,8 @@ nombreF: IDENTIFICADOR {
 sentencias: declaraciones SALTOLINEA comienzo SALTOLINEA sentencia {printf("sentencias");}
 ;
 
-
 comienzo: BEGINN {printf("begin\n");}
 ;
-
 
 declaraciones: declaraciones SALTOLINEA declaracion
 	| declaracion 
@@ -160,22 +142,18 @@ declaracion: IDENTIFICADOR DOSPUNTOS tipo SEMICOLON {
 }
 ;
 
-
 tipo: INTEGER {
-	globalTipo= "entero";
-	fprintf(yyout, "Declaracion -> int\n");
+		globalTipo= "entero";
+		fprintf(yyout, "Declaracion -> int\n");
 	}
-      |FLOAT {
-	globalTipo= "float";
-	//fprintf(yyout, "Declaracion -> float\n");
+    | FLOAT {
+		globalTipo= "float";
 	}
-      |STRING {
-	globalTipo= "string";
-	//fprintf(yyout, "Declaracion -> string\n");
+    | STRING {
+		globalTipo= "string";
 	}
-      |BOOLEAN {
-	globalTipo= "boolean";
-	//fprintf(yyout, "Declaracion -> boolean\n");
+    | BOOLEAN {
+		globalTipo= "boolean";
 	}
 ;
 
@@ -184,67 +162,60 @@ sentencia: sentencia SALTOLINEA expr
 ;
 
 expr: IDENTIFICADOR DOSPUNTOS_IGUAL calc SEMICOLON {
-	if (globalBoolCond == 0) {
-		globalBoolCond =0;
- 		fprintf(yyout, "..............................................\n");
- 		fprintf(yyout, ".data\n");
-		dataOper($3.a);
- 		fprintf(yyout, ".text\n");
-		textOper($3.a);
- 		fprintf(yyout, "..............................................\n");
-		globalContadorNum =0;
-		globalContadorOper =0;
-		globalBoolCond =0;
-
-
-	}
-
-	//printTree($3.a, 10);
-
-	printf("Condicion: %d \n", $$.booleanCond);
-
-
-	$$.texto= $1;
-
-	if (globalError ==0) { //No hay errores
-		if (getvalsymText($$.texto) == 0 ) {
-			printf("ERROR - No se ha declarado la variable: %s \n", $$.texto);
-
-		} else {
-			printf("CORRECTO - Se ha declarado la variable: %s \n", $$.texto);
-	 		add_SymNum($1, eval($3.a), globalTipo);
-			Update_SymNum( $1, eval($3.a) ); 
-			printf("RESULTADO - De %s: %4.4g\n", $1, eval($3.a));
-
-
+		if (globalBoolCond == 0) {
+			globalBoolCond =0;
+			fprintf(yyout, "..............................................\n");
+			fprintf(yyout, ".data\n");
+			dataOper($3.a);
+			fprintf(yyout, ".text\n");
+			textOper($3.a);
+			fprintf(yyout, "..............................................\n");
+			globalContadorNum =0;
+			globalContadorOper =0;
+			globalBoolCond =0;
 		}
-	} else { 
-		globalError =0;
-	}
-		
 
-      }
-      | sentencia_if {
-	//fprintf(yyout, "Sentencia IF\n");
-	globalContadorNum = 0;
-	//printf("IFFFFFO\n");
-	//textOper($1.a);
+		printf("Condicion: %d \n", $$.booleanCond);
 
-	}
+		$$.texto= $1;
 
-      |PUTLINE PIZQ_COM IDENTIFICADOR PDECH_COM SEMICOLON{printf("Put_Line\n");}
-      |IDENTIFICADOR DOSPUNTOS_IGUAL factor SEMICOLON {printf("Asignacion\n");}
-      |COMENTARIO {printf("Comentario\n");}
-      |bucle_while { printf("Bucle WHILE\n");   //printf("WHILE - %4.4g\n", eval($1.f));
+		if (globalError ==0) {
+			if (getvalsymText($$.texto) == 0 ) {
+				printf("ERROR - No se ha declarado la variable: %s \n", $$.texto);
+			} else {
+				printf("CORRECTO - Se ha declarado la variable: %s \n", $$.texto);
+				add_SymNum($1, eval($3.a), globalTipo);
+				Update_SymNum( $1, eval($3.a) ); 
+				printf("RESULTADO - De %s: %4.4g\n", $1, eval($3.a));
+			}
+		} else { 
+			globalError =0;
+		}
+    }
+    | sentencia_if {
+		globalContadorNum = 0;
 	}
-      |bucle_for {printf("Bucle FOR\n");}
-      |funcion {printf("FUNCION\n");}
+    | PUTLINE PIZQ_COM IDENTIFICADOR PDECH_COM SEMICOLON {
+		printf("Put_Line\n");
+	}
+    | IDENTIFICADOR DOSPUNTOS_IGUAL factor SEMICOLON {
+		printf("Asignacion\n");
+	}
+    | COMENTARIO {
+		printf("Comentario\n");
+	}
+    | bucle_while {
+		printf("Bucle WHILE\n");
+	}
+    | bucle_for {
+		printf("Bucle FOR\n");
+	}
+    | funcion {
+		printf("FUNCION\n");
+	}
 ;
 
-
 sentencia_if: IF calc THEN SALTOLINEA sentencia SALTOLINEA ENDIF SEMICOLON {
-		//$$.f = newflow('I', $2.f , $5.f, NULL); 
- 		//fprintf(yyout, "IFFFFFFFFF\n");
  		fprintf(yyout, "..............................................\n");
  		fprintf(yyout, ".data\n");
 		dataOper($2.a);
@@ -256,9 +227,7 @@ sentencia_if: IF calc THEN SALTOLINEA sentencia SALTOLINEA ENDIF SEMICOLON {
 		globalBoolCond =0;
 
 	}
-
-	| IF calc THEN SALTOLINEA sentencia SALTOLINEA ELSE SALTOLINEA sentencia SALTOLINEA ENDIF { 
-		//$$.f = newflow('I', $2.f, $5.f, $9.f); 
+	| IF calc THEN SALTOLINEA sentencia SALTOLINEA ELSE SALTOLINEA sentencia SALTOLINEA ENDIF {
  		fprintf(yyout, "..............................................\n");
  		fprintf(yyout, ".data\n");
 		dataOper($2.a);
@@ -272,11 +241,11 @@ sentencia_if: IF calc THEN SALTOLINEA sentencia SALTOLINEA ENDIF SEMICOLON {
 ;
 
 /*ARBOL*/
-calc:  calc MAS calc { 
+calc: calc MAS calc { 
 		printf("Suma\n");
 		globalContadorOper = globalContadorOper + 1;
 
-		if (globalError ==0) { //No hay errores
+		if (globalError ==0) {
 			if (($1.tipo == "entero") && ($3.tipo == "entero")) {
 				$$.a = newast('+', $1.a,$3.a); 
 				evalprint($$.a);
@@ -317,13 +286,12 @@ calc:  calc MAS calc {
 			printf("HAY ERRORES NO SE REALIZA LA SUMA\n");
 
 		}
-
 	}
-	|  calc MENOS calc { 
+	| calc MENOS calc { 
 		printf("Resta\n");
 		globalContadorOper = globalContadorOper + 1;
 
-		if (globalError ==0) { //No hay errores
+		if (globalError ==0) {
 			if (($1.tipo == "entero") && ($3.tipo == "entero")) {
 				$$.a = newast('-', $1.a,$3.a); 
 				evalprint($$.a);
@@ -362,17 +330,15 @@ calc:  calc MAS calc {
 
 
 			}
-		}  else {
+		} else {
 			printf("HAY ERRORES NO SE REALIZA LA RESTA\n");
-
 		}
-
 	}
-	|  calc POR calc { 
+	| calc POR calc { 
 		printf("Multiplicacion\n");
 		globalContadorOper = globalContadorOper + 1;
 
-		if (globalError ==0) { //No hay errores
+		if (globalError ==0) {
 			if (($1.tipo == "entero") && ($3.tipo == "entero")) {
 				$$.a = newast('*', $1.a,$3.a); 
 				evalprint($$.a);
@@ -407,28 +373,24 @@ calc:  calc MAS calc {
 				$$.a = newast('*', $1.a,$3.a); 
 				evalprint($$.a);
 				contadorOperadores(globalContadorOper, $$.a);
-
 				globalTipo = $1.tipo;
+
 				printf("Mult (tipo=%s)\n", $$.tipo);
-
-
 			}
 		} else {
 			printf("HAY ERRORES NO SE REALIZA LA MULTIPLICACION\n");
 
 		}
-
 	}
-
-	|   calc DIV calc {
+	| calc DIV calc {
 		printf("Division\n");
 		globalContadorOper = globalContadorOper + 1;
 
-		if ($3.valor == 0) { //No se puede dividir entre 0
+		if ($3.valor == 0) {
 			globalError =1;
 		}
 
-		if (globalError ==0) { //No hay errores
+		if (globalError ==0) {
 			if (($1.tipo == "entero") && ($3.tipo == "entero")) {
 				$$.a = newast('/', $1.a,$3.a); 
 				evalprint($$.a);
@@ -449,8 +411,6 @@ calc:  calc MAS calc {
 				contadorOperadores(globalContadorOper, $$.a);
 
 				printf("Div (tipo=%s)\n", $$.tipo);
-
-
 			} 
 			else if (($3.tipo == "string")){
 				$$.a = newast('/', $1.a,$3.a);
@@ -458,25 +418,18 @@ calc:  calc MAS calc {
 				contadorOperadores(globalContadorOper, $$.a);
 
 				printf("Div (tipo=%s)\n", $$.tipo);
-
 			}
 			else if (($3.tipo == "string") && ($1.tipo == "string")){
 				$$.a = newast('/', $1.a,$3.a); 
 				evalprint($$.a);
 				globalTipo = $1.tipo;
 				contadorOperadores(globalContadorOper, $$.a);
-
-				//printf("Div (tipo=%s)\n", $$.tipo);
 			}
-		}else {
+		} else {
 			printf("HAY ERRORES NO SE REALIZA LA DIVISION\n");
 		}
-
 	}
-
-
 	| calc MAYOR_Q calc {
-		//printf("**Condicion MAYORQ\n");
 		globalBoolCond = 1;
 
 		if ($1.valor > $3.valor) {
@@ -485,43 +438,32 @@ calc:  calc MAS calc {
 			globalSignCond = '>';
 
 			printf("CORRECTO - Es mayor\n");
-
-
-		
 		} else {
 			$$.booleanCond =0;
 			$$.f = $$.booleanCond;
 			globalSignCond = '>';
 
 			printf("ERROR - No es mayor\n");
-
-		
 		}
-
 	} 
 	| calc MENOR_Q calc {
 		printf("**Condicion MENORQ\n");
 		globalBoolCond = 1;
 
-			if ($1.valor < $3.valor) {
-				$$.booleanCond =1;
-				$$.f = $$.booleanCond;
-				globalSignCond = '<';
+		if ($1.valor < $3.valor) {
+			$$.booleanCond =1;
+			$$.f = $$.booleanCond;
+			globalSignCond = '<';
 
 
-				printf("CORRECTO - Es menor\n");
+			printf("CORRECTO - Es menor\n");
+		} else {
+			$$.booleanCond =0;
+			$$.f = $$.booleanCond;
+			globalSignCond = '<';
 
-		
-			} else {
-				$$.booleanCond =0;
-				$$.f = $$.booleanCond;
-				globalSignCond = '<';
-
-				printf("ERROR - No es menor\n");
-
-			}
-
-
+			printf("ERROR - No es menor\n");
+		}
 	}
 	| calc IGUAL calc {
 		printf("**Condicion IGUALQ\n");
@@ -532,30 +474,22 @@ calc:  calc MAS calc {
 			$$.booleanCond = 1;
 			$$.f = $$.booleanCond;
 			globalSignCond = '=';
-
-		
 		} else {
 			printf("ERROR - No es igual\n");
 			$$.booleanCond = 0;
 			$$.f = $$.booleanCond;
 			globalSignCond = '=';
-		
 		}
-
 	}
-
 	| NUMENTERO { $$.a = newnum($1);
 		$$.valor = $1;
 		$$.tipo = "entero";
 		globalContadorNum = globalContadorNum +1;
 		contadorNumeros(globalContadorNum, $$.valor );
 	}
-
 	| NUMREAL {
 		$$.a= newnum($1);
 		$$.valord = $1; $$.tipo = "real";
-
-
 	}
 	| IDENTIFICADOR {
 		printf("variable\n");
@@ -577,10 +511,7 @@ calc:  calc MAS calc {
 	}
 ;
 
-
-funcion: FUNCION nombreFuncion PAR_I declaraciones PAR_D RETURN tipo IS SALTOLINEA BEGINN SALTOLINEA sentencia SALTOLINEA Fun SALTOLINEA END SEMICOLON {
-	//$$.fun = newfunc($4.fun, $11.fun);
-}
+funcion: FUNCION nombreFuncion PAR_I declaraciones PAR_D RETURN tipo IS SALTOLINEA BEGINN SALTOLINEA sentencia SALTOLINEA Fun SALTOLINEA END SEMICOLON { }
 ;
 
 nombreFuncion: IDENTIFICADOR {
@@ -590,12 +521,10 @@ nombreFuncion: IDENTIFICADOR {
 	} else {
 		printf("ERROR - Existe ya una funcion con ese nombre\n");		
 	}
-	//fprintf(yyout, "Nombre funcion\n");
 }  
 ;
 
 Fun: RETURN IDENTIFICADOR {
-
 	if (getvalsymText($2) == 0 ) {
 		printf("ERROR - No se ha declarado la variable: %s \n", $2);
 	} else {
@@ -609,31 +538,25 @@ Fun: RETURN IDENTIFICADOR {
 } 
 ;
 
-
-
 factor: NUMENTERO //{fprintf(yyout, "  factor--> NUMENTERO(%d)\n", $1);}
 	| NUMREAL //{fprintf(yyout, "  factor--> NUMREAL(%f)\n"), $1;}
-	|IDENTIFICADOR //{fprintf(yyout, "  factor --> variable(%s)\n", $1);}
-	|TRUE //{fprintf(yyout, "  factor --> True\n");}
-	|FALSE //{fprintf(yyout, "  factor --> False\n");}
+	| IDENTIFICADOR //{fprintf(yyout, "  factor --> variable(%s)\n", $1);}
+	| TRUE //{fprintf(yyout, "  factor --> True\n");}
+	| FALSE //{fprintf(yyout, "  factor --> False\n");}
 ;
 
-
 bucle_while: WHILE calc LOOP SALTOLINEA sentencia SALTOLINEA ENDLOOP SEMICOLON { 
-		//$$.f = newflow('W', $2.f, $4.f, NULL);  
- 		//fprintf(yyout, "WHILEEEEEE\n");
-		printf("while\n");
- 		fprintf(yyout, "..............................................\n");
- 		fprintf(yyout, ".data\n");
-		dataOper($2.f);
- 		fprintf(yyout, ".text\n");
-		textWhile(globalSignCond, $$.f);
-		globalContadorNum =0;
-		globalContadorOper =0;
-		globalBoolCond =0;
+	printf("while\n");
+	fprintf(yyout, "..............................................\n");
+	fprintf(yyout, ".data\n");
+	dataOper($2.f);
+	fprintf(yyout, ".text\n");
+	textWhile(globalSignCond, $$.f);
+	globalContadorNum =0;
+	globalContadorOper =0;
+	globalBoolCond =0;
 
- 		fprintf(yyout, "..............................................\n");
-
+	fprintf(yyout, "..............................................\n");
 }
 ;
 
@@ -643,13 +566,14 @@ bucle_for: FOR factor IN rangos LOOP SALTOLINEA sentencia SALTOLINEA ENDLOOP SEM
 rangos: factor RANGO factor //{fprintf(yyout, "Variable\n");}
 ;
 
-
 %%
+
 int main(int argc, char *argv[]) {
 
 if (argc == 1) {
 	yyparse();
 }
+
 if (argc == 2) {
 	yyout = fopen( "./output/ada.txt", "wt" );
 
@@ -661,7 +585,4 @@ if (argc == 2) {
 return 0;
 }
 
-
-yyerror()
-{ 
-}
+yyerror() { }
